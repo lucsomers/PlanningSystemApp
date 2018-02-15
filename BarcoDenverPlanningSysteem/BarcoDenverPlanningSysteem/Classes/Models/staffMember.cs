@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BarcoDenverPlanningSysteem.Classes.Models
 {
-    class StaffMember
+    public class StaffMember
     {
         private int id;
 

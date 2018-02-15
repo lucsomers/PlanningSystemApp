@@ -43,12 +43,12 @@ namespace BarcoDenverPlanningSysteem
                     }
                 case Workplace.Denver:
                     {
-                        formToOpen = new Denver(_logicRepo);
+                        formToOpen = new Keuken(_logicRepo);
                         break;
                     }
                 case Workplace.Barco:
                     {
-                        formToOpen = new Barco(_logicRepo);
+                        formToOpen = new Keuken(_logicRepo);
                         break;
                     }
                 case Workplace.Keuken:
@@ -63,7 +63,7 @@ namespace BarcoDenverPlanningSysteem
 
                 case Workplace.Fiesta:
                     {
-                        formToOpen = new Fiesta(_logicRepo);
+                        formToOpen = new Keuken(_logicRepo);
                         break;
                     }
             }

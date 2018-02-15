@@ -36,9 +36,14 @@
             this.btnSaveCode = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pnlCurrentStaffOverview = new System.Windows.Forms.Panel();
+            this.dgvAllStaffMembers = new System.Windows.Forms.DataGridView();
+            this.lblStaffOverviewText = new System.Windows.Forms.Label();
             this.pnlAddStaffMember = new System.Windows.Forms.Panel();
-            this.lblAllWorkplacesTextStaffMembers = new System.Windows.Forms.Label();
-            this.cbxAllWorkPlacesAddStaffMember = new System.Windows.Forms.ComboBox();
+            this.tbxCostPerHour = new System.Windows.Forms.TextBox();
+            this.lblStaffMemberCostText = new System.Windows.Forms.Label();
+            this.lblStaffMemberNameText = new System.Windows.Forms.Label();
+            this.tbxStaffMemberName = new System.Windows.Forms.TextBox();
             this.btnAddStaffMember = new System.Windows.Forms.Button();
             this.lblAddStaffMemberText = new System.Windows.Forms.Label();
             this.pnInlogCodeAanpassen = new System.Windows.Forms.Panel();
@@ -67,18 +72,26 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.monthCalendar3 = new System.Windows.Forms.MonthCalendar();
             this.button2 = new System.Windows.Forms.Button();
-            this.tbxStaffMemberName = new System.Windows.Forms.TextBox();
-            this.lblStaffMemberNameText = new System.Windows.Forms.Label();
-            this.lblStaffMemberCostText = new System.Windows.Forms.Label();
-            this.tbxCostPerHour = new System.Windows.Forms.TextBox();
-            this.pnlCurrentStaffOverview = new System.Windows.Forms.Panel();
-            this.lblStaffOverviewText = new System.Windows.Forms.Label();
-            this.dgvAllStaffMembers = new System.Windows.Forms.DataGridView();
-            this.cl_StaffMemberNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_StaffMemberName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_StaffMemberCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.earnings = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteStaffMember = new System.Windows.Forms.Button();
+            this.cbxAddStaffmemberWorkplace = new System.Windows.Forms.ComboBox();
+            this.lblAddStaffMemberWorkplace = new System.Windows.Forms.Label();
+            this.pnlWorkplaceSelection = new System.Windows.Forms.Panel();
+            this.lblWorkplaceSelectionText = new System.Windows.Forms.Label();
+            this.clbCheckboxList = new System.Windows.Forms.CheckedListBox();
+            this.cbxWorkplaceSelectionWorkplaceEditor = new System.Windows.Forms.ComboBox();
+            this.lblWorkplaceEditorWorkplaceSelectionText = new System.Windows.Forms.Label();
+            this.pnlEditStaffMember = new System.Windows.Forms.Panel();
+            this.lblChooseStaffMemberText = new System.Windows.Forms.Label();
+            this.cbxChooseStaffMemberEditStaffMember = new System.Windows.Forms.ComboBox();
+            this.clbEditStaffmemberCheckListBox = new System.Windows.Forms.CheckedListBox();
+            this.lblEditStaffMemberText = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.pnlCurrentStaffOverview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllStaffMembers)).BeginInit();
             this.pnlAddStaffMember.SuspendLayout();
             this.pnInlogCodeAanpassen.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -86,8 +99,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage4.SuspendLayout();
-            this.pnlCurrentStaffOverview.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAllStaffMembers)).BeginInit();
+            this.pnlWorkplaceSelection.SuspendLayout();
+            this.pnlEditStaffMember.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbxAllWorkPlacesEditCode
@@ -98,7 +111,7 @@
             this.cbxAllWorkPlacesEditCode.FormattingEnabled = true;
             this.cbxAllWorkPlacesEditCode.Location = new System.Drawing.Point(4, 62);
             this.cbxAllWorkPlacesEditCode.Name = "cbxAllWorkPlacesEditCode";
-            this.cbxAllWorkPlacesEditCode.Size = new System.Drawing.Size(378, 21);
+            this.cbxAllWorkPlacesEditCode.Size = new System.Drawing.Size(422, 21);
             this.cbxAllWorkPlacesEditCode.TabIndex = 0;
             this.cbxAllWorkPlacesEditCode.SelectedIndexChanged += new System.EventHandler(this.cbxAllWorkPlaces_SelectedIndexChanged);
             // 
@@ -109,7 +122,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbxNewCode.Location = new System.Drawing.Point(82, 115);
             this.tbxNewCode.Name = "tbxNewCode";
-            this.tbxNewCode.Size = new System.Drawing.Size(300, 20);
+            this.tbxNewCode.Size = new System.Drawing.Size(344, 20);
             this.tbxNewCode.TabIndex = 1;
             this.tbxNewCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbxNewCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxNewCode_KeyPress);
@@ -147,7 +160,7 @@
             this.tbxCurrentCode.Location = new System.Drawing.Point(82, 89);
             this.tbxCurrentCode.Name = "tbxCurrentCode";
             this.tbxCurrentCode.ReadOnly = true;
-            this.tbxCurrentCode.Size = new System.Drawing.Size(300, 20);
+            this.tbxCurrentCode.Size = new System.Drawing.Size(344, 20);
             this.tbxCurrentCode.TabIndex = 3;
             this.tbxCurrentCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbxCurrentCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxNewCode_KeyPress);
@@ -157,9 +170,10 @@
             this.btnSaveCode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveCode.Location = new System.Drawing.Point(7, 142);
             this.btnSaveCode.Name = "btnSaveCode";
-            this.btnSaveCode.Size = new System.Drawing.Size(375, 29);
+            this.btnSaveCode.Size = new System.Drawing.Size(419, 29);
             this.btnSaveCode.TabIndex = 5;
             this.btnSaveCode.Text = "Vervang";
             this.btnSaveCode.UseVisualStyleBackColor = true;
@@ -177,75 +191,147 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1162, 597);
+            this.tabControl1.Size = new System.Drawing.Size(941, 769);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.pnlEditStaffMember);
+            this.tabPage1.Controls.Add(this.pnlWorkplaceSelection);
             this.tabPage1.Controls.Add(this.pnlCurrentStaffOverview);
             this.tabPage1.Controls.Add(this.pnlAddStaffMember);
             this.tabPage1.Controls.Add(this.pnInlogCodeAanpassen);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1154, 571);
+            this.tabPage1.Size = new System.Drawing.Size(933, 743);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Codes vervangen";
+            this.tabPage1.Text = "Aanpassen van gegevens";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // pnlCurrentStaffOverview
+            // 
+            this.pnlCurrentStaffOverview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlCurrentStaffOverview.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlCurrentStaffOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCurrentStaffOverview.Controls.Add(this.dgvAllStaffMembers);
+            this.pnlCurrentStaffOverview.Controls.Add(this.lblStaffOverviewText);
+            this.pnlCurrentStaffOverview.Controls.Add(this.btnDeleteStaffMember);
+            this.pnlCurrentStaffOverview.Location = new System.Drawing.Point(6, 367);
+            this.pnlCurrentStaffOverview.Name = "pnlCurrentStaffOverview";
+            this.pnlCurrentStaffOverview.Size = new System.Drawing.Size(921, 370);
+            this.pnlCurrentStaffOverview.TabIndex = 12;
+            this.pnlCurrentStaffOverview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseDown);
+            this.pnlCurrentStaffOverview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseMove);
+            // 
+            // dgvAllStaffMembers
+            // 
+            this.dgvAllStaffMembers.AllowUserToAddRows = false;
+            this.dgvAllStaffMembers.AllowUserToDeleteRows = false;
+            this.dgvAllStaffMembers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAllStaffMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAllStaffMembers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.name,
+            this.earnings});
+            this.dgvAllStaffMembers.Location = new System.Drawing.Point(9, 38);
+            this.dgvAllStaffMembers.Name = "dgvAllStaffMembers";
+            this.dgvAllStaffMembers.ReadOnly = true;
+            this.dgvAllStaffMembers.Size = new System.Drawing.Size(907, 327);
+            this.dgvAllStaffMembers.TabIndex = 13;
+            // 
+            // lblStaffOverviewText
+            // 
+            this.lblStaffOverviewText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStaffOverviewText.AutoSize = true;
+            this.lblStaffOverviewText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaffOverviewText.Location = new System.Drawing.Point(5, 7);
+            this.lblStaffOverviewText.Name = "lblStaffOverviewText";
+            this.lblStaffOverviewText.Size = new System.Drawing.Size(248, 20);
+            this.lblStaffOverviewText.TabIndex = 12;
+            this.lblStaffOverviewText.Text = "Huidige werknemers overzicht";
+            this.lblStaffOverviewText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pnlAddStaffMember
             // 
-            this.pnlAddStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlAddStaffMember.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pnlAddStaffMember.BackColor = System.Drawing.SystemColors.Control;
             this.pnlAddStaffMember.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlAddStaffMember.Controls.Add(this.lblAddStaffMemberWorkplace);
+            this.pnlAddStaffMember.Controls.Add(this.cbxAddStaffmemberWorkplace);
             this.pnlAddStaffMember.Controls.Add(this.tbxCostPerHour);
             this.pnlAddStaffMember.Controls.Add(this.lblStaffMemberCostText);
             this.pnlAddStaffMember.Controls.Add(this.lblStaffMemberNameText);
             this.pnlAddStaffMember.Controls.Add(this.tbxStaffMemberName);
-            this.pnlAddStaffMember.Controls.Add(this.lblAllWorkplacesTextStaffMembers);
-            this.pnlAddStaffMember.Controls.Add(this.cbxAllWorkPlacesAddStaffMember);
             this.pnlAddStaffMember.Controls.Add(this.btnAddStaffMember);
             this.pnlAddStaffMember.Controls.Add(this.lblAddStaffMemberText);
-            this.pnlAddStaffMember.Location = new System.Drawing.Point(6, 6);
+            this.pnlAddStaffMember.Location = new System.Drawing.Point(6, 192);
             this.pnlAddStaffMember.MaximumSize = new System.Drawing.Size(700, 500);
             this.pnlAddStaffMember.Name = "pnlAddStaffMember";
-            this.pnlAddStaffMember.Size = new System.Drawing.Size(368, 180);
+            this.pnlAddStaffMember.Size = new System.Drawing.Size(431, 169);
             this.pnlAddStaffMember.TabIndex = 8;
             this.pnlAddStaffMember.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseDown);
             this.pnlAddStaffMember.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseMove);
             // 
-            // lblAllWorkplacesTextStaffMembers
+            // tbxCostPerHour
             // 
-            this.lblAllWorkplacesTextStaffMembers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tbxCostPerHour.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAllWorkplacesTextStaffMembers.AutoSize = true;
-            this.lblAllWorkplacesTextStaffMembers.Location = new System.Drawing.Point(4, 46);
-            this.lblAllWorkplacesTextStaffMembers.Name = "lblAllWorkplacesTextStaffMembers";
-            this.lblAllWorkplacesTextStaffMembers.Size = new System.Drawing.Size(108, 13);
-            this.lblAllWorkplacesTextStaffMembers.TabIndex = 8;
-            this.lblAllWorkplacesTextStaffMembers.Text = "Werkplek selecteren:";
+            this.tbxCostPerHour.Location = new System.Drawing.Point(129, 65);
+            this.tbxCostPerHour.Name = "tbxCostPerHour";
+            this.tbxCostPerHour.Size = new System.Drawing.Size(297, 20);
+            this.tbxCostPerHour.TabIndex = 11;
+            this.tbxCostPerHour.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbxCostPerHour.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxCostPerHour_KeyPress);
             // 
-            // cbxAllWorkPlacesAddStaffMember
+            // lblStaffMemberCostText
             // 
-            this.cbxAllWorkPlacesAddStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblStaffMemberCostText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxAllWorkPlacesAddStaffMember.FormattingEnabled = true;
-            this.cbxAllWorkPlacesAddStaffMember.Location = new System.Drawing.Point(7, 62);
-            this.cbxAllWorkPlacesAddStaffMember.Name = "cbxAllWorkPlacesAddStaffMember";
-            this.cbxAllWorkPlacesAddStaffMember.Size = new System.Drawing.Size(356, 21);
-            this.cbxAllWorkPlacesAddStaffMember.TabIndex = 8;
+            this.lblStaffMemberCostText.AutoSize = true;
+            this.lblStaffMemberCostText.Location = new System.Drawing.Point(44, 68);
+            this.lblStaffMemberCostText.Name = "lblStaffMemberCostText";
+            this.lblStaffMemberCostText.Size = new System.Drawing.Size(79, 13);
+            this.lblStaffMemberCostText.TabIndex = 10;
+            this.lblStaffMemberCostText.Text = "Kosten per uur:";
+            // 
+            // lblStaffMemberNameText
+            // 
+            this.lblStaffMemberNameText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStaffMemberNameText.AutoSize = true;
+            this.lblStaffMemberNameText.Location = new System.Drawing.Point(29, 42);
+            this.lblStaffMemberNameText.Name = "lblStaffMemberNameText";
+            this.lblStaffMemberNameText.Size = new System.Drawing.Size(94, 13);
+            this.lblStaffMemberNameText.TabIndex = 9;
+            this.lblStaffMemberNameText.Text = "Werknemer naam:";
+            // 
+            // tbxStaffMemberName
+            // 
+            this.tbxStaffMemberName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxStaffMemberName.Location = new System.Drawing.Point(129, 39);
+            this.tbxStaffMemberName.Name = "tbxStaffMemberName";
+            this.tbxStaffMemberName.Size = new System.Drawing.Size(297, 20);
+            this.tbxStaffMemberName.TabIndex = 8;
+            this.tbxStaffMemberName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnAddStaffMember
             // 
-            this.btnAddStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnAddStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddStaffMember.Location = new System.Drawing.Point(7, 142);
+            this.btnAddStaffMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddStaffMember.Location = new System.Drawing.Point(7, 122);
             this.btnAddStaffMember.Name = "btnAddStaffMember";
-            this.btnAddStaffMember.Size = new System.Drawing.Size(356, 29);
+            this.btnAddStaffMember.Size = new System.Drawing.Size(419, 29);
             this.btnAddStaffMember.TabIndex = 8;
             this.btnAddStaffMember.Text = "Voeg toe";
             this.btnAddStaffMember.UseVisualStyleBackColor = true;
@@ -267,9 +353,7 @@
             // 
             // pnInlogCodeAanpassen
             // 
-            this.pnInlogCodeAanpassen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnInlogCodeAanpassen.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pnInlogCodeAanpassen.BackColor = System.Drawing.SystemColors.Control;
             this.pnInlogCodeAanpassen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnInlogCodeAanpassen.Controls.Add(this.lblEditCodeText);
             this.pnInlogCodeAanpassen.Controls.Add(this.btnSaveCode);
@@ -279,10 +363,10 @@
             this.pnInlogCodeAanpassen.Controls.Add(this.cbxAllWorkPlacesEditCode);
             this.pnInlogCodeAanpassen.Controls.Add(this.label2);
             this.pnInlogCodeAanpassen.Controls.Add(this.tbxNewCode);
-            this.pnInlogCodeAanpassen.Location = new System.Drawing.Point(761, 6);
+            this.pnInlogCodeAanpassen.Location = new System.Drawing.Point(6, 6);
             this.pnInlogCodeAanpassen.MaximumSize = new System.Drawing.Size(700, 500);
             this.pnInlogCodeAanpassen.Name = "pnInlogCodeAanpassen";
-            this.pnInlogCodeAanpassen.Size = new System.Drawing.Size(387, 180);
+            this.pnInlogCodeAanpassen.Size = new System.Drawing.Size(431, 180);
             this.pnInlogCodeAanpassen.TabIndex = 7;
             this.pnInlogCodeAanpassen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseDown);
             this.pnInlogCodeAanpassen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseMove);
@@ -323,7 +407,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(773, 440);
+            this.tabPage2.Size = new System.Drawing.Size(1154, 571);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Overzicht";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -384,7 +468,7 @@
             this.tabPage3.Controls.Add(this.monthCalendar2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(773, 440);
+            this.tabPage3.Size = new System.Drawing.Size(1154, 571);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Planning";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -490,7 +574,7 @@
             this.tabPage4.Controls.Add(this.button2);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(773, 440);
+            this.tabPage4.Size = new System.Drawing.Size(1154, 571);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Koliebri bestand aanmaken";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -510,120 +594,218 @@
             this.button2.Text = "Kolibrie bestand aanmaken";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // tbxStaffMemberName
+            // id
             // 
-            this.tbxStaffMemberName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "Personeelsnummer";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.DataPropertyName = "name";
+            this.name.HeaderText = "Naam";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // earnings
+            // 
+            this.earnings.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.earnings.DataPropertyName = "earnings";
+            this.earnings.HeaderText = "Kosten per uur";
+            this.earnings.Name = "earnings";
+            this.earnings.ReadOnly = true;
+            // 
+            // btnDeleteStaffMember
+            // 
+            this.btnDeleteStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteStaffMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteStaffMember.Location = new System.Drawing.Point(700, 3);
+            this.btnDeleteStaffMember.Name = "btnDeleteStaffMember";
+            this.btnDeleteStaffMember.Size = new System.Drawing.Size(216, 29);
+            this.btnDeleteStaffMember.TabIndex = 8;
+            this.btnDeleteStaffMember.Text = "Verwijder";
+            this.btnDeleteStaffMember.UseVisualStyleBackColor = true;
+            this.btnDeleteStaffMember.Click += new System.EventHandler(this.btnDeleteStaffMember_Click);
+            // 
+            // cbxAddStaffmemberWorkplace
+            // 
+            this.cbxAddStaffmemberWorkplace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxStaffMemberName.Location = new System.Drawing.Point(104, 89);
-            this.tbxStaffMemberName.Name = "tbxStaffMemberName";
-            this.tbxStaffMemberName.Size = new System.Drawing.Size(259, 20);
-            this.tbxStaffMemberName.TabIndex = 8;
-            this.tbxStaffMemberName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.cbxAddStaffmemberWorkplace.FormattingEnabled = true;
+            this.cbxAddStaffmemberWorkplace.Location = new System.Drawing.Point(129, 95);
+            this.cbxAddStaffmemberWorkplace.Name = "cbxAddStaffmemberWorkplace";
+            this.cbxAddStaffmemberWorkplace.Size = new System.Drawing.Size(297, 21);
+            this.cbxAddStaffmemberWorkplace.TabIndex = 8;
             // 
-            // lblStaffMemberNameText
+            // lblAddStaffMemberWorkplace
             // 
-            this.lblStaffMemberNameText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblAddStaffMemberWorkplace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStaffMemberNameText.AutoSize = true;
-            this.lblStaffMemberNameText.Location = new System.Drawing.Point(4, 92);
-            this.lblStaffMemberNameText.Name = "lblStaffMemberNameText";
-            this.lblStaffMemberNameText.Size = new System.Drawing.Size(94, 13);
-            this.lblStaffMemberNameText.TabIndex = 9;
-            this.lblStaffMemberNameText.Text = "Werknemer naam:";
+            this.lblAddStaffMemberWorkplace.AutoSize = true;
+            this.lblAddStaffMemberWorkplace.Location = new System.Drawing.Point(15, 98);
+            this.lblAddStaffMemberWorkplace.Name = "lblAddStaffMemberWorkplace";
+            this.lblAddStaffMemberWorkplace.Size = new System.Drawing.Size(108, 13);
+            this.lblAddStaffMemberWorkplace.TabIndex = 12;
+            this.lblAddStaffMemberWorkplace.Text = "Werkplek selecteren:";
             // 
-            // lblStaffMemberCostText
+            // pnlWorkplaceSelection
             // 
-            this.lblStaffMemberCostText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlWorkplaceSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlWorkplaceSelection.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlWorkplaceSelection.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlWorkplaceSelection.Controls.Add(this.lblWorkplaceEditorWorkplaceSelectionText);
+            this.pnlWorkplaceSelection.Controls.Add(this.cbxWorkplaceSelectionWorkplaceEditor);
+            this.pnlWorkplaceSelection.Controls.Add(this.clbCheckboxList);
+            this.pnlWorkplaceSelection.Controls.Add(this.lblWorkplaceSelectionText);
+            this.pnlWorkplaceSelection.Location = new System.Drawing.Point(443, 6);
+            this.pnlWorkplaceSelection.MaximumSize = new System.Drawing.Size(700, 500);
+            this.pnlWorkplaceSelection.Name = "pnlWorkplaceSelection";
+            this.pnlWorkplaceSelection.Size = new System.Drawing.Size(484, 180);
+            this.pnlWorkplaceSelection.TabIndex = 13;
+            this.pnlWorkplaceSelection.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseDown);
+            this.pnlWorkplaceSelection.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseMove);
+            // 
+            // lblWorkplaceSelectionText
+            // 
+            this.lblWorkplaceSelectionText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStaffMemberCostText.AutoSize = true;
-            this.lblStaffMemberCostText.Location = new System.Drawing.Point(4, 118);
-            this.lblStaffMemberCostText.Name = "lblStaffMemberCostText";
-            this.lblStaffMemberCostText.Size = new System.Drawing.Size(79, 13);
-            this.lblStaffMemberCostText.TabIndex = 10;
-            this.lblStaffMemberCostText.Text = "Kosten per uur:";
+            this.lblWorkplaceSelectionText.AutoSize = true;
+            this.lblWorkplaceSelectionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWorkplaceSelectionText.Location = new System.Drawing.Point(3, 7);
+            this.lblWorkplaceSelectionText.Name = "lblWorkplaceSelectionText";
+            this.lblWorkplaceSelectionText.Size = new System.Drawing.Size(254, 20);
+            this.lblWorkplaceSelectionText.TabIndex = 7;
+            this.lblWorkplaceSelectionText.Text = "Toekennen van bevoegdheden";
+            this.lblWorkplaceSelectionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tbxCostPerHour
+            // clbCheckboxList
             // 
-            this.tbxCostPerHour.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.clbCheckboxList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.clbCheckboxList.CheckOnClick = true;
+            this.clbCheckboxList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbCheckboxList.FormattingEnabled = true;
+            this.clbCheckboxList.Items.AddRange(new object[] {
+            "Denver bar",
+            "Denver keuken",
+            "Barco bar",
+            "Barco keuken",
+            "Barco en denver afwas",
+            "Fiesta bar",
+            "Fiesta keuken",
+            "Fiesta afwas"});
+            this.clbCheckboxList.Location = new System.Drawing.Point(283, 14);
+            this.clbCheckboxList.Name = "clbCheckboxList";
+            this.clbCheckboxList.Size = new System.Drawing.Size(193, 148);
+            this.clbCheckboxList.TabIndex = 8;
+            // 
+            // cbxWorkplaceSelectionWorkplaceEditor
+            // 
+            this.cbxWorkplaceSelectionWorkplaceEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxCostPerHour.Location = new System.Drawing.Point(104, 115);
-            this.tbxCostPerHour.Name = "tbxCostPerHour";
-            this.tbxCostPerHour.Size = new System.Drawing.Size(259, 20);
-            this.tbxCostPerHour.TabIndex = 11;
-            this.tbxCostPerHour.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbxCostPerHour.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxCostPerHour_KeyPress);
+            this.cbxWorkplaceSelectionWorkplaceEditor.FormattingEnabled = true;
+            this.cbxWorkplaceSelectionWorkplaceEditor.Location = new System.Drawing.Point(9, 61);
+            this.cbxWorkplaceSelectionWorkplaceEditor.Name = "cbxWorkplaceSelectionWorkplaceEditor";
+            this.cbxWorkplaceSelectionWorkplaceEditor.Size = new System.Drawing.Size(271, 21);
+            this.cbxWorkplaceSelectionWorkplaceEditor.TabIndex = 13;
             // 
-            // pnlCurrentStaffOverview
+            // lblWorkplaceEditorWorkplaceSelectionText
             // 
-            this.pnlCurrentStaffOverview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlCurrentStaffOverview.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pnlCurrentStaffOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlCurrentStaffOverview.Controls.Add(this.dgvAllStaffMembers);
-            this.pnlCurrentStaffOverview.Controls.Add(this.lblStaffOverviewText);
-            this.pnlCurrentStaffOverview.Location = new System.Drawing.Point(33, 323);
-            this.pnlCurrentStaffOverview.Name = "pnlCurrentStaffOverview";
-            this.pnlCurrentStaffOverview.Size = new System.Drawing.Size(1079, 242);
-            this.pnlCurrentStaffOverview.TabIndex = 12;
-            this.pnlCurrentStaffOverview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseDown);
-            this.pnlCurrentStaffOverview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseMove);
-            // 
-            // lblStaffOverviewText
-            // 
-            this.lblStaffOverviewText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblWorkplaceEditorWorkplaceSelectionText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStaffOverviewText.AutoSize = true;
-            this.lblStaffOverviewText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaffOverviewText.Location = new System.Drawing.Point(5, 7);
-            this.lblStaffOverviewText.Name = "lblStaffOverviewText";
-            this.lblStaffOverviewText.Size = new System.Drawing.Size(248, 20);
-            this.lblStaffOverviewText.TabIndex = 12;
-            this.lblStaffOverviewText.Text = "Huidige werknemers overzicht";
-            this.lblStaffOverviewText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblWorkplaceEditorWorkplaceSelectionText.AutoSize = true;
+            this.lblWorkplaceEditorWorkplaceSelectionText.Location = new System.Drawing.Point(6, 45);
+            this.lblWorkplaceEditorWorkplaceSelectionText.Name = "lblWorkplaceEditorWorkplaceSelectionText";
+            this.lblWorkplaceEditorWorkplaceSelectionText.Size = new System.Drawing.Size(108, 13);
+            this.lblWorkplaceEditorWorkplaceSelectionText.TabIndex = 13;
+            this.lblWorkplaceEditorWorkplaceSelectionText.Text = "Werkplek selecteren:";
             // 
-            // dgvAllStaffMembers
+            // pnlEditStaffMember
             // 
-            this.dgvAllStaffMembers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlEditStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlEditStaffMember.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlEditStaffMember.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlEditStaffMember.Controls.Add(this.lblChooseStaffMemberText);
+            this.pnlEditStaffMember.Controls.Add(this.cbxChooseStaffMemberEditStaffMember);
+            this.pnlEditStaffMember.Controls.Add(this.clbEditStaffmemberCheckListBox);
+            this.pnlEditStaffMember.Controls.Add(this.lblEditStaffMemberText);
+            this.pnlEditStaffMember.Location = new System.Drawing.Point(443, 192);
+            this.pnlEditStaffMember.MaximumSize = new System.Drawing.Size(700, 500);
+            this.pnlEditStaffMember.Name = "pnlEditStaffMember";
+            this.pnlEditStaffMember.Size = new System.Drawing.Size(484, 169);
+            this.pnlEditStaffMember.TabIndex = 14;
+            this.pnlEditStaffMember.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseDown);
+            this.pnlEditStaffMember.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnInlogCodeAanpassen_MouseMove);
+            // 
+            // lblChooseStaffMemberText
+            // 
+            this.lblChooseStaffMemberText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvAllStaffMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAllStaffMembers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cl_StaffMemberNumber,
-            this.cl_StaffMemberName,
-            this.cl_StaffMemberCost});
-            this.dgvAllStaffMembers.Location = new System.Drawing.Point(9, 30);
-            this.dgvAllStaffMembers.Name = "dgvAllStaffMembers";
-            this.dgvAllStaffMembers.Size = new System.Drawing.Size(1065, 207);
-            this.dgvAllStaffMembers.TabIndex = 13;
+            this.lblChooseStaffMemberText.AutoSize = true;
+            this.lblChooseStaffMemberText.Location = new System.Drawing.Point(6, 45);
+            this.lblChooseStaffMemberText.Name = "lblChooseStaffMemberText";
+            this.lblChooseStaffMemberText.Size = new System.Drawing.Size(117, 13);
+            this.lblChooseStaffMemberText.TabIndex = 13;
+            this.lblChooseStaffMemberText.Text = "Werknemer selecteren:";
             // 
-            // cl_StaffMemberNumber
+            // cbxChooseStaffMemberEditStaffMember
             // 
-            this.cl_StaffMemberNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cl_StaffMemberNumber.HeaderText = "Personeelsnummer";
-            this.cl_StaffMemberNumber.Name = "cl_StaffMemberNumber";
+            this.cbxChooseStaffMemberEditStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxChooseStaffMemberEditStaffMember.FormattingEnabled = true;
+            this.cbxChooseStaffMemberEditStaffMember.Location = new System.Drawing.Point(9, 61);
+            this.cbxChooseStaffMemberEditStaffMember.Name = "cbxChooseStaffMemberEditStaffMember";
+            this.cbxChooseStaffMemberEditStaffMember.Size = new System.Drawing.Size(271, 21);
+            this.cbxChooseStaffMemberEditStaffMember.TabIndex = 13;
             // 
-            // cl_StaffMemberName
+            // clbEditStaffmemberCheckListBox
             // 
-            this.cl_StaffMemberName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cl_StaffMemberName.HeaderText = "Naam";
-            this.cl_StaffMemberName.Name = "cl_StaffMemberName";
+            this.clbEditStaffmemberCheckListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.clbEditStaffmemberCheckListBox.CheckOnClick = true;
+            this.clbEditStaffmemberCheckListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbEditStaffmemberCheckListBox.FormattingEnabled = true;
+            this.clbEditStaffmemberCheckListBox.Items.AddRange(new object[] {
+            "Denver bar",
+            "Denver keuken",
+            "Barco bar",
+            "Barco keuken",
+            "Barco en denver afwas",
+            "Fiesta bar",
+            "Fiesta keuken",
+            "Fiesta afwas"});
+            this.clbEditStaffmemberCheckListBox.Location = new System.Drawing.Point(283, 14);
+            this.clbEditStaffmemberCheckListBox.Name = "clbEditStaffmemberCheckListBox";
+            this.clbEditStaffmemberCheckListBox.Size = new System.Drawing.Size(193, 148);
+            this.clbEditStaffmemberCheckListBox.TabIndex = 8;
             // 
-            // cl_StaffMemberCost
+            // lblEditStaffMemberText
             // 
-            this.cl_StaffMemberCost.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cl_StaffMemberCost.HeaderText = "Kosten per uur";
-            this.cl_StaffMemberCost.Name = "cl_StaffMemberCost";
+            this.lblEditStaffMemberText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEditStaffMemberText.AutoSize = true;
+            this.lblEditStaffMemberText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEditStaffMemberText.Location = new System.Drawing.Point(3, 7);
+            this.lblEditStaffMemberText.Name = "lblEditStaffMemberText";
+            this.lblEditStaffMemberText.Size = new System.Drawing.Size(244, 20);
+            this.lblEditStaffMemberText.TabIndex = 7;
+            this.lblEditStaffMemberText.Text = "Toewijzen van bevoegdheden";
+            this.lblEditStaffMemberText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Directie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1186, 621);
+            this.ClientSize = new System.Drawing.Size(965, 793);
             this.Controls.Add(this.tabControl1);
             this.Name = "Directie";
             this.Text = "Directie";
@@ -632,6 +814,9 @@
             this.Load += new System.EventHandler(this.Directie_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.pnlCurrentStaffOverview.ResumeLayout(false);
+            this.pnlCurrentStaffOverview.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllStaffMembers)).EndInit();
             this.pnlAddStaffMember.ResumeLayout(false);
             this.pnlAddStaffMember.PerformLayout();
             this.pnInlogCodeAanpassen.ResumeLayout(false);
@@ -643,9 +828,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage4.ResumeLayout(false);
-            this.pnlCurrentStaffOverview.ResumeLayout(false);
-            this.pnlCurrentStaffOverview.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAllStaffMembers)).EndInit();
+            this.pnlWorkplaceSelection.ResumeLayout(false);
+            this.pnlWorkplaceSelection.PerformLayout();
+            this.pnlEditStaffMember.ResumeLayout(false);
+            this.pnlEditStaffMember.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -689,17 +875,28 @@
         private System.Windows.Forms.Panel pnlAddStaffMember;
         private System.Windows.Forms.Button btnAddStaffMember;
         private System.Windows.Forms.Label lblAddStaffMemberText;
-        private System.Windows.Forms.Label lblAllWorkplacesTextStaffMembers;
-        private System.Windows.Forms.ComboBox cbxAllWorkPlacesAddStaffMember;
         private System.Windows.Forms.TextBox tbxCostPerHour;
         private System.Windows.Forms.Label lblStaffMemberCostText;
         private System.Windows.Forms.Label lblStaffMemberNameText;
         private System.Windows.Forms.TextBox tbxStaffMemberName;
         private System.Windows.Forms.Panel pnlCurrentStaffOverview;
         private System.Windows.Forms.DataGridView dgvAllStaffMembers;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cl_StaffMemberNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cl_StaffMemberName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cl_StaffMemberCost;
         private System.Windows.Forms.Label lblStaffOverviewText;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn earnings;
+        private System.Windows.Forms.Button btnDeleteStaffMember;
+        private System.Windows.Forms.Panel pnlWorkplaceSelection;
+        private System.Windows.Forms.CheckedListBox clbCheckboxList;
+        private System.Windows.Forms.Label lblWorkplaceSelectionText;
+        private System.Windows.Forms.Label lblAddStaffMemberWorkplace;
+        private System.Windows.Forms.ComboBox cbxAddStaffmemberWorkplace;
+        private System.Windows.Forms.Label lblWorkplaceEditorWorkplaceSelectionText;
+        private System.Windows.Forms.ComboBox cbxWorkplaceSelectionWorkplaceEditor;
+        private System.Windows.Forms.Panel pnlEditStaffMember;
+        private System.Windows.Forms.Label lblChooseStaffMemberText;
+        private System.Windows.Forms.ComboBox cbxChooseStaffMemberEditStaffMember;
+        private System.Windows.Forms.CheckedListBox clbEditStaffmemberCheckListBox;
+        private System.Windows.Forms.Label lblEditStaffMemberText;
     }
 }

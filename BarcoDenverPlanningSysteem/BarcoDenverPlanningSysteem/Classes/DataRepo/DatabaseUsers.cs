@@ -1,17 +1,94 @@
 ﻿using BarcoDenverPlanningSysteem.Classes.Error;
+using BarcoDenverPlanningSysteem.Classes.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BarcoDenverPlanningSysteem
-{
+{ 
     public class DatabaseUsers
     {
         ErrorHandler error = new ErrorHandler();
         
+        public void AddStaffMember(StaffMember member, MySqlConnection connection)
+        {
+            string sql = @"INSERT INTO `staff`
+                                  ( `earnings`, `name`) 
+                           VALUES (@earnings,@name)";
+
+            connection.Open();
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+            
+            cmd.Parameters.AddWithValue("name", member.Name);
+            cmd.Parameters.AddWithValue("earnings", member.Earnings);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                error.ShowCantConnectMessage(e);
+            }
+
+            connection.Close();
+        }
+
+        public void DeleteStaffMemberById(int id, MySqlConnection connection)
+        {
+            string sql = @"DELETE FROM `staff`
+                           WHERE `id` = @id";
+
+            connection.Open();
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+
+            cmd.Parameters.AddWithValue("id", id);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                error.ShowCantConnectMessage(e);
+            }
+
+            connection.Close();
+        }
+
+        public void FillViewWithAllUsers(DataGridView tableView, MySqlConnection connection)
+        {
+            string sql = @"SELECT *
+                           FROM `staff`";
+           
+                connection.Open();
+
+                MySqlCommand cmd = new MySqlCommand(sql, connection);
+            try
+            {
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        DataTable temp = new DataTable();
+                        temp.Load(reader);
+                        tableView.DataSource = temp;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                error.ShowCantConnectMessage(e);
+            }
+
+            connection.Close();
+        }
 
         public Workplace CheckCodeForLogin(int code, MySqlConnection connection)
         {
@@ -87,6 +164,32 @@ namespace BarcoDenverPlanningSysteem
             return toReturn;
         }
 
+        public string[] GetListOfAllStaffmMembers(MySqlConnection connection)
+        {
+            List<string> lstToreturn = new List<string>();
+
+            string sql = @"SELECT `name`
+                          FROM `staff`";
+
+            connection.Open();
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while(reader.Read())
+                {
+                    lstToreturn.Add(reader["name"].ToString());
+                }
+            }
+
+            connection.Close();
+
+            return lstToreturn.ToArray();
+        }
+
         public string GetCodeFromFunction(string function, MySqlConnection connection)
         {
             string toReturn = "";
@@ -148,7 +251,6 @@ namespace BarcoDenverPlanningSysteem
 
         public string[] GetAllWorkplaces(MySqlConnection connection)
         {
-            //update on right position
             string sql = @"SELECT * FROM `workplace`";
 
             connection.Open();

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using BarcoDenverPlanningSysteem.Classes.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BarcoDenverPlanningSysteem
 {
@@ -12,9 +14,44 @@ namespace BarcoDenverPlanningSysteem
 
         private Workplace currentUser = Workplace.NoFunctionDetected;
         
+        /// <summary>
+        /// constuctor
+        /// </summary>
         public LogicalRepository()
         {
             database.Connect();
+        }
+
+        /// <summary>
+        /// Delete a staffmember from the database
+        /// </summary>
+        /// <param name="id">the id of the staffmember that has to be deleted</param>
+        public void DeleteStaffMemberByid(int id)
+        {
+            database.DeleteStaffMemberById(id);
+        }
+
+        /// <summary>
+        /// add a staffmember to the database
+        /// </summary>
+        /// <param name="name">name of the staffmember</param>
+        /// <param name="earnings">earnings of the staffmember</param>
+        public void AddStaffMember(string name, double earnings)
+        {
+            StaffMember tempMember = new StaffMember();
+            tempMember.Name = name;
+            tempMember.Earnings = earnings;
+
+            database.AddStaffMember(tempMember);
+        }
+
+        /// <summary>
+        /// updates the given view to contain all the staffmembers currently in the database
+        /// </summary>
+        /// <param name="view">the DataGridView that has to be updated</param>
+        public void FillViewWithAllStaffMembers(DataGridView view)
+        {
+            database.FillViewWithAllStaffMembers(view);
         }
 
         /// <summary>
@@ -75,13 +112,21 @@ namespace BarcoDenverPlanningSysteem
         }
 
         /// <summary>
+        /// get a list of all staffmembers in the database
+        /// </summary>
+        /// <returns>string array of all staffmembers</returns>
+        public string[] GetListOfStaffMembers()
+        {
+            return database.GetListOfStaffMembers();
+        }
+
+        /// <summary>
         /// haalt alle werkplekken op die er zijn
         /// </summary>
         /// <returns>geeft een lijst met namen van werkplekken terug</returns>
         public string[] GetAllWorkplaces()
         {
             return database.getAllWorkplaces();
-            //return readWriter.GetAllWorkplaces();
         }
 
         /// <summary>
@@ -91,7 +136,6 @@ namespace BarcoDenverPlanningSysteem
         /// <param name="workplace">de werkplek waarvan de inlogcode moet worden veranderd</param>
         public void EditCode(string newCode, string werkplek)
         {
-            //readWriter.EditCode(werkplek, newCode);
             database.EditCode(newCode, werkplek);
         }
 
@@ -103,6 +147,15 @@ namespace BarcoDenverPlanningSysteem
         public string GetCodeFromFunction(string workplace)
         {
             return database.GetCodeFromWorkplace(workplace);
+        }
+
+        /// <summary>
+        /// get the user that is logged in within this session
+        /// </summary>
+        /// <returns>the user of this session</returns>
+        public Workplace GetCurrentUser()
+        {
+            return currentUser;
         }
     }
 }

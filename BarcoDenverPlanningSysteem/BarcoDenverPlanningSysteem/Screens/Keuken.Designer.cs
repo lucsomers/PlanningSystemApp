@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.pnSideMenu = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnlMenuSecondPanel = new System.Windows.Forms.Panel();
             this.btnPlanning = new System.Windows.Forms.Button();
             this.btnMonthOverview = new System.Windows.Forms.Button();
@@ -214,6 +216,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnSideMenu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnSideMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnSideMenu.Controls.Add(this.button2);
+            this.pnSideMenu.Controls.Add(this.button1);
             this.pnSideMenu.Controls.Add(this.pnlMenuSecondPanel);
             this.pnSideMenu.Controls.Add(this.btnAddToPlanning);
             this.pnSideMenu.Controls.Add(this.dtpStartTime);
@@ -232,6 +236,26 @@
             this.pnSideMenu.Name = "pnSideMenu";
             this.pnSideMenu.Size = new System.Drawing.Size(1193, 142);
             this.pnSideMenu.TabIndex = 0;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(364, 90);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(172, 46);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Aanpassen";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(184, 90);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(172, 46);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Verwijderen";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // pnlMenuSecondPanel
             // 
@@ -302,10 +326,11 @@
             this.btnAddToPlanning.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddToPlanning.Location = new System.Drawing.Point(3, 90);
             this.btnAddToPlanning.Name = "btnAddToPlanning";
-            this.btnAddToPlanning.Size = new System.Drawing.Size(517, 46);
+            this.btnAddToPlanning.Size = new System.Drawing.Size(172, 46);
             this.btnAddToPlanning.TabIndex = 7;
             this.btnAddToPlanning.Text = "Voeg toe";
             this.btnAddToPlanning.UseVisualStyleBackColor = true;
+            this.btnAddToPlanning.Click += new System.EventHandler(this.btnAddToPlanning_Click);
             // 
             // dtpStartTime
             // 
@@ -372,7 +397,6 @@
             this.dtpDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpDateTimePicker.Location = new System.Drawing.Point(112, 10);
             this.dtpDateTimePicker.Name = "dtpDateTimePicker";
-            this.dtpDateTimePicker.ShowUpDown = true;
             this.dtpDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.dtpDateTimePicker.TabIndex = 0;
             this.dtpDateTimePicker.Value = new System.DateTime(2018, 2, 2, 12, 23, 49, 0);
@@ -1887,6 +1911,7 @@
             this.Name = "Keuken";
             this.Text = "Keuken";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Keuken_FormClosing);
             this.Load += new System.EventHandler(this.Keuken_Load);
             this.pnSideMenu.ResumeLayout(false);
             this.pnSideMenu.PerformLayout();
@@ -1932,7 +1957,6 @@
         private System.Windows.Forms.Button btnRealHours;
         private System.Windows.Forms.Button btnStaffMemberOverview;
         private System.Windows.Forms.Button btnAddToPlanning;
-        private System.Windows.Forms.DateTimePicker dtpDateTimePicker;
         private System.Windows.Forms.DateTimePicker dtpStartTime;
         private System.Windows.Forms.DateTimePicker dtpBreakTime;
         private System.Windows.Forms.Label lblStartOfWorktime;
@@ -2080,5 +2104,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmEndTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmWorkplace;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmAmountOfHours;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DateTimePicker dtpDateTimePicker;
     }
 }

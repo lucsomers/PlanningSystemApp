@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BarcoDenverPlanningSysteem.Classes.Error;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,10 +14,11 @@ namespace BarcoDenverPlanningSysteem
     public partial class Keuken : Form
     {
         LogicalRepository repository;
+        private ErrorHandler error;
 
         private DateTime lastDate;
 
-        private bool firsttime;
+        private bool busy;
 
         public Keuken(LogicalRepository logical)
         {
@@ -29,7 +31,8 @@ namespace BarcoDenverPlanningSysteem
         {
             //setting variables
             lastDate = dtpDateTimePicker.Value;
-            firsttime = true;
+            busy = false;
+            error = new ErrorHandler();
 
             //hiding correct buttons
             HideStaffCost(true);
@@ -54,6 +57,9 @@ namespace BarcoDenverPlanningSysteem
                 lblStaffCostFriday.Hide();
                 lblStaffCostSaturday.Hide();
                 lblStaffCostSunday.Hide();
+
+                lblBreakTime.Hide();
+                dtpBreakTime.Hide();
 
                 pnlMonday.Show();
                 pnlTuesday.Show();
@@ -81,6 +87,9 @@ namespace BarcoDenverPlanningSysteem
                 lblStaffCostSaturday.Show();
                 lblStaffCostSunday.Show();
 
+                lblBreakTime.Show();
+                dtpBreakTime.Show();
+
                 pnlMonday.Hide();
                 pnlTuesday.Hide();
                 pnlWednesday.Hide();
@@ -101,7 +110,20 @@ namespace BarcoDenverPlanningSysteem
 
         private void Keuken_Load(object sender, EventArgs e)
         {
-            dtpDateTimePicker.Value = SetMonday(DateTime.Now);
+            //sets the text of the form
+            this.Text = repository.GetCurrentUser().ToFriendlyString();
+
+            //sets the dates to the current date to start with
+            dtpDateTimePicker.Value = DateTime.Now;
+            dtpDateTimePicker.Value = SetMonday(false);
+            dtpDateTimePicker.Value = dtpDateTimePicker.Value.AddHours(10);
+
+            //fills the comboboxes
+            cbxStaffMemberName.Items.AddRange(repository.GetListOfStaffMembers());
+            cbxWorkplace.Items.AddRange(repository.GetFunctionsAvailableToUser());
+
+            //set 
+
         }
 
         private void txtExpectedRevenueMonday_KeyPress(object sender, KeyPressEventArgs e)
@@ -114,28 +136,11 @@ namespace BarcoDenverPlanningSysteem
 
         private void dtpDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            if (!firsttime)
+            if (!busy)
             {
-                DateTime dt;
-                if (dtpDateTimePicker.Value < lastDate)
-                {
-                    dt = dtpDateTimePicker.Value.AddDays(-6);
-                    dt = SetMonday(dt);
-                }
-                else
-                {
-                    dt = dtpDateTimePicker.Value.AddDays(6);
-                    dt = SetMonday(dt);
-                }
+                dtpDateTimePicker.Value = SetMonday(false);
 
-                firsttime = true;
-                lastDate = dt;
-                SetDateLabels(dt);
-                dtpDateTimePicker.Value = dt;
-            }
-            else
-            {
-                firsttime = false;
+                busy = false;
             }
         }
 
@@ -154,42 +159,25 @@ namespace BarcoDenverPlanningSysteem
             lblSunday.Text = temp.ToString(format);
         }
 
-        private DateTime SetMonday(DateTime temp)
+        //sets the selected date to the monday of the selected week
+        private DateTime SetMonday(bool increment)
         {
-            DateTime tempDateTime = temp;
-
-            int amountOfDays = 0;
-
-            switch (tempDateTime.DayOfWeek)
+            DateTime tempDateTime = dtpDateTimePicker.Value;
+            
+            while (tempDateTime.DayOfWeek != DayOfWeek.Monday)
             {
-                case DayOfWeek.Sunday:
-                    amountOfDays = 6;
-                    break;
-                case DayOfWeek.Monday:
-                    amountOfDays = 0;
-                    break;
-                case DayOfWeek.Tuesday:
-                    amountOfDays = 1;
-                    break;
-                case DayOfWeek.Wednesday:
-                    amountOfDays = 2;
-                    break;
-                case DayOfWeek.Thursday:
-                    amountOfDays = 3;
-                    break;
-                case DayOfWeek.Friday:
-                    amountOfDays = 4;
-                    break;
-                case DayOfWeek.Saturday:
-                    amountOfDays = 5;
-                    break;
-                default:
-                    break;
+                if (increment)
+                {
+                    tempDateTime = tempDateTime.AddDays(1);
+                }
+                else
+                {
+                    tempDateTime = tempDateTime.AddDays(-1);
+                }
             }
 
-            DateTime dt = tempDateTime.AddDays(-amountOfDays);
 
-            return dt;
+            return tempDateTime;
         }
 
         private void btnMonthOverview_Click(object sender, EventArgs e)
@@ -203,6 +191,32 @@ namespace BarcoDenverPlanningSysteem
             btnRealHours.Enabled = true;
 
             HideStaffCost(true);
+        }
+
+        private void btnAddToPlanning_Click(object sender, EventArgs e)
+        {
+            //check tijd
+            if (dtpStartTime.Value.Hour < dtpEndTime.Value.Hour)
+            {
+                //check lege velden
+                if (cbxStaffMemberName.Text != "" || cbxWorkplace.Text != "")
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show(error.NotEveryThingFilledInErrorMessage());
+                }
+            }
+            else
+            {
+                MessageBox.Show(error.WrongTimeMessage());
+            }
+        }
+
+        private void Keuken_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

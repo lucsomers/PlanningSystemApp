@@ -8,6 +8,16 @@ namespace BarcoDenverPlanningSysteem.Classes.Error
 {
     class ErrorHandler
     {
+        public string WrongTimeMessage()
+        {
+            return "De begin tijd is kleiner dan of gelijk aan de eindtijd vul alstublieft een geldig tijdsbereik";
+        }
+        
+        public string NoRowsSelectedMessage()
+        {
+            return "Selecteer alstublieft een gehele lijn in de tabel";
+        }
+
         public string LoginErrorMessage()
         {
             return "Code bestaat niet of :::: Zorg ervoor dat er alleen getallen in het textvak staan. Controlleer hierna of u een internet connectie hebt. Wanneer dit beide het geval is en u krijgt dit bericht neem dan contact op met uw administrator";
