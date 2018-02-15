@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BarcoDenverPlanningSysteem.Program" Collapsed="true">
+    <Position X="11" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Barco" Collapsed="true">
+    <Position X="11" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Barco.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Denver" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Denver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Directie" Collapsed="true">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Directie.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Keuken" Collapsed="true">
+    <Position X="11" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Keuken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Login" Collapsed="true">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQACIAAAAACgCAAAACAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Screens\Login.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Properties.Resources" Collapsed="true">
+    <Position X="11" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Properties.Settings" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Planning">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\LogicRepo\Planning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.JaarPlanning">
+    <Position X="5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\LogicRepo\JaarPlanning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Database">
+    <Position X="8" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAABAIAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\DataRepo\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.DatabaseUsers">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\DataRepo\DatabaseUsers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.LogicalRepository">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Classes\LogicRepo\LogicalRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BarcoDenverPlanningSysteem.Function">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQgCAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Classes\Enums\Function.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
