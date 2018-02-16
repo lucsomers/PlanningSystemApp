@@ -49,6 +49,11 @@ namespace BarcoDenverPlanningSysteem
             return dbUsers.CheckCodeForLogin(code, connection);
         }
 
+        public void FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser)
+        {
+            dbPlanning.FillPlanningTableWithData(tableToFill, connection, currentUser);
+        }
+
         /// <summary>
         /// haalt alle werkplekken op die er zijn
         /// </summary>

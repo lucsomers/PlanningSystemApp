@@ -37,5 +37,26 @@ namespace BarcoDenverPlanningSysteem
                     return "Geen werkplek beschikbaar";
             }
         }
+
+        public static int ToID(this Workplace me)
+        {
+            switch (me)
+            {
+                case Workplace.Directie:
+                    return 1;
+                case Workplace.Denver:
+                    return 2;
+                case Workplace.Barco:
+                    return 3;
+                case Workplace.Keuken:
+                    return 4;
+                case Workplace.Fiesta:
+                    return 5;
+                case Workplace.NoFunctionDetected:
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
     }
 }

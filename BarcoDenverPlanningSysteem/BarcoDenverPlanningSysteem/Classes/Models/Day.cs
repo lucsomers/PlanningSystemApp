@@ -10,7 +10,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
     {
         private double expectedRevenue;
         private double revenue;
-
+        private int id;
         
         private DateTime date;
         
@@ -19,7 +19,23 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         private string adminComment;
 
         private List<StaffMember> staffMembers;
-        
+
+        public Day()
+        {
+            id = 0;
+        }
+
+        public Day(double expectedRevenue, double revenue, int id, DateTime date, string staffComment, string adminComment, List<StaffMember> staffMembers)
+        {
+            this.expectedRevenue = expectedRevenue;
+            this.revenue = revenue;
+            this.id = id;
+            this.date = date;
+            this.staffComment = staffComment;
+            this.adminComment = adminComment;
+            this.staffMembers = staffMembers;
+        }
+
         /// <summary>
         /// telt het aantal personen die werken onder de meegegeven functie op deze dag
         /// </summary>
@@ -82,6 +98,8 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         public DateTime Date { get => date; set => date = value; }
         public string StaffComment { get => staffComment; set => staffComment = value; }
         public string AdminComment { get => adminComment; set => adminComment = value; }
+        public int Id { get => id; private set => id = value; }
+
         public void AddStaffMember(StaffMember member){ staffMembers.Add(member); }
     }
 }

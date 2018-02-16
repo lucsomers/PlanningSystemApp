@@ -9,17 +9,21 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
     public class Year
     {
         private DateTime year;
+        private int id;
 
         private List<Month> monthsInYear;
 
-        public Year(DateTime year)
+        public Year(DateTime year, int id = 0)
         {
             this.ThisYear = year;
             this.MonthsInYear = new List<Month>();
+            this.id = id;
         }
 
         public DateTime ThisYear { get => year; private set => year = value; }
         public List<Month> MonthsInYear { get => monthsInYear; private set => monthsInYear = value; }
+        public int Id { get => id; private set => id = value; }
+
         public void AddDay(Day dateTime, StaffMember memberToAdd)
         {
             bool monthExists = false;

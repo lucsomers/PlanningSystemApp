@@ -14,8 +14,6 @@ namespace BarcoDenverPlanningSysteem
 {
     public partial class Directie : Form
     {
-        //TODO: add functionality to enable new forms to open to navigate through the tabs instead of doing everything in this form
-
         private Point _mouseDownLocation;
         private readonly int buttonHeight = 29;
 
@@ -103,7 +101,7 @@ namespace BarcoDenverPlanningSysteem
         {
             if (tbxCostPerHour.Text != "" || tbxStaffMemberName.Text != "")
             {
-                repository.AddStaffMember(tbxStaffMemberName.Text, double.Parse(tbxCostPerHour.Text));
+                repository.AddStaffMember(tbxStaffMemberName.Text, double.Parse(tbxCostPerHour.Text), cbxAddStaffmemberWorkplace.Text);
                 repository.FillViewWithAllStaffMembers(dgvAllStaffMembers);
                 //TODO: add functionality for adding staffmembers with a default function and also show this in a correct manner in the screen
             }

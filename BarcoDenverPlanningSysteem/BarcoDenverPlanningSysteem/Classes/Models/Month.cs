@@ -8,17 +8,22 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
 {
     public class Month
     {
+        private int id;
         private DateTime monthDate;
-        private List<Day> daysInMonth;
+        private List<Day> realityDaysInMonth;
+        private List<Day> planningDaysInMonth;
 
-        public Month(DateTime monthDate)
+        public Month(DateTime monthDate, int i = 0)
         {
             this.monthDate = monthDate;
-            this.daysInMonth = new List<Day>();
+            this.realityDaysInMonth = new List<Day>();
+            this.planningDaysInMonth = new List<Day>();
+            this.Id = i;
         }
 
         public DateTime MonthDate { get => monthDate; set => monthDate = value; }
-        public List<Day> DaysInMonth { get => daysInMonth; set => daysInMonth = value; }
+        public List<Day> DaysInMonth { get => realityDaysInMonth; set => realityDaysInMonth = value; }
+        public int Id { get => id; private set => id = value; }
 
         public void AddDayToMonth(Day dateTime, StaffMember memberToAdd)
         {
@@ -39,7 +44,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             if (!memberDateExists)
             {
                 dateTime.AddStaffMember(memberToAdd);
-                daysInMonth.Add(dateTime);
+                realityDaysInMonth.Add(dateTime);
             }
         }
     }

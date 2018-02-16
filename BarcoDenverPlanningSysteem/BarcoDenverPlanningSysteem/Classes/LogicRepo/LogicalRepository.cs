@@ -37,15 +37,20 @@ namespace BarcoDenverPlanningSysteem
         /// </summary>
         /// <param name="name">name of the staffmember</param>
         /// <param name="earnings">earnings of the staffmember</param>
-        public void AddStaffMember(string name, double earnings)
+        public void AddStaffMember(string name, double earnings, string defaultWorkplace)
         {
             StaffMember tempMember = new StaffMember
             {
                 Name = name,
                 Earnings = earnings
             };
-
+            
             database.AddStaffMember(tempMember);
+        }
+
+        public void FillPlanningtableWithData(DataGridView tableToFill)
+        {
+            database.FillPlanningTableWithData(tableToFill, currentUser);
         }
 
         /// <summary>
