@@ -42,7 +42,7 @@
             this.btLogIn.TabIndex = 0;
             this.btLogIn.Text = "Inloggen";
             this.btLogIn.UseVisualStyleBackColor = true;
-            this.btLogIn.Click += new System.EventHandler(this.btLogIn_Click);
+            this.btLogIn.Click += new System.EventHandler(this.BtLogIn_Click);
             // 
             // tbInlogCode
             // 

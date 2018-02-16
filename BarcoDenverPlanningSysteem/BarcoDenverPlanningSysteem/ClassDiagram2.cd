@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BarcoDenverPlanningSysteem.Classes.DataRepo.DatabasePlanning" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAABAABAAAAAAAAAgAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Classes\DataRepo\DatabasePlanning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.DatabaseRepository" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAoAAgAIAAAAAABAYAAAAQAAAYgEAAAAAAAAAA=</HashCode>
+      <FileName>Classes\DataRepo\DatabaseRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.DatabaseUsers" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAgAJAAAAEEIAQAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Classes\DataRepo\DatabaseUsers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.PlannableFunctionExtension" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Classes\Enums\PlannableFunction.cs</FileName>
+      <NewMemberFileName>Classes\Enums\Function.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.WorkplaceExtension" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Classes\Enums\Workplace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.LogicalRepository" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAogAAAICDAAAAIEAAAAARIAAIAEAAAAQgAAAA=</HashCode>
+      <FileName>Classes\LogicRepo\LogicalRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Program" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Barco" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACACAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Barco.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Denver" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACACAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Denver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Directie" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhHAQiAJADAKSJSShCHAxgIGABg8SoEyYBAAKAANRgY=</HashCode>
+      <FileName>Screens\Directie.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Keuken" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>xiocVB+kXDBb0oL9DQmstpCeI5FardJBKJgiyr5jym8=</HashCode>
+      <FileName>Screens\Keuken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Login" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQACIAAAAACgGAAAACAAAAAAAAAgAAAAIAAAA=</HashCode>
+      <FileName>Screens\Login.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Classes.Error.ErrorHandler" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAIIAAAAAAAAAAAAAAAQAAAAAAAABAAIAAAAAA=</HashCode>
+      <FileName>Classes\Error\ErrorHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Classes.Models.Day" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIQAAEAIAAAAAAAQAAAAEEAAAABCAAAAQgBAAA=</HashCode>
+      <FileName>Classes\Models\Day.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Classes.Models.Month" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAIAAIAAA=</HashCode>
+      <FileName>Classes\Models\Month.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Classes.Models.StaffMember" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AggCAAAAAAAAAIAAAAAgACQABAAEBAQAAAQAAAIAAgQ=</HashCode>
+      <FileName>Classes\Models\StaffMember.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Classes.Models.Week" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAJAAAAAAAAABAAAAAAAAAEAAAAAAAQAAAAAAgA=</HashCode>
+      <FileName>Classes\Models\Week.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Classes.Models.Year" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAQAAAAAAAAAAgAAAAIAAAAIAAAA=</HashCode>
+      <FileName>Classes\Models\Year.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Properties.Resources" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Properties.Settings" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BarcoDenverPlanningSysteem.Screens.Fiesta" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACACAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Fiesta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BarcoDenverPlanningSysteem.Function">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAgRAAAAAQAAAAAAACAAAACAAAAAAQAQA=</HashCode>
+      <FileName>Classes\Enums\Function.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BarcoDenverPlanningSysteem.Workplace">
+    <Position X="2.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgQAAAAAAAAAAAQgCAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Classes\Enums\Workplace.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

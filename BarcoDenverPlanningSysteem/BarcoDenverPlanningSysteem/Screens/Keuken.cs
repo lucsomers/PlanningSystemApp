@@ -106,6 +106,7 @@ namespace BarcoDenverPlanningSysteem
             btnRealHours.Enabled = false;
 
             HideStaffCost(false);
+            //TODO: show the real planning from data base
         }
 
         private void Keuken_Load(object sender, EventArgs e)
@@ -114,16 +115,17 @@ namespace BarcoDenverPlanningSysteem
             this.Text = repository.GetCurrentUser().ToFriendlyString();
 
             //sets the dates to the current date to start with
+            //TODO: check for the bug that occured here
             dtpDateTimePicker.Value = DateTime.Now;
             dtpDateTimePicker.Value = SetMonday(false);
             dtpDateTimePicker.Value = dtpDateTimePicker.Value.AddHours(10);
 
             //fills the comboboxes
             cbxStaffMemberName.Items.AddRange(repository.GetListOfStaffMembers());
-            cbxWorkplace.Items.AddRange(repository.GetFunctionsAvailableToUser());
+            cbxWorkplace.Items.AddRange(repository.GetPlannableFunctionsAvailableToUser());
 
             //set 
-
+            //TODO: fill the planning with the planning from the database
         }
 
         private void txtExpectedRevenueMonday_KeyPress(object sender, KeyPressEventArgs e)
@@ -182,7 +184,7 @@ namespace BarcoDenverPlanningSysteem
 
         private void btnMonthOverview_Click(object sender, EventArgs e)
         {
-
+            //TODO: show a month overview for the logged in user
         }
 
         private void btnPlanning_Click(object sender, EventArgs e)
@@ -191,6 +193,7 @@ namespace BarcoDenverPlanningSysteem
             btnRealHours.Enabled = true;
 
             HideStaffCost(true);
+            //TODO:Show The normal planning of the logged in user
         }
 
         private void btnAddToPlanning_Click(object sender, EventArgs e)
@@ -201,7 +204,7 @@ namespace BarcoDenverPlanningSysteem
                 //check lege velden
                 if (cbxStaffMemberName.Text != "" || cbxWorkplace.Text != "")
                 {
-
+                    //TODO: add a staffmember to the planning of the logged in person
                 }
                 else
                 {
@@ -217,6 +220,21 @@ namespace BarcoDenverPlanningSysteem
         private void Keuken_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnEditRecord_Click(object sender, EventArgs e)
+        {
+            //TODO: edit the selected record in the planning of the logged in user
+        }
+
+        private void btnDeleteRecord_Click(object sender, EventArgs e)
+        {
+            //TODO: delete the selected record from the planning of the user
+        }
+
+        private void btnStaffMemberOverview_Click(object sender, EventArgs e)
+        {
+            //TODO: show an overview of all the staffmembers a person can plan
         }
     }
 }

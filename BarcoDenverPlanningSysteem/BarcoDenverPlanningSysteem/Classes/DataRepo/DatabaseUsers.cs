@@ -17,8 +17,8 @@ namespace BarcoDenverPlanningSysteem
         public void AddStaffMember(StaffMember member, MySqlConnection connection)
         {
             string sql = @"INSERT INTO `staff`
-                                  ( `earnings`, `name`) 
-                           VALUES (@earnings,@name)";
+                                  ( `earnings`, `name`,`default_workplace_id`) 
+                           VALUES (@earnings,@name,@defaultWorkplace)";
 
             connection.Open();
 
@@ -26,6 +26,7 @@ namespace BarcoDenverPlanningSysteem
             
             cmd.Parameters.AddWithValue("name", member.Name);
             cmd.Parameters.AddWithValue("earnings", member.Earnings);
+            cmd.Parameters.AddWithValue("defaultWorkplace", member.DefaultFunction);
 
             try
             {

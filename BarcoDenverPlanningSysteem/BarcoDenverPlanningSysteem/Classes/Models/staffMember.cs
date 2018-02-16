@@ -14,6 +14,8 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
 
         private double earnings;
 
+        private Function defaultFunction;
+
         private Function functionOfDay;
         private DateTime pauseTime;
         private DateTime startTime;
@@ -25,7 +27,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         /// <param name="startTime">begin tijd</param>
         /// <param name="endTime">eind tijd</param>
         /// <returns>geeft een datetime object terug met daarin het aantal gewerkte uren en het aantal gewerkte minuten</returns>
-        public DateTime amountOfWorkedHours(bool withPauseTime)
+        public DateTime AmountOfWorkedHours(bool withPauseTime)
         {
             if (!withPauseTime)
             {
@@ -61,5 +63,6 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         public string Name { get => name; set => name = value; }
         public double Earnings { get => earnings; set => earnings = value; }
         public Function FunctionOfDay { get => functionOfDay; set => functionOfDay = value; }
+        public Function DefaultFunction { get => defaultFunction; set => defaultFunction = value; }
     }
 }

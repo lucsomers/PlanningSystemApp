@@ -14,6 +14,8 @@ namespace BarcoDenverPlanningSysteem
 {
     public partial class Directie : Form
     {
+        //TODO: add functionality to enable new forms to open to navigate through the tabs instead of doing everything in this form
+
         private Point _mouseDownLocation;
         private readonly int buttonHeight = 29;
 
@@ -35,10 +37,14 @@ namespace BarcoDenverPlanningSysteem
         {
             string[] templist = repository.GetAllWorkplaces();
             cbxAllWorkPlacesEditCode.Items.AddRange(templist);
+            cbxWorkplaceSelectionWorkplaceEditor.Items.AddRange(templist);
 
+            cbxChooseStaffMemberEditStaffMember.Items.AddRange(repository.GetListOfStaffMembers());
+            
             repository.FillViewWithAllStaffMembers(dgvAllStaffMembers);
         }
 
+        #region TabPage Editdatabase
         //keycheck for textboxes that only allow numbers
         private void tbxNewCode_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -93,13 +99,13 @@ namespace BarcoDenverPlanningSysteem
         }
 
         //when the button for adding staffmembers is pushed we fire events for adding him to the database after that we update the screen
-        private void btnAddStaffMember_Click(object sender, EventArgs e)
+        private void BtnAddStaffMember_Click(object sender, EventArgs e)
         {
             if (tbxCostPerHour.Text != "" || tbxStaffMemberName.Text != "")
             {
                 repository.AddStaffMember(tbxStaffMemberName.Text, double.Parse(tbxCostPerHour.Text));
                 repository.FillViewWithAllStaffMembers(dgvAllStaffMembers);
-                MessageBox.Show("Werknemer is toegevoegd aan de database");
+                //TODO: add functionality for adding staffmembers with a default function and also show this in a correct manner in the screen
             }
             else
             {
@@ -108,7 +114,7 @@ namespace BarcoDenverPlanningSysteem
         }
 
         //check that we only fill in numbers here
-        private void tbxCostPerHour_KeyPress(object sender, KeyPressEventArgs e)
+        private void TbxCostPerHour_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -117,7 +123,7 @@ namespace BarcoDenverPlanningSysteem
         }
 
         //delete the selected staffmembers from the database and then update the screen
-        private void btnDeleteStaffMember_Click(object sender, EventArgs e)
+        private void BtnDeleteStaffMember_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Weet je zeker dat je de geselecteerde rij(en) wilt verwijderen", "Verwijder personeelslid", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -136,5 +142,74 @@ namespace BarcoDenverPlanningSysteem
                 }
             }
         }
+
+        private void btnSaveWorkplaceEdit_Click(object sender, EventArgs e)
+        {
+            //TODO: save Edits from workplaces
+        }
+
+        private void btnSaveStaffMemberEdit_Click(object sender, EventArgs e)
+        {
+            //TODO: save edits from staffmembers
+        }
+
+        private void cbxWorkplaceSelectionWorkplaceEditor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //TODO: fill the right comboboxes with information from database
+        }
+
+        private void cbxChooseStaffMemberEditStaffMember_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //TODO: fill the right comboboxes with the information from the database
+        }
+
+#endregion
+
+        #region TabPage Overview
+        private void CalendarForOverView_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            //TODO: fill the tables with the needed information LOW
+        }
+
+        private void cbxWorkplaceSelectionForOverview_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //TODO: Make table information change whenever you change the workplace you want to see a overview of LOW
+        }
+
+        private void btnSelectRange_Click(object sender, EventArgs e)
+        {
+            //TODO: Add functionalitie for selecting a range of dates to view the overview with LOW
+        }
+
+        #endregion
+
+        #region PlanningTab
+
+
+        private void cbxWorkplaceSelectionForPlanning_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //TODO: Fill the planning tables with the corosponding data
+        }
+
+        private void CalendarForPlanning_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            //TODO: fill the planing tables with the corresponding data
+        }
+
+#endregion
+
+        #region kolibri tab
+
+        private void btnCreateKolibriFile_Click(object sender, EventArgs e)
+        {
+            //TODO: create a kolibri file
+        }
+
+        private void CalendarKoliBriFile_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            //TODO: change the date for wich a colibri file has to be made
+        }
+
+#endregion
     }
 }

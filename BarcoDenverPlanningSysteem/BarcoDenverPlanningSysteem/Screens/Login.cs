@@ -1,5 +1,4 @@
 ﻿using BarcoDenverPlanningSysteem.Classes.Error;
-using BarcoDenverPlanningSysteem.Screens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +29,7 @@ namespace BarcoDenverPlanningSysteem
             }
         }
 
-        private void btLogIn_Click(object sender, EventArgs e)
+        private void BtLogIn_Click(object sender, EventArgs e)
         {
             Form formToOpen = null;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BarcoDenverPlanningSysteem.Classes.Models
 {
-    class Day
+    public class Day
     {
         private double expectedRevenue;
         private double revenue;
@@ -51,7 +51,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             
                 foreach (StaffMember member in staffMembers)
                 {
-                    tempDouble = member.Earnings * member.amountOfWorkedHours(withPauseTime).Hour;
+                    tempDouble = member.Earnings * member.AmountOfWorkedHours(withPauseTime).Hour;
                 }
 
             return tempDouble;
@@ -71,12 +71,17 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
                 {
                     if (member.Id == memberID)
                     {
-                        tempDouble = member.Earnings * member.amountOfWorkedHours(withPauseTime).Hour;
+                        tempDouble = member.Earnings * member.AmountOfWorkedHours(withPauseTime).Hour;
                     }
                 }
 
             return tempDouble;
         }
         public double ExpectedRevenue { get => expectedRevenue; set => expectedRevenue = value; }
+        public double Revenue { get => revenue; set => revenue = value; }
+        public DateTime Date { get => date; set => date = value; }
+        public string StaffComment { get => staffComment; set => staffComment = value; }
+        public string AdminComment { get => adminComment; set => adminComment = value; }
+        public void AddStaffMember(StaffMember member){ staffMembers.Add(member); }
     }
 }

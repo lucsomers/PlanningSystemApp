@@ -5,6 +5,7 @@ using System.Text;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using BarcoDenverPlanningSysteem.Classes.Models;
+using BarcoDenverPlanningSysteem.Classes.DataRepo;
 
 namespace BarcoDenverPlanningSysteem
 {
@@ -12,6 +13,7 @@ namespace BarcoDenverPlanningSysteem
     {
         MySqlConnection connection = new MySqlConnection();
         DatabaseUsers dbUsers = new DatabaseUsers();
+        DatabasePlanning dbPlanning = new DatabasePlanning();
 
         /// <summary>
         /// geeft de database zijn connectie een connectie string zodat er querrys uitgevoerd kunnen worden
@@ -79,6 +81,11 @@ namespace BarcoDenverPlanningSysteem
         public string[] GetListOfStaffMembers()
         {
             return dbUsers.GetListOfAllStaffmMembers(connection);
+        }
+
+        public List<Year> LoadYearsOfCurrentUser(Workplace currentUser)
+        {
+            return dbPlanning.LoadYearOfCurrentUser(connection, currentUser);
         }
     }
 }

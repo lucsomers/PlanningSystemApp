@@ -11,6 +11,7 @@ namespace BarcoDenverPlanningSysteem
     {
         private DatabaseRepository database = new DatabaseRepository();
         private DatabaseUsers dbUsers = new DatabaseUsers();
+        private List<Year> mainYearList = new List<Year>();
 
         private Workplace currentUser = Workplace.NoFunctionDetected;
         
@@ -38,9 +39,11 @@ namespace BarcoDenverPlanningSysteem
         /// <param name="earnings">earnings of the staffmember</param>
         public void AddStaffMember(string name, double earnings)
         {
-            StaffMember tempMember = new StaffMember();
-            tempMember.Name = name;
-            tempMember.Earnings = earnings;
+            StaffMember tempMember = new StaffMember
+            {
+                Name = name,
+                Earnings = earnings
+            };
 
             database.AddStaffMember(tempMember);
         }
@@ -75,40 +78,45 @@ namespace BarcoDenverPlanningSysteem
         /// geeft alle functies die de huidige user aankan
         /// </summary>
         /// <returns>alle functies die de user tot beschikking heeft</returns>
-        public string[] GetFunctionsAvailableToUser()
+        public string[] GetPlannableFunctionsAvailableToUser()
         {
-            List<string> availableFunctions = new List<string>();
+            List<string> availableFunctionsString = new List<string>();
+            List<Function> availableFunctions = new List<Function>();
 
-            switch (currentUser)
+            foreach (Function f in availableFunctions)
             {
-                case Workplace.Directie:
-                    availableFunctions.Add(Function.Afwas.ToFriendlyString());
-                    availableFunctions.Add(Function.Bediening.ToFriendlyString());
-                    availableFunctions.Add(Function.Keuken.ToFriendlyString());
-                    break;
-                case Workplace.Denver:
-                    availableFunctions.Add(Function.Bediening.ToFriendlyString());
-                    break;
-                case Workplace.Barco:
-                    availableFunctions.Add(Function.Bediening.ToFriendlyString());
-                    break;
-                case Workplace.Keuken:
-                    availableFunctions.Add(Function.Keuken.ToFriendlyString());
-                    availableFunctions.Add(Function.Afwas.ToFriendlyString());
-                    break;
-                case Workplace.Fiesta:
-                    availableFunctions.Add(Function.Afwas.ToFriendlyString());
-                    availableFunctions.Add(Function.Bediening.ToFriendlyString());
-                    availableFunctions.Add(Function.Keuken.ToFriendlyString());
-                    break;
-                case Workplace.NoFunctionDetected:
-                    break;
+                switch (f)
+                {
+                    case Function.Denver_Bar:
+                    case Function.Barco_Bar:
+                        availableFunctionsString.Add(PlannableFunction.Bar.ToFriendlyString());
+                        availableFunctionsString.Add(PlannableFunction.Bediening.ToFriendlyString());
+                        break;
+                    case Function.Denver_Keuken:
+                    case Function.BarcoKeuken:
+                    case Function.Barco_Denver_Afwas:
+                        availableFunctionsString.Add(PlannableFunction.Keuken.ToFriendlyString());
+                        availableFunctionsString.Add(PlannableFunction.Afwas.ToFriendlyString());
+                        break;
+                    case Function.Fiesta_Keuken:
+                    case Function.Fiesta_Bar:
+                    case Function.Fiesta_Afwas:
+                        availableFunctionsString.Add(PlannableFunction.Keuken.ToFriendlyString());
+                        availableFunctionsString.Add(PlannableFunction.Afwas.ToFriendlyString());
+                        availableFunctionsString.Add(PlannableFunction.Bar.ToFriendlyString());
+                        availableFunctionsString.Add(PlannableFunction.Bediening.ToFriendlyString());
+                        break;
+                    case Function.NoFunctionDetected:
+                        break;
+                    default:
+                        break;
+                }
             }
-
+           
             //elke lijst krijgt deze objecten
-            availableFunctions.Add(Function.StandBy.ToFriendlyString());
+            availableFunctionsString.Add(PlannableFunction.StandBy.ToFriendlyString());
 
-            return availableFunctions.ToArray();
+            return availableFunctionsString.ToArray();
         }
 
         /// <summary>
@@ -156,6 +164,42 @@ namespace BarcoDenverPlanningSysteem
         public Workplace GetCurrentUser()
         {
             return currentUser;
+        }
+
+        public void LoadYearsOfCurrentUser()
+        {
+            mainYearList = database.LoadYearsOfCurrentUser(currentUser);
+        }
+
+        public void AddDayToYear(DateTime givenDate)
+        {
+            StaffMember memberToAdd = new StaffMember();
+            Year tempYear = null;
+            bool yearExists = false;
+
+            Classes.Models.Day dayToAdd = new Classes.Models.Day
+            {
+                Date = givenDate
+            };
+
+            //check if the year exists if it does add the day and member to the already existing year
+            foreach (Year year in mainYearList)
+            {
+                if (givenDate.Year == year.ThisYear.Year)
+                {
+                    yearExists = true;
+                    tempYear = year;
+                }
+            }
+
+            //if the year does not exist we create a new year and add te day and member to the new year
+            if (!yearExists)
+            {
+                tempYear = new Year(new DateTime(givenDate.Year, 0, 0));
+                mainYearList.Add(tempYear);
+            }
+
+            tempYear.AddDay(dayToAdd, memberToAdd);
         }
     }
 }

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.pnSideMenu = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEditRecord = new System.Windows.Forms.Button();
+            this.btnDeleteRecord = new System.Windows.Forms.Button();
             this.pnlMenuSecondPanel = new System.Windows.Forms.Panel();
             this.btnPlanning = new System.Windows.Forms.Button();
             this.btnMonthOverview = new System.Windows.Forms.Button();
@@ -216,8 +216,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnSideMenu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnSideMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnSideMenu.Controls.Add(this.button2);
-            this.pnSideMenu.Controls.Add(this.button1);
+            this.pnSideMenu.Controls.Add(this.btnEditRecord);
+            this.pnSideMenu.Controls.Add(this.btnDeleteRecord);
             this.pnSideMenu.Controls.Add(this.pnlMenuSecondPanel);
             this.pnSideMenu.Controls.Add(this.btnAddToPlanning);
             this.pnSideMenu.Controls.Add(this.dtpStartTime);
@@ -237,25 +237,27 @@
             this.pnSideMenu.Size = new System.Drawing.Size(1193, 142);
             this.pnSideMenu.TabIndex = 0;
             // 
-            // button2
+            // btnEditRecord
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(364, 90);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(172, 46);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Aanpassen";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnEditRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditRecord.Location = new System.Drawing.Point(364, 90);
+            this.btnEditRecord.Name = "btnEditRecord";
+            this.btnEditRecord.Size = new System.Drawing.Size(172, 46);
+            this.btnEditRecord.TabIndex = 15;
+            this.btnEditRecord.Text = "Aanpassen";
+            this.btnEditRecord.UseVisualStyleBackColor = true;
+            this.btnEditRecord.Click += new System.EventHandler(this.btnEditRecord_Click);
             // 
-            // button1
+            // btnDeleteRecord
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(184, 90);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(172, 46);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Verwijderen";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnDeleteRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteRecord.Location = new System.Drawing.Point(184, 90);
+            this.btnDeleteRecord.Name = "btnDeleteRecord";
+            this.btnDeleteRecord.Size = new System.Drawing.Size(172, 46);
+            this.btnDeleteRecord.TabIndex = 14;
+            this.btnDeleteRecord.Text = "Verwijderen";
+            this.btnDeleteRecord.UseVisualStyleBackColor = true;
+            this.btnDeleteRecord.Click += new System.EventHandler(this.btnDeleteRecord_Click);
             // 
             // pnlMenuSecondPanel
             // 
@@ -308,6 +310,7 @@
             this.btnStaffMemberOverview.TabIndex = 11;
             this.btnStaffMemberOverview.Text = "Werknemers overzicht";
             this.btnStaffMemberOverview.UseVisualStyleBackColor = true;
+            this.btnStaffMemberOverview.Click += new System.EventHandler(this.btnStaffMemberOverview_Click);
             // 
             // btnRealHours
             // 
@@ -2104,8 +2107,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmEndTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmWorkplace;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmAmountOfHours;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEditRecord;
+        private System.Windows.Forms.Button btnDeleteRecord;
         private System.Windows.Forms.DateTimePicker dtpDateTimePicker;
     }
 }

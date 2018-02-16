@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DataRepo\DatabasePlanning.cs" />
+    <Compile Include="Classes\Enums\PlannableFunction.cs" />
     <Compile Include="Classes\Enums\Function.cs" />
     <Compile Include="Classes\Enums\Workplace.cs" />
     <Compile Include="Classes\Error\ErrorHandler.cs" />
@@ -77,29 +78,11 @@
     <Compile Include="Classes\Models\StaffMember.cs" />
     <Compile Include="Classes\Models\Week.cs" />
     <Compile Include="Classes\Models\Year.cs" />
-    <Compile Include="Screens\Barco.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Screens\Barco.Designer.cs">
-      <DependentUpon>Barco.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Screens\Denver.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Screens\Denver.Designer.cs">
-      <DependentUpon>Denver.cs</DependentUpon>
-    </Compile>
     <Compile Include="Screens\Directie.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Screens\Directie.Designer.cs">
       <DependentUpon>Directie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Screens\Fiesta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Screens\Fiesta.Designer.cs">
-      <DependentUpon>Fiesta.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\Login.cs">
       <SubType>Form</SubType>
@@ -115,9 +98,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Screens\Denver.resx">
-      <DependentUpon>Denver.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Screens\Directie.resx">
       <DependentUpon>Directie.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,6 +117,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

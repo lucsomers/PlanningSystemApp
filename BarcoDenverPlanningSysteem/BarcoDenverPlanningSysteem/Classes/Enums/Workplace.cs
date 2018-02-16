@@ -32,9 +32,9 @@ namespace BarcoDenverPlanningSysteem
                 case Workplace.Fiesta:
                     return "Fiesta";
                 case Workplace.NoFunctionDetected:
-                    return "Onbekende functie";
+                    return "Geen werkplek beschikbaar";
                 default:
-                    return "Geen functie beschikbaar";
+                    return "Geen werkplek beschikbaar";
             }
         }
     }
