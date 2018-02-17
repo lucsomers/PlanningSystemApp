@@ -11,18 +11,6 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
 {
     public class DatabasePlanning
     {
-        [Obsolete("Function is obsolent because we fill the datagridview in this class now")]
-        public List<Year> LoadYearOfCurrentUser(MySqlConnection connection, Workplace currentUser)
-        {
-            List<Year> toReturn = new List<Year>();
-
-            LoadYears(toReturn, connection, currentUser);
-            LoadMonthsOfYear(toReturn, connection, getWorkplaceDatabaseString(currentUser));
-            LoadDaysOfMonth(toReturn, connection, getWorkplaceDatabaseString(currentUser));
-
-            return toReturn;
-        }
-
         private string getWorkplaceDatabaseString(Workplace currentUser)
         {
             return currentUser.ToFriendlyString();
@@ -64,8 +52,8 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             foreach (Year y in list)
             {
                 string sql = @"SELECT m.`id`, m.`date`
-                               FROM month AS m
-                               INNER JOIN year_month AS ym
+                               FROM `month` AS m
+                               INNER JOIN `month_year` AS ym
                                ON ym.`year_id` = @yearID
                                WHERE ym.`month_id` = m.`id`";
                 connection.Open();
@@ -89,16 +77,50 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             }
         }
 
-        public void FillPlanningTableWithData(DataGridView tableToFill, MySqlConnection connection, Workplace currentUser)
+        public string FillPlanningTableWithData(DataGridView tableToFill, MySqlConnection connection, Workplace currentUser,DateTime dateToFill, int planning)
         {
             List<Year> lstYear = new List<Year>();
 
+            string toReturn = "";
+
             LoadYears(lstYear, connection, currentUser);
             LoadMonthsOfYear(lstYear, connection, getWorkplaceDatabaseString(currentUser));
-            LoadDaysOfMonth(lstYear, connection, getWorkplaceDatabaseString(currentUser));
+            LoadDaysOfMonth(lstYear, connection, getWorkplaceDatabaseString(currentUser), planning);
+
+            foreach (Year y in lstYear)
+            {
+                foreach (Month m in y.MonthsInYear)
+                {
+                    foreach (Models.Day d in m.DaysInMonth)
+                    {
+                        if (d.Date == dateToFill.Date)
+                        {
+                            int index = 0;
+                            
+                            foreach (StaffMember s in d.StaffMembers)
+                            {
+                                tableToFill.Rows.Add(new DataGridViewRow());
+                                tableToFill.Rows[index].Cells[0].Value = s.Name;
+                                tableToFill.Rows[index].Cells[1].Value = s.StartTime.ToString();
+                                tableToFill.Rows[index].Cells[2].Value = s.EndTime.ToString();
+                                tableToFill.Rows[index].Cells[3].Value = s.FunctionOfDay.ToFriendlyString();
+                                tableToFill.Rows[index].Cells[4].Value = s.AmountOfWorkedHours(false);
+                            }
+                            index++;
+
+                            if (d.StaffMembers.Count >= 1)
+                            {
+                                toReturn = d.DayComment;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return toReturn;
         }
 
-        private void LoadDaysOfMonth(List<Year> list, MySqlConnection connection, string workplaceToSearchFor)
+        private void LoadDaysOfMonth(List<Year> list, MySqlConnection connection, string workplaceToSearchFor, int planning)
         {
             string sql = @"SELECT d.`id`, d.`date`, d.`admin_comment`, d.`day_comment`, 
                                           d.`staff_comment`, d.`expected_revenue`, d.`kitchen_revenue`, 
@@ -112,7 +134,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                 foreach (Month m in y.MonthsInYear)
                 {
                     //write querry
-                    
+
                     connection.Open();
 
                     MySqlCommand cmd = new MySqlCommand(sql, connection);
@@ -134,22 +156,63 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                                 reader.GetDateTime("date"),
                                 reader.GetString("staff_comment"),
                                 reader.GetString("admin_comment"),
+                                reader.GetString("day_comment"),
                                 new List<StaffMember>());
+                            m.DaysInMonth.Add(tempDay);
                         }
                     }
                     connection.Close();
 
                     //add staffmembers to day
-                    LoadStaffmembersInDays(m);
+                    LoadStaffmembersInDays(m, connection, planning);
                     //add days to month
                 }
             }
         }
 
-        private void LoadStaffmembersInDays(Month month)
+        private void LoadStaffmembersInDays(Month month, MySqlConnection connection, int planning)
         {
-            //TODO:A HIGH write complex sql string to get staff from day in month
-            string sql = @"SELECT s.``"
+            string sql = @"SELECT s.`id`, s.`earnings`, s.`name` AS staffMemberName, s.`default_function_id`,
+                                  f.`name` AS functionName, ds.`start_time`, ds.`end_time`, ds.`pause_time`
+                                  FROM `staff` AS s
+                                  INNER JOIN `day_staff` AS ds
+                                  ON s.`id` = ds.`staff_id`
+                                  INNER JOIN `function` AS f
+                                  ON ds.`function_id` = f.`id`
+                                  INNER JOIN `day` AS d
+                                  ON d.`id` = ds.`day_id`
+                                  WHERE ds.`day_id` = @dayID
+                                  AND d.`planning` = @b";
+
+            foreach (Models.Day d in month.DaysInMonth)
+            {
+                connection.Open();
+
+                MySqlCommand cmd = new MySqlCommand(sql, connection);
+                //add parameters
+                cmd.Parameters.AddWithValue("dayID", d.Id);
+                cmd.Parameters.AddWithValue("b",planning);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //create staffmember from data
+                        StaffMember tempMember = new StaffMember(reader.GetInt32("id"), reader.GetString("staffMemberName"), reader.GetDouble("earnings"),
+                            Function.NoFunctionDetected, Function.NoFunctionDetected,
+                            reader.GetTimeSpan("pause_time"), reader.GetTimeSpan("start_time"), reader.GetTimeSpan("end_time"));
+
+                        //change string function to enum function
+                        tempMember.FunctionOfDay = FunctionExtension.stringToEnum(reader.GetString("functionName"));
+
+                        //add staffmember to day
+                        d.AddStaffMember(tempMember);
+                    }
+                }
+                connection.Close();
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using BarcoDenverPlanningSysteem.Classes.Models;
 using BarcoDenverPlanningSysteem.Classes.DataRepo;
+using BarcoDenverPlanningSysteem.Classes.Error;
 
 namespace BarcoDenverPlanningSysteem
 {
@@ -14,6 +15,7 @@ namespace BarcoDenverPlanningSysteem
         MySqlConnection connection = new MySqlConnection();
         DatabaseUsers dbUsers = new DatabaseUsers();
         DatabasePlanning dbPlanning = new DatabasePlanning();
+        ErrorHandler error = new ErrorHandler();
 
         /// <summary>
         /// geeft de database zijn connectie een connectie string zodat er querrys uitgevoerd kunnen worden
@@ -49,9 +51,18 @@ namespace BarcoDenverPlanningSysteem
             return dbUsers.CheckCodeForLogin(code, connection);
         }
 
-        public void FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser)
+        public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, int planning)
         {
-            dbPlanning.FillPlanningTableWithData(tableToFill, connection, currentUser);
+            if (tableToFill != null)
+            {
+                return dbPlanning.FillPlanningTableWithData(tableToFill, connection, currentUser, dateToFill, planning);
+            }
+            else
+            {
+                MessageBox.Show(error.CantFillPlanningMessage());
+            }
+
+            return "";
         }
 
         /// <summary>
@@ -83,14 +94,9 @@ namespace BarcoDenverPlanningSysteem
             return dbUsers.GetCodeFromFunction(workplace,connection);
         }
 
-        public string[] GetListOfStaffMembers()
+        public string[] GetListOfStaffMembers(Workplace currentUser)
         {
-            return dbUsers.GetListOfAllStaffmMembers(connection);
-        }
-
-        public List<Year> LoadYearsOfCurrentUser(Workplace currentUser)
-        {
-            return dbPlanning.LoadYearOfCurrentUser(connection, currentUser);
+            return dbUsers.GetListOfAllStaffmMembers(connection, currentUser);
         }
     }
 }

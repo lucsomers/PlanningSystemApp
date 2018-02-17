@@ -44,11 +44,11 @@ namespace BarcoDenverPlanningSysteem
             {
                 case Workplace.Directie:
                     return 1;
-                case Workplace.Denver:
+                case Workplace.Keuken:
                     return 2;
                 case Workplace.Barco:
                     return 3;
-                case Workplace.Keuken:
+                case Workplace.Denver:
                     return 4;
                 case Workplace.Fiesta:
                     return 5;

@@ -20,6 +20,39 @@ namespace BarcoDenverPlanningSysteem
     }
     public static class FunctionExtension
     {
+        public static Function stringToEnum(string s)
+        {
+            switch (s)
+            {
+                case "barco keuken":
+                    return Function.BarcoKeuken;
+
+                case "barco bar":
+                    return Function.Barco_Bar;
+
+                case "afwas denver en barco":
+                    return Function.Barco_Denver_Afwas;
+
+                case "denver bar":
+                    return Function.Denver_Bar;
+
+                case "denver keuken":
+                    return Function.Denver_Keuken;
+
+                case "afwas fiesta":
+                    return Function.Fiesta_Afwas;
+
+                case "fiesta bar":
+                    return Function.Fiesta_Bar;
+
+                case "fiesta keuken":
+                    return Function.Fiesta_Keuken;
+
+                default:
+                    return Function.NoFunctionDetected;
+            }
+        }
+
         public static string ToFriendlyString(this Function me)
         {
             switch (me)
@@ -28,15 +61,15 @@ namespace BarcoDenverPlanningSysteem
                 case Function.NoFunctionDetected:
                     return "Geen functie beschikbaar";
                 case Function.Denver_Bar:
-                    return "Bar";
+                    return "Bediening";
                 case Function.Denver_Keuken:
-                    return "Keuken";
+                    return "Denver keuken";
                 case Function.Barco_Bar:
-                    return "Bar";
+                    return "Bediening";
                 case Function.BarcoKeuken:
-                    return "Keuken";
+                    return "Barco keuken";
                 case Function.Fiesta_Bar:
-                    return "Bar";
+                    return "Bediening";
                 case Function.Fiesta_Keuken:
                     return "Keuken";
                 case Function.Fiesta_Afwas:

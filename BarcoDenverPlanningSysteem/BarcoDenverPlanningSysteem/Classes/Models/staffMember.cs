@@ -17,17 +17,42 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         private Function defaultFunction;
 
         private Function functionOfDay;
-        private DateTime pauseTime;
-        private DateTime startTime;
-        private DateTime endTime;
+        private TimeSpan pauseTime;
+        private TimeSpan startTime;
+        private TimeSpan endTime;
+
+        public StaffMember(int id, Function functionOfDay, TimeSpan pauseTime, TimeSpan startTime, TimeSpan endTime)
+        {
+            this.functionOfDay = functionOfDay;
+            this.pauseTime = pauseTime;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.id = id;
+        }
+
+        public StaffMember(int id, string name, double earnings, Function defaultFunction)
+        {
+            this.id = id;
+            this.name = name;
+            this.earnings = earnings;
+            this.defaultFunction = defaultFunction;
+        }
+
+        public StaffMember(int id, string name, double earnings, Function defaultFunction, Function functionOfDay, TimeSpan pauseTime, TimeSpan startTime, TimeSpan endTime) : this(id, name, earnings, defaultFunction)
+        {
+            this.functionOfDay = functionOfDay;
+            this.pauseTime = pauseTime;
+            this.startTime = startTime;
+            this.endTime = endTime;
+        }
 
         /// <summary>
         /// berekent het aantal gewerkte uren voor dit persoon op een dag
         /// </summary>
         /// <param name="startTime">begin tijd</param>
         /// <param name="endTime">eind tijd</param>
-        /// <returns>geeft een datetime object terug met daarin het aantal gewerkte uren en het aantal gewerkte minuten</returns>
-        public DateTime AmountOfWorkedHours(bool withPauseTime)
+        /// <returns>geeft een TimeSpan object terug met daarin het aantal gewerkte uren en het aantal gewerkte minuten</returns>
+        public TimeSpan AmountOfWorkedHours(bool withPauseTime)
         {
             if (!withPauseTime)
             {
@@ -35,12 +60,12 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             }
             else
             {
-                DateTime dateTime = countUpStartAndEndTime(startTime, endTime);
+                TimeSpan dateTime = countUpStartAndEndTime(startTime, endTime);
 
                 int tempHours = (dateTime - pauseTime).Hours;
                 int tempMinutes = (dateTime - pauseTime).Minutes;
 
-                return new DateTime(0, 0, 0, tempHours, tempMinutes, 0);
+                return new TimeSpan(tempHours, tempMinutes, 0);
             }
            
         }
@@ -51,12 +76,12 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         /// <param name="startTime">begintijd</param>
         /// <param name="endTime">eindtijd</param>
         /// <returns>het aantal gewerkte uren</returns>
-        private DateTime countUpStartAndEndTime(DateTime startTime, DateTime endTime)
+        private TimeSpan countUpStartAndEndTime(TimeSpan startTime, TimeSpan endTime)
         {
             int tempHours = (endTime - startTime).Hours;
             int tempMinutes = (endTime - startTime).Minutes;
 
-            return new DateTime(0, 0, 0, tempHours, tempMinutes, 0);
+            return new TimeSpan(tempHours, tempMinutes, 0);
         }
 
         public int Id { get => id; set => id = value; }
@@ -64,5 +89,9 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         public double Earnings { get => earnings; set => earnings = value; }
         public Function FunctionOfDay { get => functionOfDay; set => functionOfDay = value; }
         public Function DefaultFunction { get => defaultFunction; set => defaultFunction = value; }
+        public Function FunctionOfDay1 { get => functionOfDay; set => functionOfDay = value; }
+        public TimeSpan PauseTime { get => pauseTime; set => pauseTime = value; }
+        public TimeSpan StartTime { get => startTime; set => startTime = value; }
+        public TimeSpan EndTime { get => endTime; set => endTime = value; }
     }
 }

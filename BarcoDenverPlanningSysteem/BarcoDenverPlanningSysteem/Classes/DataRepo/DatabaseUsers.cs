@@ -165,16 +165,21 @@ namespace BarcoDenverPlanningSysteem
             return toReturn;
         }
 
-        public string[] GetListOfAllStaffmMembers(MySqlConnection connection)
+        public string[] GetListOfAllStaffmMembers(MySqlConnection connection, Workplace currentUser)
         {
             List<string> lstToreturn = new List<string>();
 
-            string sql = @"SELECT `name`
-                          FROM `staff`";
+            string sql = @"SELECT s.`name`
+                          FROM `staff` AS s
+                          INNER JOIN `workplace_staff` AS ws
+                          ON ws.`workplace_id` = @workplaceID
+                          WHERE s.`id` = ws.`staff_id`";
 
             connection.Open();
 
             MySqlCommand cmd = new MySqlCommand(sql, connection);
+            //add parameters
+            cmd.Parameters.AddWithValue("workplaceID", currentUser.ToID());
 
             MySqlDataReader reader = cmd.ExecuteReader();
 

@@ -37,76 +37,15 @@ namespace BarcoDenverPlanningSysteem
             //hiding correct buttons
             HideStaffCost(true);
         }
-
-        private void HideStaffCost(bool hide)
-        {
-            if (hide)
-            {
-                txtStaffCostMonday.Hide();
-                txtStaffCostTuesday.Hide();
-                txtStaffCostWednesday.Hide();
-                txtStaffCostThursday.Hide();
-                txtStaffCostFriday.Hide();
-                txtStaffCostSaturday.Hide();
-                txtStaffCostSunday.Hide();
-
-                lblStaffCostMonday.Hide();
-                lblStaffCostTuesday.Hide();
-                lblStaffCostWednesday.Hide();
-                lblStaffCostThursday.Hide();
-                lblStaffCostFriday.Hide();
-                lblStaffCostSaturday.Hide();
-                lblStaffCostSunday.Hide();
-
-                lblBreakTime.Hide();
-                dtpBreakTime.Hide();
-
-                pnlMonday.Show();
-                pnlTuesday.Show();
-                pnlWednesday.Show();
-                pnlThursday.Show();
-                pnlFriday.Show();
-                pnlSaturday.Show();
-                pnlSunday.Show();
-            }
-            else
-            {
-                txtStaffCostMonday.Show();
-                txtStaffCostTuesday.Show();
-                txtStaffCostWednesday.Show();
-                txtStaffCostThursday.Show();
-                txtStaffCostFriday.Show();
-                txtStaffCostSaturday.Show();
-                txtStaffCostSunday.Show();
-
-                lblStaffCostMonday.Show();
-                lblStaffCostTuesday.Show();
-                lblStaffCostWednesday.Show();
-                lblStaffCostThursday.Show();
-                lblStaffCostFriday.Show();
-                lblStaffCostSaturday.Show();
-                lblStaffCostSunday.Show();
-
-                lblBreakTime.Show();
-                dtpBreakTime.Show();
-
-                pnlMonday.Hide();
-                pnlTuesday.Hide();
-                pnlWednesday.Hide();
-                pnlThursday.Hide();
-                pnlFriday.Hide();
-                pnlSaturday.Hide();
-                pnlSunday.Hide();
-            }
-        }
-
+        
         private void btnRealHours_Click(object sender, EventArgs e)
         {
             btnPlanning.Enabled = true;
             btnRealHours.Enabled = false;
 
             HideStaffCost(false);
-            //TODO: show the real planning from data base
+
+            FillTables();
         }
 
         private void Keuken_Load(object sender, EventArgs e)
@@ -115,7 +54,6 @@ namespace BarcoDenverPlanningSysteem
             this.Text = repository.GetCurrentUser().ToFriendlyString();
 
             //sets the dates to the current date to start with
-            //TODO: check for the bug that occured here
             dtpDateTimePicker.Value = DateTime.Now;
             dtpDateTimePicker.Value = SetMonday(false);
             dtpDateTimePicker.Value = dtpDateTimePicker.Value.AddHours(10);
@@ -125,7 +63,7 @@ namespace BarcoDenverPlanningSysteem
             cbxWorkplace.Items.AddRange(repository.GetPlannableFunctionsAvailableToUser());
 
             //set 
-            //TODO: fill the planning with the planning from the database
+            FillTables();
         }
 
         private void txtExpectedRevenueMonday_KeyPress(object sender, KeyPressEventArgs e)
@@ -141,45 +79,10 @@ namespace BarcoDenverPlanningSysteem
             if (!busy)
             {
                 dtpDateTimePicker.Value = SetMonday(false);
-
+                SetDateLabels(dtpDateTimePicker.Value);
+                FillTables();
                 busy = false;
             }
-        }
-
-        //set all date labels to correct date
-        private void SetDateLabels(DateTime newdate)
-        {
-            DateTime temp = newdate;
-            string format = "dddd dd MMMM yyyy";
-
-            lblMonday.Text = temp.ToString(format); temp = temp.AddDays(1);
-            lblTeusday.Text = temp.ToString(format); temp = temp.AddDays(1);
-            lblWednesday.Text = temp.ToString(format); temp = temp.AddDays(1);
-            lblThursday.Text = temp.ToString(format); temp = temp.AddDays(1);
-            lblFriday.Text = temp.ToString(format); temp = temp.AddDays(1);
-            lblSaturday.Text = temp.ToString(format); temp = temp.AddDays(1);
-            lblSunday.Text = temp.ToString(format);
-        }
-
-        //sets the selected date to the monday of the selected week
-        private DateTime SetMonday(bool increment)
-        {
-            DateTime tempDateTime = dtpDateTimePicker.Value;
-            
-            while (tempDateTime.DayOfWeek != DayOfWeek.Monday)
-            {
-                if (increment)
-                {
-                    tempDateTime = tempDateTime.AddDays(1);
-                }
-                else
-                {
-                    tempDateTime = tempDateTime.AddDays(-1);
-                }
-            }
-
-
-            return tempDateTime;
         }
 
         private void btnMonthOverview_Click(object sender, EventArgs e)
@@ -193,7 +96,7 @@ namespace BarcoDenverPlanningSysteem
             btnRealHours.Enabled = true;
 
             HideStaffCost(true);
-            //TODO:Show The normal planning of the logged in user
+            FillTables();
         }
 
         private void btnAddToPlanning_Click(object sender, EventArgs e)
@@ -236,5 +139,302 @@ namespace BarcoDenverPlanningSysteem
         {
             //TODO: show an overview of all the staffmembers a person can plan
         }
+
+        #region Private Function not connected to events
+        //Fill all tables with data from the database
+        private void FillTables()
+        {
+            //TODO: Expected revenue show on screen
+
+            //int that represents the boolean for real_planning or normal_planning
+            int planning = Convert.ToInt32(btnPlanning.Enabled);
+
+            //clear all text boxes before filling the right ones 
+            clearDayOfWeekTextBoxes();
+
+            #region row clears and filling tables and commentbox
+            //rows clear
+            dgvMonday.Rows.Clear();
+            repository.FillPlanningtableWithData(dgvMonday, dtpDateTimePicker.Value, planning, tbxCommentMonday);
+
+
+            //rows clear
+            dgvTuesday.Rows.Clear();
+            repository.FillPlanningtableWithData(dgvTuesday, dtpDateTimePicker.Value.AddDays(1), planning, tbxCommentTuesday);
+
+
+            //rows clear
+            dgvWednesday.Rows.Clear();
+            repository.FillPlanningtableWithData(dgvWednesday, dtpDateTimePicker.Value.AddDays(2), planning, tbxCommentWednesday);
+
+
+            //rows clear
+            dgvThursday.Rows.Clear();
+            repository.FillPlanningtableWithData(dgvThursday, dtpDateTimePicker.Value.AddDays(3), planning, tbxCommentThursday);
+
+
+            //rows clear
+            dgvFriday.Rows.Clear();
+            repository.FillPlanningtableWithData(dgvFriday, dtpDateTimePicker.Value.AddDays(4), planning, tbxCommentFriday);
+
+
+            //rows clear
+            dgvSaturday.Rows.Clear();
+            //table fill
+            repository.FillPlanningtableWithData(dgvSaturday, dtpDateTimePicker.Value.AddDays(5), planning, tbxCommentSaturday);
+
+
+            //rows clear
+            dgvSunday.Rows.Clear();
+            //table fill
+            repository.FillPlanningtableWithData(dgvSunday, dtpDateTimePicker.Value.AddDays(6), planning, tbxCommentSunday);
+            #endregion
+
+            #region fill textboxes
+            FillTextboxes(dgvSunday, DayOfWeek.Sunday);
+            FillTextboxes(dgvSaturday, DayOfWeek.Saturday);
+            FillTextboxes(dgvFriday, DayOfWeek.Friday);
+            FillTextboxes(dgvThursday, DayOfWeek.Thursday);
+            FillTextboxes(dgvWednesday, DayOfWeek.Wednesday);
+
+            FillTextboxes(dgvTuesday, DayOfWeek.Tuesday);
+            FillTextboxes(dgvMonday, DayOfWeek.Monday);
+            #endregion
+        }
+
+        private void FillTextboxes(DataGridView dgv, DayOfWeek dayOfWeek)
+        {
+            Dictionary<string, int> dir = new Dictionary<string, int>();
+
+            switch (dayOfWeek)
+            {
+                case DayOfWeek.Sunday:
+                    dir = repository.countNumbers(dgv);
+                    if (dir.Count >= 1)
+                    {
+                        txtAmountOfCleanersSunday.Text = dir["afwas"].ToString();
+                        txtAmountOfKitchenSunday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
+                        txtAmountOfServersSunday.Text = dir["bediening"].ToString();
+                        txtAmountOfStandBySunday.Text = dir["stand-by"].ToString();
+                    }
+                    break;
+
+                case DayOfWeek.Monday:
+                    dir = repository.countNumbers(dgv);
+                    if (dir.Count >= 1)
+                    {
+                        txtAmountOfCleanersMonday.Text = dir["afwas"].ToString();
+                        txtAmountOfKitchenMonday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
+                        txtAmountOfServersMonday.Text = dir["bediening"].ToString();
+                        txtAmountOfStandByMonday.Text = dir["stand-by"].ToString();
+                    }
+                    break;
+
+                case DayOfWeek.Tuesday:
+                    dir = repository.countNumbers(dgv);
+                    if (dir.Count >= 1)
+                    {
+                        txtAmountOfCleanersTuesday.Text = dir["afwas"].ToString();
+                        txtAmountOfKitchenTuesday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
+                        txtAmountOfServersTuesday.Text = dir["bediening"].ToString();
+                        txtAmountOfStandbyTuesday.Text = dir["stand-by"].ToString();
+                    }
+                    break;
+
+                case DayOfWeek.Wednesday:
+                    dir = repository.countNumbers(dgv);
+                    if (dir.Count >= 1)
+                    {
+                        txtAmountOfCleanersWednesday.Text = dir["afwas"].ToString();
+                        txtAmountOfKitchenWednesday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
+                        txtAmountOfServersWednesday.Text = dir["bediening"].ToString();
+                        txtAmountOfStandByWednesday.Text = dir["stand-by"].ToString();
+                    }
+                    break;
+
+                case DayOfWeek.Thursday:
+                    dir = repository.countNumbers(dgv);
+                    if (dir.Count >= 1)
+                    {
+                        txtAmountOfCleanersThursday.Text = dir["afwas"].ToString();
+                        txtAmountOfKitchenThursday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
+                        txtAmountOfServersThursday.Text = dir["bediening"].ToString();
+                        txtAmountOfStandByThursday.Text = dir["stand-by"].ToString();
+                    }
+                    break;
+
+                case DayOfWeek.Friday:
+                    dir = repository.countNumbers(dgv);
+                    if (dir.Count >= 1)
+                    {
+                        txtAmountOfCleanersFriday.Text = dir["afwas"].ToString();
+                        txtAmountOfKitchenFriday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
+                        txtAmountOfServersFriday.Text = dir["bediening"].ToString();
+                        txtAmountOfStandByFriday.Text = dir["stand-by"].ToString();
+                    }
+                    break;
+
+                case DayOfWeek.Saturday:
+                    dir = repository.countNumbers(dgv);
+                    if (dir.Count >= 1)
+                    {
+                        txtAmountOfCleanersSaturday.Text = dir["afwas"].ToString();
+                        txtAmountOfKitchenSaturday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
+                        txtAmountOfServersSaturday.Text = dir["bediening"].ToString();
+                        txtAmountOfSStandBySaturday.Text = dir["stand-by"].ToString();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void clearDayOfWeekTextBoxes()
+        {
+            txtAmountOfCleanersFriday.Text = "";
+            txtAmountOfCleanersMonday.Text = "";
+            txtAmountOfCleanersSaturday.Text = "";
+            txtAmountOfCleanersSunday.Text = "";
+            txtAmountOfCleanersThursday.Text = "";
+            txtAmountOfCleanersTuesday.Text = "";
+            txtAmountOfCleanersWednesday.Text = "";
+            txtAmountOfKitchenFriday.Text = "";
+            txtAmountOfKitchenMonday.Text = "";
+            txtAmountOfKitchenSaturday.Text = "";
+            txtAmountOfKitchenSunday.Text = "";
+            txtAmountOfKitchenThursday.Text = "";
+            txtAmountOfKitchenTuesday.Text = "";
+            txtAmountOfKitchenWednesday.Text = "";
+            txtAmountOfServersFriday.Text = "";
+            txtAmountOfServersMonday.Text = "";
+            txtAmountOfServersSaturday.Text = "";
+            txtAmountOfServersSunday.Text = "";
+            txtAmountOfServersThursday.Text = "";
+            txtAmountOfServersTuesday.Text = "";
+            txtAmountOfServersWednesday.Text = "";
+            txtAmountOfSStandBySaturday.Text = "";
+            txtAmountOfStandByFriday.Text = "";
+            txtAmountOfStandByMonday.Text = "";
+            txtAmountOfStandBySunday.Text = "";
+            txtAmountOfStandByThursday.Text = "";
+            txtAmountOfStandbyTuesday.Text = "";
+            txtAmountOfStandByWednesday.Text = "";
+            txtExpectedRevenueFriday.Text = "";
+            txtExpectedRevenueMonday.Text = "";
+            txtExpectedRevenueSaturday.Text = "";
+            txtExpectedRevenueSunday.Text = "";
+            txtExpectedRevenueThursday.Text = "";
+            txtExpectedRevenueTuesday.Text = "";
+            txtExpectedRevenueWednesday.Text = "";
+            tbxCommentFriday.Text = "";
+            tbxCommentMonday.Text = "";
+            tbxCommentSaturday.Text = "";
+            tbxCommentSunday.Text = "";
+            tbxCommentThursday.Text = "";
+            tbxCommentTuesday.Text = "";
+            tbxCommentWednesday.Text = "";
+        }
+
+        //set all date labels to correct date
+        private void SetDateLabels(DateTime newdate)
+        {
+            DateTime temp = newdate;
+            string format = "dddd dd MMMM yyyy";
+
+            lblMonday.Text = temp.ToString(format); temp = temp.AddDays(1);
+            lblTeusday.Text = temp.ToString(format); temp = temp.AddDays(1);
+            lblWednesday.Text = temp.ToString(format); temp = temp.AddDays(1);
+            lblThursday.Text = temp.ToString(format); temp = temp.AddDays(1);
+            lblFriday.Text = temp.ToString(format); temp = temp.AddDays(1);
+            lblSaturday.Text = temp.ToString(format); temp = temp.AddDays(1);
+            lblSunday.Text = temp.ToString(format);
+        }
+
+        //sets the selected date to the monday of the selected week
+        private DateTime SetMonday(bool increment)
+        {
+            DateTime tempDateTime = dtpDateTimePicker.Value;
+
+            while (tempDateTime.DayOfWeek != DayOfWeek.Monday)
+            {
+                if (increment)
+                {
+                    tempDateTime = tempDateTime.AddDays(1);
+                }
+                else
+                {
+                    tempDateTime = tempDateTime.AddDays(-1);
+                }
+            }
+
+
+            return tempDateTime;
+        }
+        private void HideStaffCost(bool hide)
+        {
+            if (hide)
+            {
+                //planning
+                txtStaffCostMonday.Hide();
+                txtStaffCostTuesday.Hide();
+                txtStaffCostWednesday.Hide();
+                txtStaffCostThursday.Hide();
+                txtStaffCostFriday.Hide();
+                txtStaffCostSaturday.Hide();
+                txtStaffCostSunday.Hide();
+
+                lblStaffCostMonday.Hide();
+                lblStaffCostTuesday.Hide();
+                lblStaffCostWednesday.Hide();
+                lblStaffCostThursday.Hide();
+                lblStaffCostFriday.Hide();
+                lblStaffCostSaturday.Hide();
+                lblStaffCostSunday.Hide();
+
+                lblBreakTime.Hide();
+                dtpBreakTime.Hide();
+
+                pnlMonday.Show();
+                pnlTuesday.Show();
+                pnlWednesday.Show();
+                pnlThursday.Show();
+                pnlFriday.Show();
+                pnlSaturday.Show();
+                pnlSunday.Show();
+            }
+            else
+            {
+                //real
+                txtStaffCostMonday.Show();
+                txtStaffCostTuesday.Show();
+                txtStaffCostWednesday.Show();
+                txtStaffCostThursday.Show();
+                txtStaffCostFriday.Show();
+                txtStaffCostSaturday.Show();
+                txtStaffCostSunday.Show();
+
+                lblStaffCostMonday.Show();
+                lblStaffCostTuesday.Show();
+                lblStaffCostWednesday.Show();
+                lblStaffCostThursday.Show();
+                lblStaffCostFriday.Show();
+                lblStaffCostSaturday.Show();
+                lblStaffCostSunday.Show();
+
+                lblBreakTime.Show();
+                dtpBreakTime.Show();
+
+                pnlMonday.Hide();
+                pnlTuesday.Hide();
+                pnlWednesday.Hide();
+                pnlThursday.Hide();
+                pnlFriday.Hide();
+                pnlSaturday.Hide();
+                pnlSunday.Hide();
+            }
+        }
+
+        #endregion
     }
 }

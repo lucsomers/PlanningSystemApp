@@ -34,7 +34,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
                 if (d.Date.Day == dateTime.Date.Day)
                 {
                     //when the day already exist just add the member to the existing date
-                    d.AddStaffMember(memberToAdd);
+                    //d.AddStaffMember(memberToAdd);
                     memberDateExists = true;
                     break;
                 }
@@ -43,7 +43,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             //When day does not exist add a new day to this month
             if (!memberDateExists)
             {
-                dateTime.AddStaffMember(memberToAdd);
+                //dateTime.AddStaffMember(memberToAdd);
                 realityDaysInMonth.Add(dateTime);
             }
         }

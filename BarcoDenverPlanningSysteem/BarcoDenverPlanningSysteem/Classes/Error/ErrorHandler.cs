@@ -8,6 +8,11 @@ namespace BarcoDenverPlanningSysteem.Classes.Error
 {
     class ErrorHandler
     {
+        public string CantFillPlanningMessage()
+        {
+            return "Oeps! Er is iets fout gegaan met het in laden van de huidige planning." + Environment.NewLine + "Controleer uw internet verbinding en herstart de applicatie" + Environment.NewLine + "wanneer dit probleem zich blijft voordoen contacteer de administrator voor verderen hulp";
+        }
+
         public string WrongTimeMessage()
         {
             return "De begin tijd is kleiner dan of gelijk aan de eindtijd vul alstublieft een geldig tijdsbereik";

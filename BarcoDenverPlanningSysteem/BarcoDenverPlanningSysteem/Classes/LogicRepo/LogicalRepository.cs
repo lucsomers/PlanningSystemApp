@@ -39,18 +39,15 @@ namespace BarcoDenverPlanningSysteem
         /// <param name="earnings">earnings of the staffmember</param>
         public void AddStaffMember(string name, double earnings, string defaultWorkplace)
         {
-            StaffMember tempMember = new StaffMember
-            {
-                Name = name,
-                Earnings = earnings
-            };
+            StaffMember tempMember = new StaffMember(0, name, earnings, FunctionExtension.stringToEnum(defaultWorkplace));
             
             database.AddStaffMember(tempMember);
         }
 
-        public void FillPlanningtableWithData(DataGridView tableToFill)
+        public void FillPlanningtableWithData(DataGridView tableToFill, DateTime dateToFill, int planning, TextBox textBox)
         {
-            database.FillPlanningTableWithData(tableToFill, currentUser);
+            //sets commentbox
+            textBox.Text = database.FillPlanningTableWithData(tableToFill, currentUser, dateToFill, planning);
         }
 
         /// <summary>
@@ -88,40 +85,63 @@ namespace BarcoDenverPlanningSysteem
             List<string> availableFunctionsString = new List<string>();
             List<Function> availableFunctions = new List<Function>();
 
-            foreach (Function f in availableFunctions)
+            switch (currentUser)
             {
-                switch (f)
-                {
-                    case Function.Denver_Bar:
-                    case Function.Barco_Bar:
-                        availableFunctionsString.Add(PlannableFunction.Bar.ToFriendlyString());
-                        availableFunctionsString.Add(PlannableFunction.Bediening.ToFriendlyString());
-                        break;
-                    case Function.Denver_Keuken:
-                    case Function.BarcoKeuken:
-                    case Function.Barco_Denver_Afwas:
-                        availableFunctionsString.Add(PlannableFunction.Keuken.ToFriendlyString());
-                        availableFunctionsString.Add(PlannableFunction.Afwas.ToFriendlyString());
-                        break;
-                    case Function.Fiesta_Keuken:
-                    case Function.Fiesta_Bar:
-                    case Function.Fiesta_Afwas:
-                        availableFunctionsString.Add(PlannableFunction.Keuken.ToFriendlyString());
-                        availableFunctionsString.Add(PlannableFunction.Afwas.ToFriendlyString());
-                        availableFunctionsString.Add(PlannableFunction.Bar.ToFriendlyString());
-                        availableFunctionsString.Add(PlannableFunction.Bediening.ToFriendlyString());
-                        break;
-                    case Function.NoFunctionDetected:
-                        break;
-                    default:
-                        break;
-                }
+                case Workplace.Directie:
+                    break;
+                case Workplace.Denver:
+                    availableFunctionsString.Add(Function.Denver_Bar.ToFriendlyString());
+                    break;
+                case Workplace.Barco:
+                    availableFunctionsString.Add(Function.Denver_Bar.ToFriendlyString());
+                    break;
+                case Workplace.Keuken:
+                    availableFunctionsString.Add(Function.Denver_Keuken.ToFriendlyString());
+                    availableFunctionsString.Add(Function.Barco_Denver_Afwas.ToFriendlyString());
+                    availableFunctionsString.Add(Function.BarcoKeuken.ToFriendlyString());
+                    break;
+                case Workplace.Fiesta:
+                    availableFunctionsString.Add(Function.Fiesta_Afwas.ToFriendlyString());
+                    availableFunctionsString.Add(Function.Fiesta_Bar.ToFriendlyString());
+                    availableFunctionsString.Add(Function.Fiesta_Keuken.ToFriendlyString());
+                    break;
+                case Workplace.NoFunctionDetected:
+                    break;
             }
-           
+
             //elke lijst krijgt deze objecten
             availableFunctionsString.Add(PlannableFunction.StandBy.ToFriendlyString());
 
             return availableFunctionsString.ToArray();
+        }
+
+        public Dictionary<string,int> countNumbers(DataGridView dgv)
+        {
+            Dictionary<string, int> dir = new Dictionary<string, int>();
+            List<string> lstCountable = new List<string>();
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                lstCountable.Add(row.Cells[3].Value.ToString().ToLower());
+            }
+
+            if (lstCountable.Count >= 1)
+            {
+                string str = "bediening";
+                dir.Add(str, lstCountable.Where(s => s == str).Count());
+                str = "denver keuken";
+                dir.Add(str, lstCountable.Where(s => s == str).Count());
+                str = "barco keuken";
+                dir.Add(str, lstCountable.Where(s => s == str).Count());
+                str = "keuken";
+                dir.Add(str, lstCountable.Where(s => s == str).Count());
+                str = "afwas";
+                dir.Add(str, lstCountable.Where(s => s == str).Count());
+                str = "stand-by";
+                dir.Add(str, lstCountable.Where(s => s == str).Count());
+            }
+          
+            return dir;
         }
 
         /// <summary>
@@ -130,7 +150,7 @@ namespace BarcoDenverPlanningSysteem
         /// <returns>string array of all staffmembers</returns>
         public string[] GetListOfStaffMembers()
         {
-            return database.GetListOfStaffMembers();
+            return database.GetListOfStaffMembers(currentUser);
         }
 
         /// <summary>
@@ -171,14 +191,9 @@ namespace BarcoDenverPlanningSysteem
             return currentUser;
         }
 
-        public void LoadYearsOfCurrentUser()
-        {
-            mainYearList = database.LoadYearsOfCurrentUser(currentUser);
-        }
-
         public void AddDayToYear(DateTime givenDate)
         {
-            StaffMember memberToAdd = new StaffMember();
+            StaffMember memberToAdd = null;
             Year tempYear = null;
             bool yearExists = false;
 

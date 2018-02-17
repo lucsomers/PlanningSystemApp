@@ -17,6 +17,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
 
         private string staffComment;
         private string adminComment;
+        private string dayComment;
 
         private List<StaffMember> staffMembers;
 
@@ -25,7 +26,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             id = 0;
         }
 
-        public Day(double expectedRevenue, double revenue, int id, DateTime date, string staffComment, string adminComment, List<StaffMember> staffMembers)
+        public Day(double expectedRevenue, double revenue, int id, DateTime date, string staffComment, string adminComment, string dayComment, List<StaffMember> staffMembers)
         {
             this.expectedRevenue = expectedRevenue;
             this.revenue = revenue;
@@ -34,6 +35,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             this.staffComment = staffComment;
             this.adminComment = adminComment;
             this.staffMembers = staffMembers;
+            this.dayComment = dayComment;
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             
                 foreach (StaffMember member in staffMembers)
                 {
-                    tempDouble = member.Earnings * member.AmountOfWorkedHours(withPauseTime).Hour;
+                    tempDouble = member.Earnings * member.AmountOfWorkedHours(withPauseTime).TotalHours;
                 }
 
             return tempDouble;
@@ -87,7 +89,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
                 {
                     if (member.Id == memberID)
                     {
-                        tempDouble = member.Earnings * member.AmountOfWorkedHours(withPauseTime).Hour;
+                        tempDouble = member.Earnings * member.AmountOfWorkedHours(withPauseTime).TotalHours;
                     }
                 }
 
@@ -99,6 +101,8 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         public string StaffComment { get => staffComment; set => staffComment = value; }
         public string AdminComment { get => adminComment; set => adminComment = value; }
         public int Id { get => id; private set => id = value; }
+        public List<StaffMember> StaffMembers { get => staffMembers; private set => staffMembers = value; }
+        public string DayComment { get => dayComment; set => dayComment = value; }
 
         public void AddStaffMember(StaffMember member){ staffMembers.Add(member); }
     }
