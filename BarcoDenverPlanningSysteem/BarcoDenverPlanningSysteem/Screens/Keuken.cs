@@ -29,6 +29,9 @@ namespace BarcoDenverPlanningSysteem
 
         private void Setup()
         {
+            //set screen to dubble buffor for smoother rendering
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
             //setting variables
             lastDate = dtpDateTimePicker.Value;
             busy = false;
@@ -108,9 +111,11 @@ namespace BarcoDenverPlanningSysteem
                     //check lege velden
                     if (cbxStaffMemberName.Text != "" || cbxWorkplace.Text != "")
                     {
-                        //TODO: add a staffmember to the planning of the logged in person
-                    }
-                    else
+                    //TODO: add a staffmember to the planning of the logged in person
+                    
+                    
+                }
+                else
                     {
                         MessageBox.Show(error.NotEveryThingFilledInErrorMessage());
                     }
@@ -139,6 +144,7 @@ namespace BarcoDenverPlanningSysteem
         private void btnStaffMemberOverview_Click(object sender, EventArgs e)
         {
             //TODO: show an overview of all the staffmembers a person can plan
+
         }
 
         #region Private Function not connected to events

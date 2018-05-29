@@ -155,7 +155,7 @@ namespace BarcoDenverPlanningSysteem
 
         private void btnSaveStaffMemberEdit_Click(object sender, EventArgs e)
         {
-            if (clbEditStaffmemberCheckListBox.CheckedItems.Count == maxCheckBoxAmountForStaffFunctions)
+            if (clbEditStaffmemberCheckListBox.CheckedItems.Count <= maxCheckBoxAmountForStaffFunctions)
             {
                 int staffmemberID = repository.getIdFromName(cbxChooseStaffMemberEditStaffMember.Text, dgvAllStaffMembers);
                 string functionText = repository.GetFunctionTextFromCurrentCheckedBox(clbEditStaffmemberCheckListBox);

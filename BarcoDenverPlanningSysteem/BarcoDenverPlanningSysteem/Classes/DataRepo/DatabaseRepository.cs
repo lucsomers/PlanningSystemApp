@@ -41,6 +41,21 @@ namespace BarcoDenverPlanningSysteem
         /// <returns>geeft een werkplek terug die hoort bij de meegegeven code</returns>
         public Workplace CheckCodeForLogin(int code) => dbUsers.CheckCodeForLogin(code, connection);
 
+        internal bool CheckForYear(DateTime datetimeToPlan)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool CheckForMonth(DateTime datetimeToPlan)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool CheckForDay(DateTime datetimeToPlan)
+        {
+            throw new NotImplementedException();
+        }
+
         public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, int planning)
         {
             if (tableToFill != null)
@@ -53,6 +68,11 @@ namespace BarcoDenverPlanningSysteem
             }
 
             return "";
+        }
+
+        internal void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan, TimeSpan startTime, TimeSpan endTime, TimeSpan pauseTime)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

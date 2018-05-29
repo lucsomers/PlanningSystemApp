@@ -48,6 +48,24 @@ namespace BarcoDenverPlanningSysteem
             return id;
         }
 
+        public void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan, TimeSpan startTime, TimeSpan endTime, TimeSpan pauseTime = new TimeSpan())
+        {
+            //check if year to plan is in db if not add it to the db if it is add a month to the year
+            if (database.CheckForYear(datetimeToPlan))
+            {
+                //check if month to plan is in db if not add it to the db if it is add a day to the month
+                if (database.CheckForMonth(datetimeToPlan))
+                {
+                    //check if day to plan is in db if not add it to the db if it is add the person to the day
+                    if (database.CheckForDay(datetimeToPlan))
+                    {
+                        //add person to the day in db.
+                        database.AddStaffMemberToPlanning(datetimeToPlan,reality,staffMemberToPlan,startTime,endTime,pauseTime);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// checks a checkedlistbox to return the string of the currently selected item.
         /// </summary>
@@ -62,7 +80,10 @@ namespace BarcoDenverPlanningSysteem
                     return box.GetItemText(box.Items[i]);
                 }
             }
-            return null;
+
+            //TODO: ask marcel ?????? is there the need for an option to choose no default function for a person.
+            //if yes this does not need change else this needs to be null and the check for this needs to be ==.
+            return "";
         }
 
         /// <summary>
