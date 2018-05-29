@@ -33,6 +33,34 @@ namespace BarcoDenverPlanningSysteem
         }
 
         /// <summary>
+        /// clears the box and fills the box again with the staffmembers needed checked boxes
+        /// </summary>
+        /// <param name="staffmembername">the name of the staffmember</param>
+        /// <param name="box">the box that needs checked boxes</param>
+        public void GetCheckedItemsFromStaffmemberName(int staffmemberid, CheckedListBox box)
+        {
+            for (int i = 0; i < box.Items.Count; i++)
+            {
+                box.SetItemChecked(i, false);
+            }
+
+            string staffmemberCurrentFunction = database.GetFunctionFromStaffmember(staffmemberid);
+            int index = 0;
+
+            foreach (Object item in box.Items)
+            {
+                string checkboxText = box.GetItemText(item);
+                
+                if (staffmemberCurrentFunction.ToLower() == checkboxText.ToLower())
+                {
+                    box.SetItemChecked(index, true);
+                    break;
+                }
+                index++;
+            }
+        }
+
+        /// <summary>
         /// add a staffmember to the database
         /// </summary>
         /// <param name="name">name of the staffmember</param>

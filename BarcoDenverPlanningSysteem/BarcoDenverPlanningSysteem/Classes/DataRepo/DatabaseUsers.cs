@@ -63,6 +63,43 @@ namespace BarcoDenverPlanningSysteem
             connection.Close();
         }
 
+        public string GetFunctionFromStaffmember(int staffmemberid, MySqlConnection connection)
+        {
+            string sql = @"SELECT `function`.`name` AS name
+FROM `staff` 
+INNER JOIN `function` 
+ON `function`.`id` = `staff`.`default_function_id` 
+WHERE `staff`.`id` = @id";
+
+            string toReturn = "";
+
+            connection.Open();
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+
+            cmd.Parameters.AddWithValue("id", staffmemberid);
+
+            try
+            {
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        toReturn = String.Format("{0}",reader["name"]);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                error.ShowCantConnectMessage(e);
+            }
+
+            connection.Close();
+
+            return toReturn;
+        }
+
         public void FillViewWithAllUsers(DataGridView tableView, MySqlConnection connection)
         {
             string sql = @"SELECT `staff`.`id`,

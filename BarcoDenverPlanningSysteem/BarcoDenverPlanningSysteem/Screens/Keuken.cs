@@ -102,17 +102,18 @@ namespace BarcoDenverPlanningSysteem
         private void btnAddToPlanning_Click(object sender, EventArgs e)
         {
             //check tijd
-            if (dtpStartTime.Value.Hour < dtpEndTime.Value.Hour)
+
+            if ((dtpStartTime.Value.Hour == dtpEndTime.Value.Hour && dtpStartTime.Value.Minute < dtpEndTime.Value.Minute) || (dtpStartTime.Value.Hour < dtpEndTime.Value.Hour))
             {
-                //check lege velden
-                if (cbxStaffMemberName.Text != "" || cbxWorkplace.Text != "")
-                {
-                    //TODO: add a staffmember to the planning of the logged in person
-                }
-                else
-                {
-                    MessageBox.Show(error.NotEveryThingFilledInErrorMessage());
-                }
+                    //check lege velden
+                    if (cbxStaffMemberName.Text != "" || cbxWorkplace.Text != "")
+                    {
+                        //TODO: add a staffmember to the planning of the logged in person
+                    }
+                    else
+                    {
+                        MessageBox.Show(error.NotEveryThingFilledInErrorMessage());
+                    }
             }
             else
             {

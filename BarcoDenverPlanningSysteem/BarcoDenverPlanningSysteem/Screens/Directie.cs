@@ -145,7 +145,7 @@ namespace BarcoDenverPlanningSysteem
                         repository.DeleteStaffMemberByid(int.Parse(row.Cells["id"].Value.ToString()));
                     }
 
-                    repository.FillViewWithAllStaffMembers(dgvAllStaffMembers);
+                    RefreshScreen();
                 }
                 else
                 {
@@ -157,6 +157,7 @@ namespace BarcoDenverPlanningSysteem
         private void btnSaveWorkplaceEdit_Click(object sender, EventArgs e)
         {
             //TODO: save Edits from workplaces
+
         }
 
         private void btnSaveStaffMemberEdit_Click(object sender, EventArgs e)
@@ -167,11 +168,22 @@ namespace BarcoDenverPlanningSysteem
         private void cbxWorkplaceSelectionWorkplaceEditor_SelectedIndexChanged(object sender, EventArgs e)
         {
             //TODO: fill the right comboboxes with information from database
+
         }
 
         private void cbxChooseStaffMemberEditStaffMember_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //TODO: fill the right comboboxes with the information from the database
+            int staffmemberid = 0;
+
+            foreach (DataGridViewRow row in dgvAllStaffMembers.Rows)
+            {
+                if (row.Cells["name"].Value.ToString() == cbxChooseStaffMemberEditStaffMember.Text)
+                {
+                    staffmemberid = int.Parse(row.Cells["id"].Value.ToString());
+                }
+            }
+
+            repository.GetCheckedItemsFromStaffmemberName(staffmemberid, clbEditStaffmemberCheckListBox);
         }
 
 #endregion

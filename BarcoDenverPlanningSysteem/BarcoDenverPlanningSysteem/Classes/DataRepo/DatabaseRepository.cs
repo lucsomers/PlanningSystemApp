@@ -25,20 +25,13 @@ namespace BarcoDenverPlanningSysteem
             connection.ConnectionString = "server=127.0.0.1;user id=root;password=123;database=marcelapp";
         }
 
-        public void DeleteStaffMemberById(int id)
-        {
-            dbUsers.DeleteStaffMemberById(id, connection);
-        }
+        public void DeleteStaffMemberById(int id) => dbUsers.DeleteStaffMemberById(id, connection);
 
-        public void AddStaffMember(StaffMember member)
-        {
-            dbUsers.AddStaffMember(member,connection);
-        }
-        
-        public void FillViewWithAllStaffMembers(DataGridView dataview)
-        {
-            dbUsers.FillViewWithAllUsers(dataview, connection);
-        }
+        public void AddStaffMember(StaffMember member) => dbUsers.AddStaffMember(member, connection);
+
+        public void FillViewWithAllStaffMembers(DataGridView dataview) => dbUsers.FillViewWithAllUsers(dataview, connection);
+
+        public string GetFunctionFromStaffmember(int staffmemberid) => dbUsers.GetFunctionFromStaffmember(staffmemberid, connection);
 
 
         /// <summary>
@@ -46,10 +39,7 @@ namespace BarcoDenverPlanningSysteem
         /// </summary>
         /// <param name="code">de inlogcode van een werkplek</param>
         /// <returns>geeft een werkplek terug die hoort bij de meegegeven code</returns>
-        public Workplace CheckCodeForLogin(int code)
-        {
-            return dbUsers.CheckCodeForLogin(code, connection);
-        }
+        public Workplace CheckCodeForLogin(int code) => dbUsers.CheckCodeForLogin(code, connection);
 
         public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, int planning)
         {
