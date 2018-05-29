@@ -32,6 +32,39 @@ namespace BarcoDenverPlanningSysteem
             database.DeleteStaffMemberById(id);
         }
 
+        public int getIdFromName(string staffmember, DataGridView dgv)
+        {
+            int id = 0;
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.Cells["name"].Value.ToString() == staffmember)
+                {
+                    id = int.Parse(row.Cells["id"].Value.ToString());
+                    break;
+                }
+            }
+
+            return id;
+        }
+
+        /// <summary>
+        /// checks a checkedlistbox to return the string of the currently selected item.
+        /// </summary>
+        /// <param name="box">the checkedlistbox to search in</param>
+        /// <returns>returns text value of the checked checkbox or null if something went wrong</returns>
+        public string GetFunctionTextFromCurrentCheckedBox(CheckedListBox box)
+        {
+            for (int i = 0; i < box.Items.Count; i++)
+            {
+                if (box.GetItemChecked(i))
+                {
+                    return box.GetItemText(box.Items[i]);
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         /// clears the box and fills the box again with the staffmembers needed checked boxes
         /// </summary>
@@ -151,6 +184,17 @@ namespace BarcoDenverPlanningSysteem
             }
 
             return availableFunctionsString.ToArray();
+        }
+
+        /// <summary>
+        /// updates staffmembers default function by id
+        /// </summary>
+        /// <param name="text">new function name</param>
+        /// <param name="id">id of staffmember to update</param>
+        public bool UpdateStaffMemberDefaultFunction(string text, int id)
+        {
+            Function f = FunctionExtension.stringToEnum(text);
+            return database.UpdateStaffMemberFunction(f.ToID(), id);
         }
 
         public Dictionary<string,int> countNumbers(DataGridView dgv)

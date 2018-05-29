@@ -16,7 +16,6 @@ namespace BarcoDenverPlanningSysteem
         Fiesta_Afwas,
         Barco_Denver_Afwas,
         NoFunctionDetected
-        
     }
     public static class FunctionExtension
     {

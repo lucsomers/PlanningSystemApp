@@ -88,5 +88,10 @@ namespace BarcoDenverPlanningSysteem
         {
             return dbUsers.GetListOfAllStaffmMembers(connection, currentUser);
         }
+
+        public bool UpdateStaffMemberFunction(int newFunctionid, int staffmemberid)
+        {
+            return dbUsers.UpdateStaffMemberFunctionId(newFunctionid, staffmemberid, connection);
+        }
     }
 }

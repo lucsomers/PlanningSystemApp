@@ -134,6 +134,32 @@ ON `function`.`id` = `staff`.`default_function_id`";
             connection.Close();
         }
 
+        public bool UpdateStaffMemberFunctionId(int newFunctionid, int staffmemberid, MySqlConnection connection)
+        {
+            string sql = @"UPDATE `staff`
+                           SET `staff`.`default_function_id`=@functionid
+                           WHERE `staff`.`id` = @staffmemberid;";
+            try
+            {
+                connection.Open();
+
+                MySqlCommand cmd = new MySqlCommand(sql, connection);
+
+                cmd.Parameters.AddWithValue("@functionid", newFunctionid);
+                cmd.Parameters.AddWithValue("@staffmemberid", staffmemberid);
+
+                cmd.ExecuteNonQuery();
+
+                connection.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                
+            }
+            return false;
+        }
+
         public Workplace CheckCodeForLogin(int code, MySqlConnection connection)
         {
             int iCode = code;

@@ -16,6 +16,7 @@ namespace BarcoDenverPlanningSysteem
     {
         private Point _mouseDownLocation;
         private readonly int buttonHeight = 29;
+        private readonly int maxCheckBoxAmountForStaffFunctions = 1;
 
         private LogicalRepository repository;
 
@@ -35,8 +36,6 @@ namespace BarcoDenverPlanningSysteem
         {
             //we fill this with everything because we can edit the code of administrators
             cbxAllWorkPlacesEditCode.Items.AddRange(repository.GetAllWorkplaces());
-            //we remove administrator from this list because administrator has acces to everything
-            cbxWorkplaceSelectionWorkplaceEditor.Items.AddRange(repository.GetAllWorkplaces(new int[1] { 0 }));
 
             cbxAddStaffmemberWorkplace.Items.AddRange(repository.GetPlannableFunctionsAvailableToUser());
             RefreshScreen();
@@ -154,34 +153,33 @@ namespace BarcoDenverPlanningSysteem
             }
         }
 
-        private void btnSaveWorkplaceEdit_Click(object sender, EventArgs e)
-        {
-            //TODO: save Edits from workplaces
-
-        }
-
         private void btnSaveStaffMemberEdit_Click(object sender, EventArgs e)
         {
-            //TODO: save edits from staffmembers
-        }
+            if (clbEditStaffmemberCheckListBox.CheckedItems.Count == maxCheckBoxAmountForStaffFunctions)
+            {
+                int staffmemberID = repository.getIdFromName(cbxChooseStaffMemberEditStaffMember.Text, dgvAllStaffMembers);
+                string functionText = repository.GetFunctionTextFromCurrentCheckedBox(clbEditStaffmemberCheckListBox);
 
-        private void cbxWorkplaceSelectionWorkplaceEditor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //TODO: fill the right comboboxes with information from database
-
+                //als er niet meer dan maxCheckBoxAmountForStaffFunctions vakje(s) is aangekruisd word de database geupdate
+                if (repository.UpdateStaffMemberDefaultFunction(functionText, staffmemberID))
+                {
+                    MessageBox.Show(error.SavedSucceeded());
+                    RefreshScreen();
+                }
+                else
+                {
+                    MessageBox.Show(error.SomethingWentWrong());
+                }
+            }
+            else
+            {
+                MessageBox.Show(error.ToManyCheckBoxesCheckedMessage());
+            }
         }
 
         private void cbxChooseStaffMemberEditStaffMember_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int staffmemberid = 0;
-
-            foreach (DataGridViewRow row in dgvAllStaffMembers.Rows)
-            {
-                if (row.Cells["name"].Value.ToString() == cbxChooseStaffMemberEditStaffMember.Text)
-                {
-                    staffmemberid = int.Parse(row.Cells["id"].Value.ToString());
-                }
-            }
+           int staffmemberid = repository.getIdFromName(cbxChooseStaffMemberEditStaffMember.Text, dgvAllStaffMembers);
 
             repository.GetCheckedItemsFromStaffmemberName(staffmemberid, clbEditStaffmemberCheckListBox);
         }

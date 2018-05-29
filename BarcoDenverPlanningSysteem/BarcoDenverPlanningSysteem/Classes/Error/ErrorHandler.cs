@@ -13,6 +13,11 @@ namespace BarcoDenverPlanningSysteem.Classes.Error
             return "Oeps! Er is iets fout gegaan met het in laden van de huidige planning." + Environment.NewLine + "Controleer uw internet verbinding en herstart de applicatie" + Environment.NewLine + "wanneer dit probleem zich blijft voordoen contacteer de administrator voor verderen hulp";
         }
 
+        public string ToManyCheckBoxesCheckedMessage()
+        {
+            return "Het totaal aantal aangevinkte vakjes mag het maximum aantal van 1 niet overschrijden";
+        }
+
         public string WrongTimeMessage()
         {
             return "De begin tijd is kleiner dan of gelijk aan de eindtijd vul alstublieft een geldig tijdsbereik";
@@ -46,6 +51,16 @@ namespace BarcoDenverPlanningSysteem.Classes.Error
             {
                 System.Windows.Forms.MessageBox.Show(e.ToString());
             }
+        }
+
+        public string SavedSucceeded()
+        {
+            return "Uw wijzigingen zijn opgeslagen.";
+        }
+
+        public string SomethingWentWrong()
+        {
+            return "Er is iets fout gegaan bij het doorvoeren van de wijziging probeer het later opnieuw. Als dit probleem zich voor blijft doen raadpleeg dan uw administrator.";
         }
     }
 }
