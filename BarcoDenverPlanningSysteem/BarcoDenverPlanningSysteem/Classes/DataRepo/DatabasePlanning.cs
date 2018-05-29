@@ -103,7 +103,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                                 tableToFill.Rows[index].Cells[0].Value = s.Name;
                                 tableToFill.Rows[index].Cells[1].Value = s.StartTime.ToString();
                                 tableToFill.Rows[index].Cells[2].Value = s.EndTime.ToString();
-                                tableToFill.Rows[index].Cells[3].Value = s.FunctionOfDay.ToFriendlyString();
+                                tableToFill.Rows[index].Cells[3].Value = s.FunctionOfDay.ToPlanningString();
                                 tableToFill.Rows[index].Cells[4].Value = s.AmountOfWorkedHours(false);
                             }
                             index++;

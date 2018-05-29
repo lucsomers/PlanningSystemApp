@@ -17,8 +17,8 @@ namespace BarcoDenverPlanningSysteem
         public void AddStaffMember(StaffMember member, MySqlConnection connection)
         {
             string sql = @"INSERT INTO `staff`
-                                  ( `earnings`, `name`,`default_workplace_id`) 
-                           VALUES (@earnings,@name,@defaultWorkplace)";
+                                  ( `earnings`, `name`,`multiple_workplaces`,`default_function_id`) 
+                           VALUES (@earnings,@name,0,@defaultWorkplace)";
 
             connection.Open();
 
@@ -26,7 +26,7 @@ namespace BarcoDenverPlanningSysteem
             
             cmd.Parameters.AddWithValue("name", member.Name);
             cmd.Parameters.AddWithValue("earnings", member.Earnings);
-            cmd.Parameters.AddWithValue("defaultWorkplace", member.DefaultFunction);
+            cmd.Parameters.AddWithValue("defaultWorkplace", member.DefaultFunction.ToID());
 
             try
             {
@@ -65,8 +65,14 @@ namespace BarcoDenverPlanningSysteem
 
         public void FillViewWithAllUsers(DataGridView tableView, MySqlConnection connection)
         {
-            string sql = @"SELECT *
-                           FROM `staff`";
+            string sql = @"SELECT `staff`.`id`,
+`staff`.`earnings`,
+`staff`.`name`,
+`staff`.`multiple_workplaces`,
+`function`.`name` AS function_name 
+FROM `staff` 
+LEFT JOIN `function` 
+ON `function`.`id` = `staff`.`default_function_id`";
            
                 connection.Open();
 
@@ -175,6 +181,12 @@ namespace BarcoDenverPlanningSysteem
                           ON ws.`workplace_id` = @workplaceID
                           WHERE s.`id` = ws.`staff_id`";
 
+            if (currentUser == Workplace.Directie)
+            {
+                sql = @"SELECT s.`name` FROM `staff` AS s";
+            }
+            
+
             connection.Open();
 
             MySqlCommand cmd = new MySqlCommand(sql, connection);
@@ -255,7 +267,7 @@ namespace BarcoDenverPlanningSysteem
             }
         }
 
-        public string[] GetAllWorkplaces(MySqlConnection connection)
+        public string[] GetAllWorkplaces(MySqlConnection connection, int[] exceptions = null)
         {
             string sql = @"SELECT * FROM `workplace`";
 
@@ -275,6 +287,14 @@ namespace BarcoDenverPlanningSysteem
                 }
             }
             connection.Close();
+
+            if(exceptions != null)
+            {
+                foreach(int index in exceptions)
+                {
+                    lstToReturn.RemoveAt(index);
+                }
+            }
 
             return lstToReturn.ToArray();
         }

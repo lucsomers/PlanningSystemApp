@@ -22,7 +22,7 @@ namespace BarcoDenverPlanningSysteem
     {
         public static Function stringToEnum(string s)
         {
-            switch (s)
+            switch (s.ToLower())
             {
                 case "barco keuken":
                     return Function.BarcoKeuken;
@@ -53,7 +53,35 @@ namespace BarcoDenverPlanningSysteem
             }
         }
 
-        public static string ToFriendlyString(this Function me)
+        public static string ToFunctionString(this Function me)
+        {
+            switch (me)
+            {
+
+                case Function.NoFunctionDetected:
+                    return "Geen functie beschikbaar";
+                case Function.Denver_Bar:
+                    return "Denver bar";
+                case Function.Denver_Keuken:
+                    return "Denver keuken";
+                case Function.Barco_Bar:
+                    return "Barco bar";
+                case Function.BarcoKeuken:
+                    return "Barco keuken";
+                case Function.Fiesta_Bar:
+                    return "Fiesta bediening";
+                case Function.Fiesta_Keuken:
+                    return "Fiesta keuken";
+                case Function.Fiesta_Afwas:
+                    return "Fiesta afwas";
+                case Function.Barco_Denver_Afwas:
+                    return "afwas Denver en Barco";
+                default:
+                    return "Geen functie beschikbaar";
+            }
+        }
+
+        public static string ToPlanningString(this Function me)
         {
             switch (me)
             {

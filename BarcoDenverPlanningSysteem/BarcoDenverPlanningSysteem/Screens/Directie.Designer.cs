@@ -50,9 +50,6 @@
             this.lblWorkplaceSelectionText = new System.Windows.Forms.Label();
             this.pnlCurrentStaffOverview = new System.Windows.Forms.Panel();
             this.dgvAllStaffMembers = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.earnings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblStaffOverviewText = new System.Windows.Forms.Label();
             this.btnDeleteStaffMember = new System.Windows.Forms.Button();
             this.pnlAddStaffMember = new System.Windows.Forms.Panel();
@@ -90,6 +87,11 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.CalendarKoliBriFile = new System.Windows.Forms.MonthCalendar();
             this.btnCreateKolibriFile = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.earnings = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.multiple_workplaces = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.function_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.pnlEditStaffMember.SuspendLayout();
@@ -278,9 +280,9 @@
             "Fiesta bar",
             "Fiesta keuken",
             "Fiesta afwas"});
-            this.clbEditStaffmemberCheckListBox.Location = new System.Drawing.Point(283, 14);
+            this.clbEditStaffmemberCheckListBox.Location = new System.Drawing.Point(304, 14);
             this.clbEditStaffmemberCheckListBox.Name = "clbEditStaffmemberCheckListBox";
-            this.clbEditStaffmemberCheckListBox.Size = new System.Drawing.Size(193, 148);
+            this.clbEditStaffmemberCheckListBox.Size = new System.Drawing.Size(172, 148);
             this.clbEditStaffmemberCheckListBox.TabIndex = 8;
             // 
             // lblEditStaffMemberText
@@ -292,9 +294,9 @@
             this.lblEditStaffMemberText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEditStaffMemberText.Location = new System.Drawing.Point(3, 7);
             this.lblEditStaffMemberText.Name = "lblEditStaffMemberText";
-            this.lblEditStaffMemberText.Size = new System.Drawing.Size(244, 20);
+            this.lblEditStaffMemberText.Size = new System.Drawing.Size(282, 20);
             this.lblEditStaffMemberText.TabIndex = 7;
-            this.lblEditStaffMemberText.Text = "Toewijzen van bevoegdheden";
+            this.lblEditStaffMemberText.Text = "Toewijzen van standaard werkplek";
             this.lblEditStaffMemberText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pnlWorkplaceSelection
@@ -331,7 +333,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWorkplaceEditorWorkplaceSelectionText.AutoSize = true;
-            this.lblWorkplaceEditorWorkplaceSelectionText.Location = new System.Drawing.Point(6, 45);
+            this.lblWorkplaceEditorWorkplaceSelectionText.Location = new System.Drawing.Point(6, 46);
             this.lblWorkplaceEditorWorkplaceSelectionText.Name = "lblWorkplaceEditorWorkplaceSelectionText";
             this.lblWorkplaceEditorWorkplaceSelectionText.Size = new System.Drawing.Size(108, 13);
             this.lblWorkplaceEditorWorkplaceSelectionText.TabIndex = 13;
@@ -343,7 +345,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxWorkplaceSelectionWorkplaceEditor.FormattingEnabled = true;
-            this.cbxWorkplaceSelectionWorkplaceEditor.Location = new System.Drawing.Point(9, 61);
+            this.cbxWorkplaceSelectionWorkplaceEditor.Location = new System.Drawing.Point(9, 62);
             this.cbxWorkplaceSelectionWorkplaceEditor.Name = "cbxWorkplaceSelectionWorkplaceEditor";
             this.cbxWorkplaceSelectionWorkplaceEditor.Size = new System.Drawing.Size(271, 21);
             this.cbxWorkplaceSelectionWorkplaceEditor.TabIndex = 13;
@@ -410,36 +412,14 @@
             this.dgvAllStaffMembers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.name,
-            this.earnings});
+            this.earnings,
+            this.multiple_workplaces,
+            this.function_name});
             this.dgvAllStaffMembers.Location = new System.Drawing.Point(9, 38);
             this.dgvAllStaffMembers.Name = "dgvAllStaffMembers";
             this.dgvAllStaffMembers.ReadOnly = true;
             this.dgvAllStaffMembers.Size = new System.Drawing.Size(907, 327);
             this.dgvAllStaffMembers.TabIndex = 13;
-            // 
-            // id
-            // 
-            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "Personeelsnummer";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // name
-            // 
-            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.name.DataPropertyName = "name";
-            this.name.HeaderText = "Naam";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            // 
-            // earnings
-            // 
-            this.earnings.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.earnings.DataPropertyName = "earnings";
-            this.earnings.HeaderText = "Kosten per uur";
-            this.earnings.Name = "earnings";
-            this.earnings.ReadOnly = true;
             // 
             // lblStaffOverviewText
             // 
@@ -834,6 +814,46 @@
             this.btnCreateKolibriFile.UseVisualStyleBackColor = true;
             this.btnCreateKolibriFile.Click += new System.EventHandler(this.btnCreateKolibriFile_Click);
             // 
+            // id
+            // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "Personeelsnummer";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.DataPropertyName = "name";
+            this.name.HeaderText = "Naam";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // earnings
+            // 
+            this.earnings.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.earnings.DataPropertyName = "earnings";
+            this.earnings.HeaderText = "Kosten per uur";
+            this.earnings.Name = "earnings";
+            this.earnings.ReadOnly = true;
+            // 
+            // multiple_workplaces
+            // 
+            this.multiple_workplaces.DataPropertyName = "multiple_workplaces";
+            this.multiple_workplaces.HeaderText = "Werkt op meerderen plekken";
+            this.multiple_workplaces.Name = "multiple_workplaces";
+            this.multiple_workplaces.ReadOnly = true;
+            this.multiple_workplaces.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.multiple_workplaces.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // function_name
+            // 
+            this.function_name.DataPropertyName = "function_name";
+            this.function_name.HeaderText = "Standaard werkplek";
+            this.function_name.Name = "function_name";
+            this.function_name.ReadOnly = true;
+            // 
             // Directie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -915,9 +935,6 @@
         private System.Windows.Forms.Panel pnlCurrentStaffOverview;
         private System.Windows.Forms.DataGridView dgvAllStaffMembers;
         private System.Windows.Forms.Label lblStaffOverviewText;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn earnings;
         private System.Windows.Forms.Button btnDeleteStaffMember;
         private System.Windows.Forms.Panel pnlWorkplaceSelection;
         private System.Windows.Forms.CheckedListBox clbWorkplaceEditCheckBoxList;
@@ -933,5 +950,10 @@
         private System.Windows.Forms.Label lblEditStaffMemberText;
         private System.Windows.Forms.Button btnSaveStaffMemberEdit;
         private System.Windows.Forms.Button btnSaveWorkplaceEdit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn earnings;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn multiple_workplaces;
+        private System.Windows.Forms.DataGridViewTextBoxColumn function_name;
     }
 }

@@ -88,29 +88,39 @@ namespace BarcoDenverPlanningSysteem
             switch (currentUser)
             {
                 case Workplace.Directie:
+                    availableFunctionsString.Add(Function.BarcoKeuken.ToFunctionString());
+                    availableFunctionsString.Add(Function.Barco_Bar.ToFunctionString());
+                    availableFunctionsString.Add(Function.Barco_Denver_Afwas.ToFunctionString());
+                    availableFunctionsString.Add(Function.Denver_Bar.ToFunctionString());
+                    availableFunctionsString.Add(Function.Denver_Keuken.ToFunctionString());
+                    availableFunctionsString.Add(Function.Fiesta_Afwas.ToFunctionString());
+                    availableFunctionsString.Add(Function.Fiesta_Bar.ToFunctionString());
+                    availableFunctionsString.Add(Function.Fiesta_Keuken.ToFunctionString());
+                    availableFunctionsString.Add(PlannableFunction.StandBy.ToFriendlyString());
                     break;
                 case Workplace.Denver:
-                    availableFunctionsString.Add(Function.Denver_Bar.ToFriendlyString());
+                    availableFunctionsString.Add(Function.Denver_Bar.ToPlanningString());
+                    availableFunctionsString.Add(PlannableFunction.StandBy.ToFriendlyString());
                     break;
                 case Workplace.Barco:
-                    availableFunctionsString.Add(Function.Denver_Bar.ToFriendlyString());
+                    availableFunctionsString.Add(Function.Denver_Bar.ToPlanningString());
+                    availableFunctionsString.Add(PlannableFunction.StandBy.ToFriendlyString());
                     break;
                 case Workplace.Keuken:
-                    availableFunctionsString.Add(Function.Denver_Keuken.ToFriendlyString());
-                    availableFunctionsString.Add(Function.Barco_Denver_Afwas.ToFriendlyString());
-                    availableFunctionsString.Add(Function.BarcoKeuken.ToFriendlyString());
+                    availableFunctionsString.Add(Function.Denver_Keuken.ToPlanningString());
+                    availableFunctionsString.Add(Function.Barco_Denver_Afwas.ToPlanningString());
+                    availableFunctionsString.Add(Function.BarcoKeuken.ToPlanningString());
+                    availableFunctionsString.Add(PlannableFunction.StandBy.ToFriendlyString());
                     break;
                 case Workplace.Fiesta:
-                    availableFunctionsString.Add(Function.Fiesta_Afwas.ToFriendlyString());
-                    availableFunctionsString.Add(Function.Fiesta_Bar.ToFriendlyString());
-                    availableFunctionsString.Add(Function.Fiesta_Keuken.ToFriendlyString());
+                    availableFunctionsString.Add(Function.Fiesta_Afwas.ToPlanningString());
+                    availableFunctionsString.Add(Function.Fiesta_Bar.ToPlanningString());
+                    availableFunctionsString.Add(Function.Fiesta_Keuken.ToPlanningString());
+                    availableFunctionsString.Add(PlannableFunction.StandBy.ToFriendlyString());
                     break;
                 case Workplace.NoFunctionDetected:
                     break;
             }
-
-            //elke lijst krijgt deze objecten
-            availableFunctionsString.Add(PlannableFunction.StandBy.ToFriendlyString());
 
             return availableFunctionsString.ToArray();
         }
@@ -157,9 +167,9 @@ namespace BarcoDenverPlanningSysteem
         /// haalt alle werkplekken op die er zijn
         /// </summary>
         /// <returns>geeft een lijst met namen van werkplekken terug</returns>
-        public string[] GetAllWorkplaces()
+        public string[] GetAllWorkplaces(int[] exceptions = null)
         {
-            return database.getAllWorkplaces();
+            return database.getAllWorkplaces(exceptions);
         }
 
         /// <summary>

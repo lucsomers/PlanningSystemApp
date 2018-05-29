@@ -69,9 +69,9 @@ namespace BarcoDenverPlanningSysteem
         /// haalt alle werkplekken op die er zijn
         /// </summary>
         /// <returns>geeft een lijst met namen van werkplekken terug</returns>
-        public string[] getAllWorkplaces()
+        public string[] getAllWorkplaces(int[] exceptions = null)
         {
-            return dbUsers.GetAllWorkplaces(connection);
+            return dbUsers.GetAllWorkplaces(connection,exceptions);
         }
 
         /// <summary>

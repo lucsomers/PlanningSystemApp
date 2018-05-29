@@ -33,12 +33,21 @@ namespace BarcoDenverPlanningSysteem
         //happens when the form is loaded
         private void Directie_Load(object sender, EventArgs e)
         {
-            string[] templist = repository.GetAllWorkplaces();
-            cbxAllWorkPlacesEditCode.Items.AddRange(templist);
-            cbxWorkplaceSelectionWorkplaceEditor.Items.AddRange(templist);
+            //we fill this with everything because we can edit the code of administrators
+            cbxAllWorkPlacesEditCode.Items.AddRange(repository.GetAllWorkplaces());
+            //we remove administrator from this list because administrator has acces to everything
+            cbxWorkplaceSelectionWorkplaceEditor.Items.AddRange(repository.GetAllWorkplaces(new int[1] { 0 }));
+
+            cbxAddStaffmemberWorkplace.Items.AddRange(repository.GetPlannableFunctionsAvailableToUser());
+            RefreshScreen();
+        }
+
+        private void RefreshScreen()
+        {
+            cbxChooseStaffMemberEditStaffMember.Items.Clear();
 
             cbxChooseStaffMemberEditStaffMember.Items.AddRange(repository.GetListOfStaffMembers());
-            
+
             repository.FillViewWithAllStaffMembers(dgvAllStaffMembers);
         }
 
@@ -99,11 +108,15 @@ namespace BarcoDenverPlanningSysteem
         //when the button for adding staffmembers is pushed we fire events for adding him to the database after that we update the screen
         private void BtnAddStaffMember_Click(object sender, EventArgs e)
         {
-            if (tbxCostPerHour.Text != "" || tbxStaffMemberName.Text != "")
+            if (tbxCostPerHour.Text != "" || tbxStaffMemberName.Text != "" || cbxAddStaffmemberWorkplace.Text == "")
             {
                 repository.AddStaffMember(tbxStaffMemberName.Text, double.Parse(tbxCostPerHour.Text), cbxAddStaffmemberWorkplace.Text);
-                repository.FillViewWithAllStaffMembers(dgvAllStaffMembers);
-                //TODO: add functionality for adding staffmembers with a default function and also show this in a correct manner in the screen
+                RefreshScreen();
+
+                //Clear everything that was filled in.
+                cbxAddStaffmemberWorkplace.Text = "";
+                tbxStaffMemberName.Text = "";
+                tbxCostPerHour.Text = "";
             }
             else
             {
