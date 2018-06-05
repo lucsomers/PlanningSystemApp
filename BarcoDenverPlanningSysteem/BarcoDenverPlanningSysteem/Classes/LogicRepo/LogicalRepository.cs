@@ -32,24 +32,65 @@ namespace BarcoDenverPlanningSysteem
             database.DeleteStaffMemberById(id);
         }
 
-        public int getIdFromName(string staffmember, DataGridView dgv)
+        /// <summary>
+        /// zoek id bij naam van medewerker
+        /// </summary>
+        /// <param name="staffmember">the name of the staffmember</param>
+        /// <param name="dgv">optinal dgv to search in if not given we use database</param>
+        /// <returns>id that goes with the name of the staffmember</returns>
+        public int getIdFromName(string staffmember, DataGridView dgv = null)
         {
             int id = 0;
-
-            foreach (DataGridViewRow row in dgv.Rows)
+            if (dgv != null)
             {
-                if (row.Cells["name"].Value.ToString() == staffmember)
+                //use dgv
+                foreach (DataGridViewRow row in dgv.Rows)
                 {
-                    id = int.Parse(row.Cells["id"].Value.ToString());
-                    break;
+                    if (row.Cells["name"].Value.ToString() == staffmember)
+                    {
+                        id = int.Parse(row.Cells["id"].Value.ToString());
+                        break;
+                    }
                 }
-            }
 
-            return id;
+                return id;
+            }
+            else
+            {
+                //use db
+                id = database.getIdFromStaffMemberName(name: staffmember);
+                return id;
+            }
         }
 
-        public void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan, TimeSpan startTime, TimeSpan endTime, TimeSpan pauseTime = new TimeSpan())
+        /// <summary>
+        /// geeft de functie van de werknemer afhankelijk van welk id is meegegeven.
+        /// </summary>
+        /// <param name="id">de id van de medewerker</param>
+        /// <returns>geeft de functie terug van de medewerker</returns>
+        private PlannableFunction planningStringToFunction(string functionName)
         {
+            PlannableFunction toReturn = PlannableFunction.NoFunctionDetected;
+
+            return toReturn;
+        }
+
+        /// <summary>
+        /// Creeërd een medewerker van de gegeven naam en planed deze meteen in voor de huidige ingelogde werknemer
+        /// </summary>
+        /// <param name="datetimeToPlan">de te plannen datum</param>
+        /// <param name="reality">geeft weer of het planning of werkelijk is</param>
+        /// <param name="name">de naam van de medewerker</param>
+        /// <param name="startTime">de begin tijd van de werknemer</param>
+        /// <param name="endTime">de eindtijd van de werknemer</param>
+        /// <param name="pauseTime">de pauze tijd van de werknemer</param>
+        public void AddStaffMemberToPlanning(string functionname, DateTime datetimeToPlan, bool reality, string name, TimeSpan startTime, TimeSpan endTime, TimeSpan pauseTime = new TimeSpan())
+        {
+            //create staffmember from name
+            int id = getIdFromName(name);
+            PlannableFunction function = PlannableFunction.NoFunctionDetected;
+            StaffMember staffMemberToPlan = new StaffMember(id, function, pauseTime, startTime, endTime);
+
             //check if year to plan is in db if not add it to the db if it is add a month to the year
             if (database.CheckForYear(datetimeToPlan))
             {

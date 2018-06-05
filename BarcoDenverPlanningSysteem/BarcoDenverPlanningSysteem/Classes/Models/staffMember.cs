@@ -17,9 +17,19 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         private Function defaultFunction;
 
         private Function functionOfDay;
+        private PlannableFunction plannableFunctionOfDay;
         private TimeSpan pauseTime;
         private TimeSpan startTime;
         private TimeSpan endTime;
+
+        public StaffMember(int id, PlannableFunction plannableFunction, TimeSpan pauseTime, TimeSpan startTime, TimeSpan endTime)
+        {
+            this.plannableFunctionOfDay = plannableFunction;
+            this.pauseTime = pauseTime;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.id = id;
+        }
 
         public StaffMember(int id, Function functionOfDay, TimeSpan pauseTime, TimeSpan startTime, TimeSpan endTime)
         {
@@ -93,5 +103,6 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         public TimeSpan PauseTime { get => pauseTime; set => pauseTime = value; }
         public TimeSpan StartTime { get => startTime; set => startTime = value; }
         public TimeSpan EndTime { get => endTime; set => endTime = value; }
+        public PlannableFunction PlannableFunctionOfDay { get => plannableFunctionOfDay; set => plannableFunctionOfDay = value; }
     }
 }

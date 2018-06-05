@@ -51,6 +51,11 @@ namespace BarcoDenverPlanningSysteem
             throw new NotImplementedException();
         }
 
+        public int getIdFromStaffMemberName(string name)
+        {
+            return dbUsers.getIdFromStaffMemberName(connection, name);
+        }
+
         internal bool CheckForDay(DateTime datetimeToPlan)
         {
             throw new NotImplementedException();

@@ -100,6 +100,41 @@ WHERE `staff`.`id` = @id";
             return toReturn;
         }
 
+        public int getIdFromStaffMemberName(MySqlConnection connection, string name)
+        {
+            int id = -1;
+
+            string sql = @"SELECT s.`id`
+                          FROM `staff` AS s
+                          WHERE s.`name` = @name";
+
+            connection.Open();
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+
+            cmd.Parameters.AddWithValue("name", name);
+
+            try
+            {
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        id = int.Parse(reader["id"].ToString());
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                error.ShowCantConnectMessage(e);
+            }
+
+            connection.Close();
+
+            return id;
+        }
+
         public void FillViewWithAllUsers(DataGridView tableView, MySqlConnection connection)
         {
             string sql = @"SELECT `staff`.`id`,

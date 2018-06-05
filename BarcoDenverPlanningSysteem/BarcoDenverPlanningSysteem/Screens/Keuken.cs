@@ -112,7 +112,7 @@ namespace BarcoDenverPlanningSysteem
                     if (cbxStaffMemberName.Text != "" || cbxWorkplace.Text != "")
                     {
                     //TODO: add a staffmember to the planning of the logged in person
-                    
+                    repository.getIdFromName(cbxStaffMemberName.Text);
                     
                 }
                 else
