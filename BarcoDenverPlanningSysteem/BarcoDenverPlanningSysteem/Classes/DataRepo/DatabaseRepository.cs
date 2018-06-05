@@ -51,14 +51,14 @@ namespace BarcoDenverPlanningSysteem
             throw new NotImplementedException();
         }
 
-        public int getIdFromStaffMemberName(string name)
-        {
-            return dbUsers.getIdFromStaffMemberName(connection, name);
-        }
-
         internal bool CheckForDay(DateTime datetimeToPlan)
         {
             throw new NotImplementedException();
+        }
+
+        public int getIdFromStaffMemberName(string name)
+        {
+            return dbUsers.getIdFromStaffMemberName(connection, name);
         }
 
         public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, int planning)
@@ -75,9 +75,9 @@ namespace BarcoDenverPlanningSysteem
             return "";
         }
 
-        internal void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan, TimeSpan startTime, TimeSpan endTime, TimeSpan pauseTime)
+        public void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan)
         {
-            throw new NotImplementedException();
+            dbPlanning.AddStaffMemberToPlanning(datetimeToPlan, reality, staffMemberToPlan,connection);
         }
 
         /// <summary>

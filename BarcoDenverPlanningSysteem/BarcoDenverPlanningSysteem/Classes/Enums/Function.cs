@@ -145,19 +145,19 @@ namespace BarcoDenverPlanningSysteem
                 case Function.Barco_Denver_Afwas:
                     return "Afwas";
                 case Function.Denver_Bar_Standby:
-                    return "Denver Standby";
+                    return "Standby";
                 case Function.Barco_Bar_Standby:
-                    return "Barco Standby";
+                    return "Standby";
                 case Function.DenverBarco_Keuken_Standby:
-                    return "DenverBarco Keuken Standby";
+                    return "Standby";
                 case Function.Fiesta_Bar_Standby:
-                    return "Fiesta bar Standby";
+                    return "Bediening Standby";
                 case Function.Fiesta_Keuken_Standby:
-                    return "Fiesta Keuken Standby";
+                    return "Keuken Standby";
                 case Function.Fiesta_Afwas_Standby:
-                    return "Fiesta Afwas Standby";
+                    return "Afwas Standby";
                 case Function.Barco_Denver_Afwas_Standby:
-                    return "BarcoDenver Afwas Standby";
+                    return "Standby";
                 default:
                     return "Geen functie beschikbaar";
             }

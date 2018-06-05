@@ -68,11 +68,143 @@ namespace BarcoDenverPlanningSysteem
         /// </summary>
         /// <param name="id">de id van de medewerker</param>
         /// <returns>geeft de functie terug van de medewerker</returns>
-        private PlannableFunction planningStringToFunction(string functionName)
+        private Function planningStringToFunction(string functionName)
         {
-            PlannableFunction toReturn = PlannableFunction.NoFunctionDetected;
+            Function toReturn = Function.NoFunctionDetected;
 
-
+            switch (functionName)
+            {
+                case "Keuken":
+                    switch (currentUser)
+                    {
+                        case Workplace.Fiesta:
+                            toReturn = Function.Fiesta_Keuken;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                case "Bar":
+                    switch (currentUser)
+                    {
+                        case Workplace.Denver:
+                            toReturn = Function.Denver_Bar;
+                            break;
+                        case Workplace.Barco:
+                            toReturn = Function.Barco_Bar;
+                            break;
+                        case Workplace.Fiesta:
+                            toReturn = Function.Fiesta_Bar;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                case "Afwas":
+                    switch (currentUser)
+                    {
+                        case Workplace.Keuken:
+                            toReturn = Function.Barco_Denver_Afwas;
+                            break;
+                        case Workplace.Fiesta:
+                            toReturn = Function.Fiesta_Afwas;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                case "Bediening":
+                    switch (currentUser)
+                    {
+                        case Workplace.Denver:
+                            toReturn = Function.Denver_Bar;
+                            break;
+                        case Workplace.Barco:
+                            toReturn = Function.Barco_Bar;
+                            break;
+                        case Workplace.Fiesta:
+                            toReturn = Function.Fiesta_Bar;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                case "StandBy":
+                    switch (currentUser)
+                    {
+                        case Workplace.Denver:
+                            toReturn = Function.Denver_Bar_Standby;
+                            break;
+                        case Workplace.Barco:
+                            toReturn = Function.Barco_Bar_Standby;
+                            break;
+                        case Workplace.Keuken:
+                            toReturn = Function.DenverBarco_Keuken_Standby;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                case "Keuken StandBy":
+                    switch (currentUser)
+                    {
+                        case Workplace.Fiesta:
+                            toReturn = Function.Fiesta_Keuken_Standby;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                case "Afwas StandBy":
+                    switch (currentUser)
+                    {
+                        case Workplace.Fiesta:
+                            toReturn = Function.Fiesta_Afwas_Standby;
+                            break;
+                    }
+                    return toReturn;
+                case "Bediening StandBy":
+                    switch (currentUser)
+                    {
+                        case Workplace.Fiesta:
+                            toReturn = Function.Fiesta_Bar_Standby;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                case "Barco keuken":
+                    switch (currentUser)
+                    {
+                        case Workplace.Keuken:
+                            toReturn = Function.BarcoKeuken;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                case "Denver keuken":
+                    switch (currentUser)
+                    {
+                        case Workplace.Denver:
+                            toReturn = Function.Denver_Keuken;
+                            break;
+                        default:
+                            toReturn = Function.NoFunctionDetected;
+                            break;
+                    }
+                    return toReturn;
+                default:
+                    break;
+            }
 
             return toReturn;
         }
@@ -90,7 +222,7 @@ namespace BarcoDenverPlanningSysteem
         {
             //create staffmember from name
             int id = getIdFromName(name);
-            PlannableFunction function = PlannableFunction.NoFunctionDetected;
+            Function function = planningStringToFunction(functionname);
             StaffMember staffMemberToPlan = new StaffMember(id, function, pauseTime, startTime, endTime);
 
             //check if year to plan is in db if not add it to the db if it is add a month to the year
@@ -103,7 +235,7 @@ namespace BarcoDenverPlanningSysteem
                     if (database.CheckForDay(datetimeToPlan))
                     {
                         //add person to the day in db.
-                        database.AddStaffMemberToPlanning(datetimeToPlan,reality,staffMemberToPlan,startTime,endTime,pauseTime);
+                        database.AddStaffMemberToPlanning(datetimeToPlan,reality,staffMemberToPlan);
                     }
                 }
             }

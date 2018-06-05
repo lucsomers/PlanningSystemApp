@@ -120,6 +120,35 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             return toReturn;
         }
 
+        public void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan, MySqlConnection connection)
+        {
+            int dayId = getIdOfDay(datetimeToPlan, connection);
+            //add staff member to planning 
+        }
+
+        private int getIdOfDay(DateTime date, MySqlConnection connection)
+        {
+            int id = -1;
+            //fill in the querry to get id from date
+            string sql = "";
+
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                }
+            }
+            connection.Close();
+
+            return id;
+        }
+
         private void LoadDaysOfMonth(List<Year> list, MySqlConnection connection, string workplaceToSearchFor, int planning)
         {
             string sql = @"SELECT d.`id`, d.`date`, d.`admin_comment`, d.`day_comment`, 
