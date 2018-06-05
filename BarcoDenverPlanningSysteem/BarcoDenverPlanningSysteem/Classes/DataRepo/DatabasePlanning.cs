@@ -205,7 +205,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                             reader.GetTimeSpan("pause_time"), reader.GetTimeSpan("start_time"), reader.GetTimeSpan("end_time"));
 
                         //change string function to enum function
-                        tempMember.FunctionOfDay = FunctionExtension.stringToEnum(reader.GetString("functionName"));
+                        tempMember.FunctionOfDay = FunctionExtension.StringToEnum(reader.GetString("functionName"));
 
                         //add staffmember to day
                         d.AddStaffMember(tempMember);

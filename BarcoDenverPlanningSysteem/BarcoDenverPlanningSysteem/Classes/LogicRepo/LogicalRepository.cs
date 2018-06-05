@@ -72,6 +72,8 @@ namespace BarcoDenverPlanningSysteem
         {
             PlannableFunction toReturn = PlannableFunction.NoFunctionDetected;
 
+
+
             return toReturn;
         }
 
@@ -162,7 +164,7 @@ namespace BarcoDenverPlanningSysteem
         /// <param name="earnings">earnings of the staffmember</param>
         public void AddStaffMember(string name, double earnings, string defaultWorkplace)
         {
-            StaffMember tempMember = new StaffMember(0, name, earnings, FunctionExtension.stringToEnum(defaultWorkplace));
+            StaffMember tempMember = new StaffMember(0, name, earnings, FunctionExtension.StringToEnum(defaultWorkplace));
             
             database.AddStaffMember(tempMember);
         }
@@ -255,7 +257,7 @@ namespace BarcoDenverPlanningSysteem
         /// <param name="id">id of staffmember to update</param>
         public bool UpdateStaffMemberDefaultFunction(string text, int id)
         {
-            Function f = FunctionExtension.stringToEnum(text);
+            Function f = FunctionExtension.StringToEnum(text);
             return database.UpdateStaffMemberFunction(f.ToID(), id);
         }
 

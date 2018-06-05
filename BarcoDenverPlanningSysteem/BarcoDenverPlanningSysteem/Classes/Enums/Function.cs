@@ -26,7 +26,7 @@ namespace BarcoDenverPlanningSysteem
     }
     public static class FunctionExtension
     {
-        public static Function stringToEnum(string s)
+        public static Function StringToEnum(string s)
         {
             switch (s.ToLower())
             {
@@ -53,6 +53,27 @@ namespace BarcoDenverPlanningSysteem
 
                 case "fiesta keuken":
                     return Function.Fiesta_Keuken;
+
+                case "denver bar standby":
+                    return Function.Denver_Bar_Standby;
+
+                case "barco bar standby":
+                    return Function.Barco_Bar_Standby;
+
+                case "denverbarco keuken stanby":
+                    return Function.DenverBarco_Keuken_Standby;
+
+                case "fiesta bar standby":
+                    return Function.Fiesta_Bar_Standby;
+
+                case "fiesta keuken standby":
+                    return Function.Fiesta_Keuken_Standby;
+
+                case "fiesta afwas standby":
+                    return Function.Fiesta_Afwas_Standby;
+
+                case "barcoDenver afwas standby":
+                    return Function.Barco_Denver_Afwas_Standby;
 
                 default:
                     return Function.NoFunctionDetected;
@@ -162,19 +183,19 @@ namespace BarcoDenverPlanningSysteem
                     return 7;
                 case Function.Barco_Denver_Afwas:
                     return 8;
-                case Function.Denver_Bar_Standby:
-                    return 9;
-                case Function.Barco_Bar_Standby:
-                    return 10;
-                case Function.DenverBarco_Keuken_Standby:
-                    return 11;
-                case Function.Fiesta_Bar_Standby:
-                    return 12;
                 case Function.Fiesta_Keuken_Standby:
+                    return 9;
+                case Function.Fiesta_Bar_Standby:
+                    return 10;
+                case Function.Denver_Bar_Standby:
+                    return 11;
+                case Function.Barco_Bar_Standby:
+                    return 12;
+                case Function.DenverBarco_Keuken_Standby:
                     return 13;
-                case Function.Fiesta_Afwas_Standby:
-                    return 14;
                 case Function.Barco_Denver_Afwas_Standby:
+                    return 14;
+                case Function.Fiesta_Afwas_Standby:
                     return 15;
                 case Function.NoFunctionDetected:
                     return 0;
