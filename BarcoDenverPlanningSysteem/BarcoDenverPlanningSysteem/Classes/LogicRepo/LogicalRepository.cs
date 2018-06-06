@@ -218,7 +218,7 @@ namespace BarcoDenverPlanningSysteem
         /// <param name="startTime">de begin tijd van de werknemer</param>
         /// <param name="endTime">de eindtijd van de werknemer</param>
         /// <param name="pauseTime">de pauze tijd van de werknemer</param>
-        public void AddStaffMemberToPlanning(string functionname, DateTime datetimeToPlan, bool reality, string name, TimeSpan startTime, TimeSpan endTime, TimeSpan pauseTime = new TimeSpan())
+        public void AddStaffMemberToPlanning(string functionname, DateTime datetimeToPlan, bool reality, string name, DateTime startTime, DateTime endTime, DateTime pauseTime = new DateTime())
         {
             //create staffmember from name
             int id = getIdFromName(name);
@@ -235,7 +235,7 @@ namespace BarcoDenverPlanningSysteem
                     if (database.CheckForDay(datetimeToPlan))
                     {
                         //add person to the day in db.
-                        database.AddStaffMemberToPlanning(datetimeToPlan,reality,staffMemberToPlan);
+                        database.AddStaffMemberToPlanning(datetimeToPlan,reality,staffMemberToPlan, currentUser.ToID());
                     }
                 }
             }
@@ -256,8 +256,6 @@ namespace BarcoDenverPlanningSysteem
                 }
             }
 
-            //TODO: ask marcel ?????? is there the need for an option to choose no default function for a person.
-            //if yes this does not need change else this needs to be null and the check for this needs to be ==.
             return "";
         }
 

@@ -18,11 +18,11 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
 
         private Function functionOfDay;
         private PlannableFunction plannableFunctionOfDay;
-        private TimeSpan pauseTime;
-        private TimeSpan startTime;
-        private TimeSpan endTime;
+        private DateTime pauseTime;
+        private DateTime startTime;
+        private DateTime endTime;
 
-        public StaffMember(int id, PlannableFunction plannableFunction, TimeSpan pauseTime, TimeSpan startTime, TimeSpan endTime)
+        public StaffMember(int id, PlannableFunction plannableFunction, DateTime pauseTime, DateTime startTime, DateTime endTime)
         {
             this.plannableFunctionOfDay = plannableFunction;
             this.pauseTime = pauseTime;
@@ -31,7 +31,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             this.id = id;
         }
 
-        public StaffMember(int id, Function functionOfDay, TimeSpan pauseTime, TimeSpan startTime, TimeSpan endTime)
+        public StaffMember(int id, Function functionOfDay, DateTime pauseTime, DateTime startTime, DateTime endTime)
         {
             this.functionOfDay = functionOfDay;
             this.pauseTime = pauseTime;
@@ -48,7 +48,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
             this.defaultFunction = defaultFunction;
         }
 
-        public StaffMember(int id, string name, double earnings, Function defaultFunction, Function functionOfDay, TimeSpan pauseTime, TimeSpan startTime, TimeSpan endTime) : this(id, name, earnings, defaultFunction)
+        public StaffMember(int id, string name, double earnings, Function defaultFunction, Function functionOfDay, DateTime pauseTime, DateTime startTime, DateTime endTime) : this(id, name, earnings, defaultFunction)
         {
             this.functionOfDay = functionOfDay;
             this.pauseTime = pauseTime;
@@ -66,14 +66,14 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         {
             if (!withPauseTime)
             {
-                return countUpStartAndEndTime(startTime, endTime);
+                return countUpStartAndEndTime(startTime.TimeOfDay, endTime.TimeOfDay);
             }
             else
             {
-                TimeSpan dateTime = countUpStartAndEndTime(startTime, endTime);
+                TimeSpan dateTime = countUpStartAndEndTime(startTime.TimeOfDay, endTime.TimeOfDay);
 
-                int tempHours = (dateTime - pauseTime).Hours;
-                int tempMinutes = (dateTime - pauseTime).Minutes;
+                int tempHours = (dateTime - pauseTime.TimeOfDay).Hours;
+                int tempMinutes = (dateTime - pauseTime.TimeOfDay).Minutes;
 
                 return new TimeSpan(tempHours, tempMinutes, 0);
             }
@@ -100,9 +100,9 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         public Function FunctionOfDay { get => functionOfDay; set => functionOfDay = value; }
         public Function DefaultFunction { get => defaultFunction; set => defaultFunction = value; }
         public Function FunctionOfDay1 { get => functionOfDay; set => functionOfDay = value; }
-        public TimeSpan PauseTime { get => pauseTime; set => pauseTime = value; }
-        public TimeSpan StartTime { get => startTime; set => startTime = value; }
-        public TimeSpan EndTime { get => endTime; set => endTime = value; }
+        public DateTime PauseTime { get => pauseTime; set => pauseTime = value; }
+        public DateTime StartTime { get => startTime; set => startTime = value; }
+        public DateTime EndTime { get => endTime; set => endTime = value; }
         public PlannableFunction PlannableFunctionOfDay { get => plannableFunctionOfDay; set => plannableFunctionOfDay = value; }
     }
 }

@@ -41,19 +41,19 @@ namespace BarcoDenverPlanningSysteem
         /// <returns>geeft een werkplek terug die hoort bij de meegegeven code</returns>
         public Workplace CheckCodeForLogin(int code) => dbUsers.CheckCodeForLogin(code, connection);
 
-        internal bool CheckForYear(DateTime datetimeToPlan)
+        public bool CheckForYear(DateTime datetimeToPlan)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        internal bool CheckForMonth(DateTime datetimeToPlan)
+        public bool CheckForMonth(DateTime datetimeToPlan)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        internal bool CheckForDay(DateTime datetimeToPlan)
+        public bool CheckForDay(DateTime datetimeToPlan)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public int getIdFromStaffMemberName(string name)
@@ -75,9 +75,9 @@ namespace BarcoDenverPlanningSysteem
             return "";
         }
 
-        public void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan)
+        public void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan, int workplace_id)
         {
-            dbPlanning.AddStaffMemberToPlanning(datetimeToPlan, reality, staffMemberToPlan,connection);
+            dbPlanning.AddStaffMemberToPlanning(datetimeToPlan, reality, staffMemberToPlan, workplace_id,connection);
         }
 
         /// <summary>

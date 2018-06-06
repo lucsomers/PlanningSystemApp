@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DataRepo\DatabasePlanning.cs" />
+    <Compile Include="Classes\Enums\DayMonthYear.cs" />
     <Compile Include="Classes\Enums\PlannableFunction.cs" />
     <Compile Include="Classes\Enums\Function.cs" />
     <Compile Include="Classes\Enums\Workplace.cs" />

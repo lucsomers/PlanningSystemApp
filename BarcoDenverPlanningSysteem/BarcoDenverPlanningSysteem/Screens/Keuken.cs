@@ -113,7 +113,7 @@ namespace BarcoDenverPlanningSysteem
                     {
                     //TODO: add a staffmember to the planning of the logged in person
                     repository.getIdFromName(cbxStaffMemberName.Text);
-                    
+                    repository.AddStaffMemberToPlanning(cbxWorkplace.Text, dtpChosenDateForStaffMember.Value, btnRealHours.Enabled, cbxStaffMemberName.Text, dtpStartTime.Value, dtpEndTime.Value);
                 }
                 else
                     {
