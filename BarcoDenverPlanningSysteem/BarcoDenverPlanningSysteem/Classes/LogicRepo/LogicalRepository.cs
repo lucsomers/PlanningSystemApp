@@ -297,9 +297,11 @@ namespace BarcoDenverPlanningSysteem
             StaffMember tempMember = new StaffMember(0, name, earnings, FunctionExtension.StringToEnum(defaultWorkplace));
             
             database.AddStaffMember(tempMember);
+            tempMember.Id = getIdFromName(name);
+            database.AddStaffMember(tempMember, true);
         }
 
-        public void FillPlanningtableWithData(DataGridView tableToFill, DateTime dateToFill, int planning, TextBox textBox)
+        public void FillPlanningtableWithData(DataGridView tableToFill, DateTime dateToFill, bool planning, TextBox textBox)
         {
             //sets commentbox
             textBox.Text = database.FillPlanningTableWithData(tableToFill, currentUser, dateToFill, planning);
@@ -391,14 +393,17 @@ namespace BarcoDenverPlanningSysteem
             return database.UpdateStaffMemberFunction(f.ToID(), id);
         }
 
-        public Dictionary<string,int> countNumbers(DataGridView dgv)
+        public Dictionary<string,int> CountNumbers(DataGridView dgv)
         {
             Dictionary<string, int> dir = new Dictionary<string, int>();
             List<string> lstCountable = new List<string>();
 
             foreach (DataGridViewRow row in dgv.Rows)
             {
-                lstCountable.Add(row.Cells[3].Value.ToString().ToLower());
+                if (row.Cells[3].Value != null)
+                {
+                    lstCountable.Add(row.Cells[3].Value.ToString().ToLower());
+                }
             }
 
             if (lstCountable.Count >= 1)
@@ -413,7 +418,7 @@ namespace BarcoDenverPlanningSysteem
                 dir.Add(str, lstCountable.Where(s => s == str).Count());
                 str = "afwas";
                 dir.Add(str, lstCountable.Where(s => s == str).Count());
-                str = "stand-by";
+                str = "standby";
                 dir.Add(str, lstCountable.Where(s => s == str).Count());
             }
           

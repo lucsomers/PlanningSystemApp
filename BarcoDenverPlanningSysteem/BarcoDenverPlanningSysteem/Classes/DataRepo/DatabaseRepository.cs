@@ -27,7 +27,17 @@ namespace BarcoDenverPlanningSysteem
 
         public void DeleteStaffMemberById(int id) => dbUsers.DeleteStaffMemberById(id, connection);
 
-        public void AddStaffMember(StaffMember member) => dbUsers.AddStaffMember(member, connection);
+        public void AddStaffMember(StaffMember member, bool idFilled = false)
+        {
+            if (!idFilled)
+            {
+                dbUsers.AddStaffMember(member, connection);
+            }
+            else
+            {
+                dbUsers.ConnectStaffmemberToWorkplace(member, connection);
+            }
+        }
 
         public void FillViewWithAllStaffMembers(DataGridView dataview) => dbUsers.FillViewWithAllUsers(dataview, connection);
 
@@ -61,7 +71,7 @@ namespace BarcoDenverPlanningSysteem
             return dbUsers.getIdFromStaffMemberName(connection, name);
         }
 
-        public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, int planning)
+        public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, bool planning)
         {
             if (tableToFill != null)
             {

@@ -61,6 +61,8 @@ namespace BarcoDenverPlanningSysteem
             dtpDateTimePicker.Value = SetMonday(false);
             dtpDateTimePicker.Value = dtpDateTimePicker.Value.AddHours(10);
 
+            dtpChosenDateForStaffMember.Value = DateTime.Now;
+
             //fills the comboboxes
             cbxStaffMemberName.Items.AddRange(repository.GetListOfStaffMembers());
             cbxWorkplace.Items.AddRange(repository.GetPlannableFunctionsAvailableToUser());
@@ -111,9 +113,9 @@ namespace BarcoDenverPlanningSysteem
                     //check lege velden
                     if (cbxStaffMemberName.Text != "" || cbxWorkplace.Text != "")
                     {
-                    //TODO: add a staffmember to the planning of the logged in person
                     repository.getIdFromName(cbxStaffMemberName.Text);
                     repository.AddStaffMemberToPlanning(cbxWorkplace.Text, dtpChosenDateForStaffMember.Value, btnRealHours.Enabled, cbxStaffMemberName.Text, dtpStartTime.Value, dtpEndTime.Value);
+                    FillTables();
                 }
                 else
                     {
@@ -153,48 +155,45 @@ namespace BarcoDenverPlanningSysteem
         {
             //TODO: Expected revenue show on screen
 
-            //int that represents the boolean for real_planning or normal_planning
-            int planning = Convert.ToInt32(btnPlanning.Enabled);
-
             //clear all text boxes before filling the right ones 
             clearDayOfWeekTextBoxes();
 
             #region row clears and filling tables and commentbox
             //rows clear
             dgvMonday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvMonday, dtpDateTimePicker.Value, planning, tbxCommentMonday);
+            repository.FillPlanningtableWithData(dgvMonday, dtpDateTimePicker.Value, btnRealHours.Enabled, tbxCommentMonday);
 
 
             //rows clear
             dgvTuesday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvTuesday, dtpDateTimePicker.Value.AddDays(1), planning, tbxCommentTuesday);
+            repository.FillPlanningtableWithData(dgvTuesday, dtpDateTimePicker.Value.AddDays(1), btnRealHours.Enabled, tbxCommentTuesday);
 
 
             //rows clear
             dgvWednesday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvWednesday, dtpDateTimePicker.Value.AddDays(2), planning, tbxCommentWednesday);
+            repository.FillPlanningtableWithData(dgvWednesday, dtpDateTimePicker.Value.AddDays(2), btnRealHours.Enabled, tbxCommentWednesday);
 
 
             //rows clear
             dgvThursday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvThursday, dtpDateTimePicker.Value.AddDays(3), planning, tbxCommentThursday);
+            repository.FillPlanningtableWithData(dgvThursday, dtpDateTimePicker.Value.AddDays(3), btnRealHours.Enabled, tbxCommentThursday);
 
 
             //rows clear
             dgvFriday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvFriday, dtpDateTimePicker.Value.AddDays(4), planning, tbxCommentFriday);
+            repository.FillPlanningtableWithData(dgvFriday, dtpDateTimePicker.Value.AddDays(4), btnRealHours.Enabled, tbxCommentFriday);
 
 
             //rows clear
             dgvSaturday.Rows.Clear();
             //table fill
-            repository.FillPlanningtableWithData(dgvSaturday, dtpDateTimePicker.Value.AddDays(5), planning, tbxCommentSaturday);
+            repository.FillPlanningtableWithData(dgvSaturday, dtpDateTimePicker.Value.AddDays(5), btnRealHours.Enabled, tbxCommentSaturday);
 
 
             //rows clear
             dgvSunday.Rows.Clear();
             //table fill
-            repository.FillPlanningtableWithData(dgvSunday, dtpDateTimePicker.Value.AddDays(6), planning, tbxCommentSunday);
+            repository.FillPlanningtableWithData(dgvSunday, dtpDateTimePicker.Value.AddDays(6), btnRealHours.Enabled, tbxCommentSunday);
             #endregion
 
             #region fill textboxes
@@ -216,79 +215,79 @@ namespace BarcoDenverPlanningSysteem
             switch (dayOfWeek)
             {
                 case DayOfWeek.Sunday:
-                    dir = repository.countNumbers(dgv);
+                    dir = repository.CountNumbers(dgv);
                     if (dir.Count >= 1)
                     {
                         txtAmountOfCleanersSunday.Text = dir["afwas"].ToString();
                         txtAmountOfKitchenSunday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
                         txtAmountOfServersSunday.Text = dir["bediening"].ToString();
-                        txtAmountOfStandBySunday.Text = dir["stand-by"].ToString();
+                        txtAmountOfStandBySunday.Text = dir["standby"].ToString();
                     }
                     break;
 
                 case DayOfWeek.Monday:
-                    dir = repository.countNumbers(dgv);
+                    dir = repository.CountNumbers(dgv);
                     if (dir.Count >= 1)
                     {
                         txtAmountOfCleanersMonday.Text = dir["afwas"].ToString();
                         txtAmountOfKitchenMonday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
                         txtAmountOfServersMonday.Text = dir["bediening"].ToString();
-                        txtAmountOfStandByMonday.Text = dir["stand-by"].ToString();
+                        txtAmountOfStandByMonday.Text = dir["standby"].ToString();
                     }
                     break;
 
                 case DayOfWeek.Tuesday:
-                    dir = repository.countNumbers(dgv);
+                    dir = repository.CountNumbers(dgv);
                     if (dir.Count >= 1)
                     {
                         txtAmountOfCleanersTuesday.Text = dir["afwas"].ToString();
                         txtAmountOfKitchenTuesday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
                         txtAmountOfServersTuesday.Text = dir["bediening"].ToString();
-                        txtAmountOfStandbyTuesday.Text = dir["stand-by"].ToString();
+                        txtAmountOfStandbyTuesday.Text = dir["standby"].ToString();
                     }
                     break;
 
                 case DayOfWeek.Wednesday:
-                    dir = repository.countNumbers(dgv);
+                    dir = repository.CountNumbers(dgv);
                     if (dir.Count >= 1)
                     {
                         txtAmountOfCleanersWednesday.Text = dir["afwas"].ToString();
                         txtAmountOfKitchenWednesday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
                         txtAmountOfServersWednesday.Text = dir["bediening"].ToString();
-                        txtAmountOfStandByWednesday.Text = dir["stand-by"].ToString();
+                        txtAmountOfStandByWednesday.Text = dir["standby"].ToString();
                     }
                     break;
 
                 case DayOfWeek.Thursday:
-                    dir = repository.countNumbers(dgv);
+                    dir = repository.CountNumbers(dgv);
                     if (dir.Count >= 1)
                     {
                         txtAmountOfCleanersThursday.Text = dir["afwas"].ToString();
                         txtAmountOfKitchenThursday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
                         txtAmountOfServersThursday.Text = dir["bediening"].ToString();
-                        txtAmountOfStandByThursday.Text = dir["stand-by"].ToString();
+                        txtAmountOfStandByThursday.Text = dir["standby"].ToString();
                     }
                     break;
 
                 case DayOfWeek.Friday:
-                    dir = repository.countNumbers(dgv);
+                    dir = repository.CountNumbers(dgv);
                     if (dir.Count >= 1)
                     {
                         txtAmountOfCleanersFriday.Text = dir["afwas"].ToString();
                         txtAmountOfKitchenFriday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
                         txtAmountOfServersFriday.Text = dir["bediening"].ToString();
-                        txtAmountOfStandByFriday.Text = dir["stand-by"].ToString();
+                        txtAmountOfStandByFriday.Text = dir["standby"].ToString();
                     }
                     break;
 
                 case DayOfWeek.Saturday:
-                    dir = repository.countNumbers(dgv);
+                    dir = repository.CountNumbers(dgv);
                     if (dir.Count >= 1)
                     {
                         txtAmountOfCleanersSaturday.Text = dir["afwas"].ToString();
                         txtAmountOfKitchenSaturday.Text = (dir["denver keuken"] + dir["barco keuken"]).ToString();
                         txtAmountOfServersSaturday.Text = dir["bediening"].ToString();
-                        txtAmountOfSStandBySaturday.Text = dir["stand-by"].ToString();
+                        txtAmountOfSStandBySaturday.Text = dir["standby"].ToString();
                     }
                     break;
 

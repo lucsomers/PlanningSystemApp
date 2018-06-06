@@ -26,6 +26,47 @@ namespace BarcoDenverPlanningSysteem
     }
     public static class FunctionExtension
     {
+        public static Workplace GetWorkplaceOfFunction(this Function me)
+        {
+            switch (me)
+            {
+                case Function.Denver_Bar:
+                    return Workplace.Denver;
+                case Function.Denver_Bar_Standby:
+                    return Workplace.Denver;
+                case Function.Denver_Keuken:
+                    return Workplace.Keuken;
+                case Function.Barco_Bar:
+                    return Workplace.Barco;
+                case Function.Barco_Bar_Standby:
+                    return Workplace.Barco;
+                case Function.BarcoKeuken:
+                    return Workplace.Keuken;
+                case Function.DenverBarco_Keuken_Standby:
+                    return Workplace.Keuken;
+                case Function.Fiesta_Bar:
+                    return Workplace.Fiesta;
+                case Function.Fiesta_Bar_Standby:
+                    return Workplace.Fiesta;
+                case Function.Fiesta_Keuken:
+                    return Workplace.Fiesta;
+                case Function.Fiesta_Keuken_Standby:
+                    return Workplace.Fiesta;
+                case Function.Fiesta_Afwas:
+                    return Workplace.Fiesta;
+                case Function.Fiesta_Afwas_Standby:
+                    return Workplace.Fiesta;
+                case Function.Barco_Denver_Afwas:
+                    return Workplace.Keuken;
+                case Function.Barco_Denver_Afwas_Standby:
+                    return Workplace.Keuken;
+                case Function.NoFunctionDetected:
+                    return Workplace.NoFunctionDetected;
+                default:
+                    return Workplace.NoFunctionDetected;
+            }
+        }
+
         public static Function StringToEnum(string s)
         {
             switch (s.ToLower())

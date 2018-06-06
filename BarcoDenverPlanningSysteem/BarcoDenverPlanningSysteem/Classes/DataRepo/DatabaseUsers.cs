@@ -40,10 +40,30 @@ namespace BarcoDenverPlanningSysteem
             connection.Close();
         }
 
+        public void ConnectStaffmemberToWorkplace(StaffMember member, MySqlConnection connection)
+        {
+            Workplace wp = member.DefaultFunction.GetWorkplaceOfFunction();
+
+            string sql = @"INSERT INTO `workplace_staff` (`staff_id`, `workplace_id`)
+                                                    VALUES(@staffid, @workplaceid)";
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("staffid", member.Id);
+            cmd.Parameters.AddWithValue("workplaceid", wp.ToID());
+
+            connection.Open();
+            cmd.ExecuteReader();
+            connection.Close();
+        }
+
         public void DeleteStaffMemberById(int id, MySqlConnection connection)
         {
             string sql = @"DELETE FROM `staff`
-                           WHERE `id` = @id";
+                           WHERE `staff`.`id` = @id;
+                           DELETE FROM `workplace_staff`
+                           WHERE `workplace_staff`.`staff_id` = @id;
+                           DELETE FROM `day_staff`
+                           WHERE `day_staff`.`staff_id` = @id;";
 
             connection.Open();
 
