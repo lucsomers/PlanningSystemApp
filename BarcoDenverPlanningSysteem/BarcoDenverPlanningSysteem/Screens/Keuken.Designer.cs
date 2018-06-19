@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.pnSideMenu = new System.Windows.Forms.Panel();
+            this.dtpChosenDateForStaffMember = new System.Windows.Forms.DateTimePicker();
             this.btnEditRecord = new System.Windows.Forms.Button();
             this.btnDeleteRecord = new System.Windows.Forms.Button();
             this.pnlMenuSecondPanel = new System.Windows.Forms.Panel();
@@ -42,14 +43,21 @@
             this.dtpBreakTime = new System.Windows.Forms.DateTimePicker();
             this.lblWorkplace = new System.Windows.Forms.Label();
             this.lblStartOfWorktime = new System.Windows.Forms.Label();
-            this.dtpDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.lblBreakTime = new System.Windows.Forms.Label();
             this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
             this.cbxWorkplace = new System.Windows.Forms.ComboBox();
             this.lblEndOfWorktime = new System.Windows.Forms.Label();
             this.lblStaffMemberName = new System.Windows.Forms.Label();
             this.cbxStaffMemberName = new System.Windows.Forms.ComboBox();
+            this.dtpDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.pnlWeekPlanning = new System.Windows.Forms.Panel();
+            this.tbxCommentSunday = new System.Windows.Forms.TextBox();
+            this.tbxCommentSaturday = new System.Windows.Forms.TextBox();
+            this.tbxCommentFriday = new System.Windows.Forms.TextBox();
+            this.tbxCommentThursday = new System.Windows.Forms.TextBox();
+            this.tbxCommentWednesday = new System.Windows.Forms.TextBox();
+            this.tbxCommentTuesday = new System.Windows.Forms.TextBox();
+            this.tbxCommentMonday = new System.Windows.Forms.TextBox();
             this.txtStaffCostSunday = new System.Windows.Forms.TextBox();
             this.lblStaffCostSunday = new System.Windows.Forms.Label();
             this.txtStaffCostSaturday = new System.Windows.Forms.TextBox();
@@ -142,37 +150,12 @@
             this.txtAmountOfStandByMonday = new System.Windows.Forms.TextBox();
             this.lblAmountOfStandByMonday = new System.Windows.Forms.Label();
             this.dgvSunday = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSaturday = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvFriday = new System.Windows.Forms.DataGridView();
             this.dgvThursday = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvWednesday = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblSunday = new System.Windows.Forms.Label();
             this.dgvTuesday = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblSaturday = new System.Windows.Forms.Label();
             this.lblFriday = new System.Windows.Forms.Label();
             this.lblThursday = new System.Windows.Forms.Label();
@@ -180,24 +163,55 @@
             this.lblTeusday = new System.Windows.Forms.Label();
             this.lblMonday = new System.Windows.Forms.Label();
             this.dgvMonday = new System.Windows.Forms.DataGridView();
+            this.PlanningId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmStaffMemberName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmStartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmEndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmWorkplace = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmAmountOfHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dtpChosenDateForStaffMember = new System.Windows.Forms.DateTimePicker();
-            this.tbxCommentMonday = new System.Windows.Forms.TextBox();
-            this.tbxCommentTuesday = new System.Windows.Forms.TextBox();
-            this.tbxCommentWednesday = new System.Windows.Forms.TextBox();
-            this.tbxCommentFriday = new System.Windows.Forms.TextBox();
-            this.tbxCommentThursday = new System.Windows.Forms.TextBox();
-            this.tbxCommentSunday = new System.Windows.Forms.TextBox();
-            this.tbxCommentSaturday = new System.Windows.Forms.TextBox();
+            this.pause_timeMonday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlanningIdTuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pause_timeTuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlanningIdWednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pause_timeWednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlanningIdFriday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmWerkplek = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pause_timeFriday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlanningIdSaturday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pause_timeSaturday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlanningIdSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pause_timeSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlanningIdThursday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pause_timeThursday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnSideMenu.SuspendLayout();
             this.pnlMenuSecondPanel.SuspendLayout();
             this.pnlWeekPlanning.SuspendLayout();
@@ -244,6 +258,18 @@
             this.pnSideMenu.Name = "pnSideMenu";
             this.pnSideMenu.Size = new System.Drawing.Size(1193, 142);
             this.pnSideMenu.TabIndex = 0;
+            // 
+            // dtpChosenDateForStaffMember
+            // 
+            this.dtpChosenDateForStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dtpChosenDateForStaffMember.CustomFormat = "dddd- d - MMMM";
+            this.dtpChosenDateForStaffMember.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpChosenDateForStaffMember.Location = new System.Drawing.Point(112, 10);
+            this.dtpChosenDateForStaffMember.Name = "dtpChosenDateForStaffMember";
+            this.dtpChosenDateForStaffMember.Size = new System.Drawing.Size(200, 20);
+            this.dtpChosenDateForStaffMember.TabIndex = 115;
+            this.dtpChosenDateForStaffMember.Value = new System.DateTime(2018, 2, 2, 12, 23, 49, 0);
             // 
             // btnEditRecord
             // 
@@ -402,19 +428,6 @@
             this.lblStartOfWorktime.TabIndex = 7;
             this.lblStartOfWorktime.Text = "Start tijd:";
             // 
-            // dtpDateTimePicker
-            // 
-            this.dtpDateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dtpDateTimePicker.CustomFormat = "dddd- d - MMMM";
-            this.dtpDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateTimePicker.Location = new System.Drawing.Point(7, 7);
-            this.dtpDateTimePicker.Name = "dtpDateTimePicker";
-            this.dtpDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.dtpDateTimePicker.TabIndex = 0;
-            this.dtpDateTimePicker.Value = new System.DateTime(2018, 2, 2, 12, 23, 49, 0);
-            this.dtpDateTimePicker.ValueChanged += new System.EventHandler(this.dtpDateTimePicker_ValueChanged);
-            // 
             // lblBreakTime
             // 
             this.lblBreakTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -480,6 +493,20 @@
             this.cbxStaffMemberName.Name = "cbxStaffMemberName";
             this.cbxStaffMemberName.Size = new System.Drawing.Size(200, 21);
             this.cbxStaffMemberName.TabIndex = 2;
+            this.cbxStaffMemberName.SelectedIndexChanged += new System.EventHandler(this.cbxStaffMemberName_SelectedIndexChanged);
+            // 
+            // dtpDateTimePicker
+            // 
+            this.dtpDateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dtpDateTimePicker.CustomFormat = "dddd- d - MMMM";
+            this.dtpDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateTimePicker.Location = new System.Drawing.Point(7, 7);
+            this.dtpDateTimePicker.Name = "dtpDateTimePicker";
+            this.dtpDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.dtpDateTimePicker.TabIndex = 0;
+            this.dtpDateTimePicker.Value = new System.DateTime(2018, 2, 2, 12, 23, 49, 0);
+            this.dtpDateTimePicker.ValueChanged += new System.EventHandler(this.dtpDateTimePicker_ValueChanged);
             // 
             // pnlWeekPlanning
             // 
@@ -537,6 +564,76 @@
             this.pnlWeekPlanning.Padding = new System.Windows.Forms.Padding(20, 0, 50, 0);
             this.pnlWeekPlanning.Size = new System.Drawing.Size(1193, 528);
             this.pnlWeekPlanning.TabIndex = 1;
+            // 
+            // tbxCommentSunday
+            // 
+            this.tbxCommentSunday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbxCommentSunday.Location = new System.Drawing.Point(3313, 333);
+            this.tbxCommentSunday.Multiline = true;
+            this.tbxCommentSunday.Name = "tbxCommentSunday";
+            this.tbxCommentSunday.Size = new System.Drawing.Size(545, 74);
+            this.tbxCommentSunday.TabIndex = 121;
+            this.tbxCommentSunday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxCommentSaturday
+            // 
+            this.tbxCommentSaturday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbxCommentSaturday.Location = new System.Drawing.Point(2762, 333);
+            this.tbxCommentSaturday.Multiline = true;
+            this.tbxCommentSaturday.Name = "tbxCommentSaturday";
+            this.tbxCommentSaturday.Size = new System.Drawing.Size(545, 74);
+            this.tbxCommentSaturday.TabIndex = 120;
+            this.tbxCommentSaturday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxCommentFriday
+            // 
+            this.tbxCommentFriday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbxCommentFriday.Location = new System.Drawing.Point(2211, 333);
+            this.tbxCommentFriday.Multiline = true;
+            this.tbxCommentFriday.Name = "tbxCommentFriday";
+            this.tbxCommentFriday.Size = new System.Drawing.Size(545, 74);
+            this.tbxCommentFriday.TabIndex = 119;
+            this.tbxCommentFriday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxCommentThursday
+            // 
+            this.tbxCommentThursday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbxCommentThursday.Location = new System.Drawing.Point(1660, 333);
+            this.tbxCommentThursday.Multiline = true;
+            this.tbxCommentThursday.Name = "tbxCommentThursday";
+            this.tbxCommentThursday.Size = new System.Drawing.Size(545, 74);
+            this.tbxCommentThursday.TabIndex = 118;
+            this.tbxCommentThursday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxCommentWednesday
+            // 
+            this.tbxCommentWednesday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbxCommentWednesday.Location = new System.Drawing.Point(1109, 333);
+            this.tbxCommentWednesday.Multiline = true;
+            this.tbxCommentWednesday.Name = "tbxCommentWednesday";
+            this.tbxCommentWednesday.Size = new System.Drawing.Size(545, 74);
+            this.tbxCommentWednesday.TabIndex = 117;
+            this.tbxCommentWednesday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxCommentTuesday
+            // 
+            this.tbxCommentTuesday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbxCommentTuesday.Location = new System.Drawing.Point(558, 333);
+            this.tbxCommentTuesday.Multiline = true;
+            this.tbxCommentTuesday.Name = "tbxCommentTuesday";
+            this.tbxCommentTuesday.Size = new System.Drawing.Size(545, 74);
+            this.tbxCommentTuesday.TabIndex = 116;
+            this.tbxCommentTuesday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxCommentMonday
+            // 
+            this.tbxCommentMonday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbxCommentMonday.Location = new System.Drawing.Point(7, 333);
+            this.tbxCommentMonday.Multiline = true;
+            this.tbxCommentMonday.Name = "tbxCommentMonday";
+            this.tbxCommentMonday.Size = new System.Drawing.Size(545, 74);
+            this.tbxCommentMonday.TabIndex = 115;
+            this.tbxCommentMonday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtStaffCostSunday
             // 
@@ -1572,40 +1669,18 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvSunday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSunday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlanningIdSunday,
             this.dataGridViewTextBoxColumn26,
             this.dataGridViewTextBoxColumn27,
             this.dataGridViewTextBoxColumn28,
             this.dataGridViewTextBoxColumn29,
-            this.dataGridViewTextBoxColumn30});
+            this.dataGridViewTextBoxColumn30,
+            this.pause_timeSunday});
             this.dgvSunday.Location = new System.Drawing.Point(3313, 31);
             this.dgvSunday.Name = "dgvSunday";
             this.dgvSunday.Size = new System.Drawing.Size(545, 296);
             this.dgvSunday.TabIndex = 19;
-            // 
-            // dataGridViewTextBoxColumn26
-            // 
-            this.dataGridViewTextBoxColumn26.HeaderText = "Werknemer";
-            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
-            // 
-            // dataGridViewTextBoxColumn27
-            // 
-            this.dataGridViewTextBoxColumn27.HeaderText = "Begin tijd";
-            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
-            // 
-            // dataGridViewTextBoxColumn28
-            // 
-            this.dataGridViewTextBoxColumn28.HeaderText = "Eind tijd";
-            this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
-            // 
-            // dataGridViewTextBoxColumn29
-            // 
-            this.dataGridViewTextBoxColumn29.HeaderText = "Workplace";
-            this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
-            // 
-            // dataGridViewTextBoxColumn30
-            // 
-            this.dataGridViewTextBoxColumn30.HeaderText = "Aantal uren";
-            this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
+            this.dgvSunday.SelectionChanged += new System.EventHandler(this.SelectionDGVChanged);
             // 
             // dgvSaturday
             // 
@@ -1614,41 +1689,19 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvSaturday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSaturday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlanningIdSaturday,
             this.dataGridViewTextBoxColumn21,
             this.dataGridViewTextBoxColumn22,
             this.dataGridViewTextBoxColumn23,
             this.dataGridViewTextBoxColumn24,
-            this.dataGridViewTextBoxColumn25});
+            this.dataGridViewTextBoxColumn25,
+            this.pause_timeSaturday});
             this.dgvSaturday.Location = new System.Drawing.Point(2762, 31);
             this.dgvSaturday.Margin = new System.Windows.Forms.Padding(0);
             this.dgvSaturday.Name = "dgvSaturday";
             this.dgvSaturday.Size = new System.Drawing.Size(545, 296);
             this.dgvSaturday.TabIndex = 18;
-            // 
-            // dataGridViewTextBoxColumn21
-            // 
-            this.dataGridViewTextBoxColumn21.HeaderText = "Werknemer";
-            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
-            // 
-            // dataGridViewTextBoxColumn22
-            // 
-            this.dataGridViewTextBoxColumn22.HeaderText = "Begin tijd";
-            this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
-            // 
-            // dataGridViewTextBoxColumn23
-            // 
-            this.dataGridViewTextBoxColumn23.HeaderText = "Eind tijd";
-            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
-            // 
-            // dataGridViewTextBoxColumn24
-            // 
-            this.dataGridViewTextBoxColumn24.HeaderText = "Workplace";
-            this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
-            // 
-            // dataGridViewTextBoxColumn25
-            // 
-            this.dataGridViewTextBoxColumn25.HeaderText = "Aantal uren";
-            this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
+            this.dgvSaturday.SelectionChanged += new System.EventHandler(this.SelectionDGVChanged);
             // 
             // dgvFriday
             // 
@@ -1657,15 +1710,18 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvFriday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFriday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlanningIdFriday,
             this.dataGridViewTextBoxColumn16,
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18,
             this.clmWerkplek,
-            this.dataGridViewTextBoxColumn20});
+            this.dataGridViewTextBoxColumn20,
+            this.pause_timeFriday});
             this.dgvFriday.Location = new System.Drawing.Point(2211, 31);
             this.dgvFriday.Name = "dgvFriday";
             this.dgvFriday.Size = new System.Drawing.Size(545, 296);
             this.dgvFriday.TabIndex = 17;
+            this.dgvFriday.SelectionChanged += new System.EventHandler(this.SelectionDGVChanged);
             // 
             // dgvThursday
             // 
@@ -1674,40 +1730,18 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvThursday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvThursday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlanningIdThursday,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn14,
-            this.dataGridViewTextBoxColumn15});
+            this.dataGridViewTextBoxColumn15,
+            this.pause_timeThursday});
             this.dgvThursday.Location = new System.Drawing.Point(1660, 31);
             this.dgvThursday.Name = "dgvThursday";
             this.dgvThursday.Size = new System.Drawing.Size(545, 296);
             this.dgvThursday.TabIndex = 16;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "Werknemer";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Begin tijd";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "Eind tijd";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.HeaderText = "Workplace";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.HeaderText = "Aantal uren";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dgvThursday.SelectionChanged += new System.EventHandler(this.SelectionDGVChanged);
             // 
             // dgvWednesday
             // 
@@ -1716,40 +1750,18 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvWednesday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvWednesday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlanningIdWednesday,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10});
+            this.dataGridViewTextBoxColumn10,
+            this.pause_timeWednesday});
             this.dgvWednesday.Location = new System.Drawing.Point(1109, 31);
             this.dgvWednesday.Name = "dgvWednesday";
             this.dgvWednesday.Size = new System.Drawing.Size(545, 296);
             this.dgvWednesday.TabIndex = 15;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Werknemer";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Begin tijd";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Eind tijd";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Workplace";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Aantal uren";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dgvWednesday.SelectionChanged += new System.EventHandler(this.SelectionDGVChanged);
             // 
             // lblSunday
             // 
@@ -1768,40 +1780,18 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvTuesday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTuesday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlanningIdTuesday,
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
+            this.dataGridViewTextBoxColumn5,
+            this.pause_timeTuesday});
             this.dgvTuesday.Location = new System.Drawing.Point(558, 31);
             this.dgvTuesday.Name = "dgvTuesday";
             this.dgvTuesday.Size = new System.Drawing.Size(545, 296);
             this.dgvTuesday.TabIndex = 14;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Werknemer";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Begin tijd";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Eind tijd";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Workplace";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Aantal uren";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dgvTuesday.SelectionChanged += new System.EventHandler(this.SelectionDGVChanged);
             // 
             // lblSaturday
             // 
@@ -1870,147 +1860,319 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvMonday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMonday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlanningId,
             this.clmStaffMemberName,
             this.clmStartTime,
             this.clmEndTime,
             this.clmWorkplace,
-            this.clmAmountOfHours});
+            this.clmAmountOfHours,
+            this.pause_timeMonday});
             this.dgvMonday.Location = new System.Drawing.Point(7, 31);
             this.dgvMonday.Name = "dgvMonday";
             this.dgvMonday.Size = new System.Drawing.Size(545, 296);
             this.dgvMonday.TabIndex = 0;
+            this.dgvMonday.SelectionChanged += new System.EventHandler(this.SelectionDGVChanged);
+            // 
+            // PlanningId
+            // 
+            this.PlanningId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PlanningId.HeaderText = "PlanningId";
+            this.PlanningId.Name = "PlanningId";
+            this.PlanningId.Visible = false;
             // 
             // clmStaffMemberName
             // 
+            this.clmStaffMemberName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.clmStaffMemberName.HeaderText = "Werknemer";
             this.clmStaffMemberName.Name = "clmStaffMemberName";
             // 
             // clmStartTime
             // 
+            this.clmStartTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.clmStartTime.HeaderText = "Begin tijd";
             this.clmStartTime.Name = "clmStartTime";
             // 
             // clmEndTime
             // 
+            this.clmEndTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.clmEndTime.HeaderText = "Eind tijd";
             this.clmEndTime.Name = "clmEndTime";
             // 
             // clmWorkplace
             // 
+            this.clmWorkplace.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.clmWorkplace.HeaderText = "Workplace";
             this.clmWorkplace.Name = "clmWorkplace";
             // 
             // clmAmountOfHours
             // 
+            this.clmAmountOfHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.clmAmountOfHours.HeaderText = "Aantal uren";
             this.clmAmountOfHours.Name = "clmAmountOfHours";
             // 
-            // dtpChosenDateForStaffMember
+            // pause_timeMonday
             // 
-            this.dtpChosenDateForStaffMember.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dtpChosenDateForStaffMember.CustomFormat = "dddd- d - MMMM";
-            this.dtpChosenDateForStaffMember.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpChosenDateForStaffMember.Location = new System.Drawing.Point(112, 10);
-            this.dtpChosenDateForStaffMember.Name = "dtpChosenDateForStaffMember";
-            this.dtpChosenDateForStaffMember.Size = new System.Drawing.Size(200, 20);
-            this.dtpChosenDateForStaffMember.TabIndex = 115;
-            this.dtpChosenDateForStaffMember.Value = new System.DateTime(2018, 2, 2, 12, 23, 49, 0);
+            this.pause_timeMonday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pause_timeMonday.HeaderText = "Pauze";
+            this.pause_timeMonday.Name = "pause_timeMonday";
             // 
-            // tbxCommentMonday
+            // PlanningIdTuesday
             // 
-            this.tbxCommentMonday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbxCommentMonday.Location = new System.Drawing.Point(7, 333);
-            this.tbxCommentMonday.Multiline = true;
-            this.tbxCommentMonday.Name = "tbxCommentMonday";
-            this.tbxCommentMonday.Size = new System.Drawing.Size(545, 74);
-            this.tbxCommentMonday.TabIndex = 115;
-            this.tbxCommentMonday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.PlanningIdTuesday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PlanningIdTuesday.HeaderText = "PlanningId";
+            this.PlanningIdTuesday.Name = "PlanningIdTuesday";
+            this.PlanningIdTuesday.Visible = false;
             // 
-            // tbxCommentTuesday
+            // dataGridViewTextBoxColumn1
             // 
-            this.tbxCommentTuesday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbxCommentTuesday.Location = new System.Drawing.Point(558, 333);
-            this.tbxCommentTuesday.Multiline = true;
-            this.tbxCommentTuesday.Name = "tbxCommentTuesday";
-            this.tbxCommentTuesday.Size = new System.Drawing.Size(545, 74);
-            this.tbxCommentTuesday.TabIndex = 116;
-            this.tbxCommentTuesday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Werknemer";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
-            // tbxCommentWednesday
+            // dataGridViewTextBoxColumn2
             // 
-            this.tbxCommentWednesday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbxCommentWednesday.Location = new System.Drawing.Point(1109, 333);
-            this.tbxCommentWednesday.Multiline = true;
-            this.tbxCommentWednesday.Name = "tbxCommentWednesday";
-            this.tbxCommentWednesday.Size = new System.Drawing.Size(545, 74);
-            this.tbxCommentWednesday.TabIndex = 117;
-            this.tbxCommentWednesday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Begin tijd";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // tbxCommentFriday
+            // dataGridViewTextBoxColumn3
             // 
-            this.tbxCommentFriday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbxCommentFriday.Location = new System.Drawing.Point(2211, 333);
-            this.tbxCommentFriday.Multiline = true;
-            this.tbxCommentFriday.Name = "tbxCommentFriday";
-            this.tbxCommentFriday.Size = new System.Drawing.Size(545, 74);
-            this.tbxCommentFriday.TabIndex = 119;
-            this.tbxCommentFriday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Eind tijd";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
-            // tbxCommentThursday
+            // dataGridViewTextBoxColumn4
             // 
-            this.tbxCommentThursday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbxCommentThursday.Location = new System.Drawing.Point(1660, 333);
-            this.tbxCommentThursday.Multiline = true;
-            this.tbxCommentThursday.Name = "tbxCommentThursday";
-            this.tbxCommentThursday.Size = new System.Drawing.Size(545, 74);
-            this.tbxCommentThursday.TabIndex = 118;
-            this.tbxCommentThursday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Workplace";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
-            // tbxCommentSunday
+            // dataGridViewTextBoxColumn5
             // 
-            this.tbxCommentSunday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbxCommentSunday.Location = new System.Drawing.Point(3313, 333);
-            this.tbxCommentSunday.Multiline = true;
-            this.tbxCommentSunday.Name = "tbxCommentSunday";
-            this.tbxCommentSunday.Size = new System.Drawing.Size(545, 74);
-            this.tbxCommentSunday.TabIndex = 121;
-            this.tbxCommentSunday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Aantal uren";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
-            // tbxCommentSaturday
+            // pause_timeTuesday
             // 
-            this.tbxCommentSaturday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbxCommentSaturday.Location = new System.Drawing.Point(2762, 333);
-            this.tbxCommentSaturday.Multiline = true;
-            this.tbxCommentSaturday.Name = "tbxCommentSaturday";
-            this.tbxCommentSaturday.Size = new System.Drawing.Size(545, 74);
-            this.tbxCommentSaturday.TabIndex = 120;
-            this.tbxCommentSaturday.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pause_timeTuesday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pause_timeTuesday.HeaderText = "Pauze";
+            this.pause_timeTuesday.Name = "pause_timeTuesday";
+            // 
+            // PlanningIdWednesday
+            // 
+            this.PlanningIdWednesday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PlanningIdWednesday.HeaderText = "PlanningId";
+            this.PlanningIdWednesday.Name = "PlanningIdWednesday";
+            this.PlanningIdWednesday.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Werknemer";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Begin tijd";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Eind tijd";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Workplace";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Aantal uren";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // pause_timeWednesday
+            // 
+            this.pause_timeWednesday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pause_timeWednesday.HeaderText = "Pauze";
+            this.pause_timeWednesday.Name = "pause_timeWednesday";
+            // 
+            // PlanningIdFriday
+            // 
+            this.PlanningIdFriday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PlanningIdFriday.HeaderText = "PlanningId";
+            this.PlanningIdFriday.Name = "PlanningIdFriday";
+            this.PlanningIdFriday.Visible = false;
             // 
             // dataGridViewTextBoxColumn16
             // 
+            this.dataGridViewTextBoxColumn16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn16.HeaderText = "Werknemer";
             this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
             // 
             // dataGridViewTextBoxColumn17
             // 
+            this.dataGridViewTextBoxColumn17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn17.HeaderText = "Begin tijd";
             this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
             // 
             // dataGridViewTextBoxColumn18
             // 
+            this.dataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn18.HeaderText = "Eind tijd";
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
             // 
             // clmWerkplek
             // 
+            this.clmWerkplek.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.clmWerkplek.HeaderText = "Werkplek";
             this.clmWerkplek.Name = "clmWerkplek";
             // 
             // dataGridViewTextBoxColumn20
             // 
+            this.dataGridViewTextBoxColumn20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn20.HeaderText = "Aantal uren";
             this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
+            // 
+            // pause_timeFriday
+            // 
+            this.pause_timeFriday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pause_timeFriday.HeaderText = "Pauze";
+            this.pause_timeFriday.Name = "pause_timeFriday";
+            // 
+            // PlanningIdSaturday
+            // 
+            this.PlanningIdSaturday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PlanningIdSaturday.HeaderText = "PlanningId";
+            this.PlanningIdSaturday.Name = "PlanningIdSaturday";
+            this.PlanningIdSaturday.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn21
+            // 
+            this.dataGridViewTextBoxColumn21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn21.HeaderText = "Werknemer";
+            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
+            // 
+            // dataGridViewTextBoxColumn22
+            // 
+            this.dataGridViewTextBoxColumn22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn22.HeaderText = "Begin tijd";
+            this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
+            // 
+            // dataGridViewTextBoxColumn23
+            // 
+            this.dataGridViewTextBoxColumn23.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn23.HeaderText = "Eind tijd";
+            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
+            // 
+            // dataGridViewTextBoxColumn24
+            // 
+            this.dataGridViewTextBoxColumn24.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn24.HeaderText = "Workplace";
+            this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
+            // 
+            // dataGridViewTextBoxColumn25
+            // 
+            this.dataGridViewTextBoxColumn25.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn25.HeaderText = "Aantal uren";
+            this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
+            // 
+            // pause_timeSaturday
+            // 
+            this.pause_timeSaturday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pause_timeSaturday.HeaderText = "Pauze";
+            this.pause_timeSaturday.Name = "pause_timeSaturday";
+            // 
+            // PlanningIdSunday
+            // 
+            this.PlanningIdSunday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PlanningIdSunday.HeaderText = "PlanningId";
+            this.PlanningIdSunday.Name = "PlanningIdSunday";
+            this.PlanningIdSunday.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn26
+            // 
+            this.dataGridViewTextBoxColumn26.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn26.HeaderText = "Werknemer";
+            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
+            // 
+            // dataGridViewTextBoxColumn27
+            // 
+            this.dataGridViewTextBoxColumn27.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn27.HeaderText = "Begin tijd";
+            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
+            // 
+            // dataGridViewTextBoxColumn28
+            // 
+            this.dataGridViewTextBoxColumn28.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn28.HeaderText = "Eind tijd";
+            this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
+            // 
+            // dataGridViewTextBoxColumn29
+            // 
+            this.dataGridViewTextBoxColumn29.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn29.HeaderText = "Workplace";
+            this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
+            // 
+            // dataGridViewTextBoxColumn30
+            // 
+            this.dataGridViewTextBoxColumn30.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn30.HeaderText = "Aantal uren";
+            this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
+            // 
+            // pause_timeSunday
+            // 
+            this.pause_timeSunday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pause_timeSunday.HeaderText = "Pauze";
+            this.pause_timeSunday.Name = "pause_timeSunday";
+            // 
+            // PlanningIdThursday
+            // 
+            this.PlanningIdThursday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PlanningIdThursday.HeaderText = "PlanningId";
+            this.PlanningIdThursday.Name = "PlanningIdThursday";
+            this.PlanningIdThursday.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn11.HeaderText = "Werknemer";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn12.HeaderText = "Begin tijd";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn13.HeaderText = "Eind tijd";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn14.HeaderText = "Workplace";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn15.HeaderText = "Aantal uren";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            // 
+            // pause_timeThursday
+            // 
+            this.pause_timeThursday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pause_timeThursday.HeaderText = "Pauze";
+            this.pause_timeThursday.Name = "pause_timeThursday";
             // 
             // Keuken
             // 
@@ -2082,37 +2244,12 @@
         private System.Windows.Forms.ComboBox cbxStaffMemberName;
         private System.Windows.Forms.Panel pnlMenuSecondPanel;
         private System.Windows.Forms.DataGridView dgvSunday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn29;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn30;
         private System.Windows.Forms.DataGridView dgvSaturday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
         private System.Windows.Forms.DataGridView dgvFriday;
         private System.Windows.Forms.DataGridView dgvThursday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
         private System.Windows.Forms.DataGridView dgvWednesday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.Label lblSunday;
         private System.Windows.Forms.DataGridView dgvTuesday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.Label lblAmountOfStandByFriday;
         private System.Windows.Forms.TextBox txtAmountOfStandByFriday;
         private System.Windows.Forms.Label lblAmountOfKitchenFriday;
@@ -2205,11 +2342,6 @@
         private System.Windows.Forms.TextBox txtStaffCostMonday;
         private System.Windows.Forms.Label lblStaffCostMonday;
         private System.Windows.Forms.DataGridView dgvMonday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmStaffMemberName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmStartTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmEndTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmWorkplace;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmAmountOfHours;
         private System.Windows.Forms.Button btnEditRecord;
         private System.Windows.Forms.Button btnDeleteRecord;
         private System.Windows.Forms.DateTimePicker dtpDateTimePicker;
@@ -2221,10 +2353,54 @@
         private System.Windows.Forms.TextBox tbxCommentWednesday;
         private System.Windows.Forms.TextBox tbxCommentTuesday;
         private System.Windows.Forms.TextBox tbxCommentMonday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlanningIdSunday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn29;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn30;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pause_timeSunday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlanningIdSaturday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pause_timeSaturday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlanningIdFriday;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmWerkplek;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pause_timeFriday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlanningIdWednesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pause_timeWednesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlanningIdTuesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pause_timeTuesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlanningId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmStaffMemberName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmStartTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmEndTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmWorkplace;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmAmountOfHours;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pause_timeMonday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlanningIdThursday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pause_timeThursday;
     }
 }

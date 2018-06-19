@@ -12,6 +12,7 @@ namespace BarcoDenverPlanningSysteem
         private DatabaseRepository database = new DatabaseRepository();
         private DatabaseUsers dbUsers = new DatabaseUsers();
         private List<Year> mainYearList = new List<Year>();
+        private bool firstTimeClearOfCells = true;
 
         private Workplace currentUser = Workplace.NoFunctionDetected;
         
@@ -21,6 +22,31 @@ namespace BarcoDenverPlanningSysteem
         public LogicalRepository()
         {
             database.Connect();
+        }
+
+
+        /// <summary>
+        /// deselect all cells of the dgv's in the array except the first one in the array
+        /// </summary>
+        /// <param name="dataGridViews"> an array of dgv's the first one is the exception the rest is cleared of selected cells</param>
+        public void DeselectCells(DataGridView[] dataGridViews)
+        {
+            //first one is always exeption
+            DataGridView Exeption = dataGridViews[0];
+
+            if (firstTimeClearOfCells)
+            {
+                firstTimeClearOfCells = false;
+                for (int i = 0; i < dataGridViews.Length; i++)
+                {
+                    if (Exeption != dataGridViews[i])
+                    {
+                        dataGridViews[i].ClearSelection();
+                    }
+                }
+
+                firstTimeClearOfCells = true;
+            }
         }
 
         /// <summary>
@@ -194,7 +220,7 @@ namespace BarcoDenverPlanningSysteem
                 case "Denver keuken":
                     switch (currentUser)
                     {
-                        case Workplace.Denver:
+                        case Workplace.Keuken:
                             toReturn = Function.Denver_Keuken;
                             break;
                         default:
@@ -209,6 +235,44 @@ namespace BarcoDenverPlanningSysteem
             return toReturn;
         }
 
+        public void DeleteStaffmembersFromPlanningByID(int[] idOfStaffMembers)
+        {
+            for (int i = 0; i < idOfStaffMembers.Length; i++)
+            {
+                database.RemoveStaffMemberFromPlanningById(idOfStaffMembers[i]);
+            }
+        }
+
+        public int[] GetIdOfSelectedRow(DataGridView[] dataGridViews)
+        {
+            List<int> lstids = new List<int>();
+
+            for (int i = 0; i < dataGridViews.Length; i++)
+            {
+                if (dataGridViews[i].SelectedRows.Count > 0)
+                {
+                    for (int r = 0; r < dataGridViews[i].SelectedRows.Count; r++)
+                    {
+                        lstids.Add(int.Parse(dataGridViews[i].SelectedRows[r].Cells[0].Value.ToString()));
+                    }
+
+                    break;
+                }
+            }
+
+            return lstids.ToArray();
+        }
+
+        /// <summary>
+        /// Haalt de standaard werkplek van een werknemer op.
+        /// </summary>
+        /// <param name="idOfStaffmember">id van een werknemer</param>
+        /// <returns>planning string van een werknemer zijn standaard werkplek</returns>
+        public string GetDefaultFunctionById(int idOfStaffmember)
+        {
+            return FunctionExtension.ToPlanningString(FunctionExtension.StringToEnum(database.GetFunctionFromStaffmember(idOfStaffmember)));
+        }
+
         /// <summary>
         /// Creeërd een medewerker van de gegeven naam en planed deze meteen in voor de huidige ingelogde werknemer
         /// </summary>
@@ -218,27 +282,15 @@ namespace BarcoDenverPlanningSysteem
         /// <param name="startTime">de begin tijd van de werknemer</param>
         /// <param name="endTime">de eindtijd van de werknemer</param>
         /// <param name="pauseTime">de pauze tijd van de werknemer</param>
-        public void AddStaffMemberToPlanning(string functionname, DateTime datetimeToPlan, bool reality, string name, DateTime startTime, DateTime endTime, DateTime pauseTime = new DateTime())
+        public int AddStaffMemberToPlanning(string functionname, DateTime datetimeToPlan, bool reality, string name, DateTime startTime, DateTime endTime, DateTime pauseTime = new DateTime())
         {
             //create staffmember from name
             int id = getIdFromName(name);
             Function function = planningStringToFunction(functionname);
             StaffMember staffMemberToPlan = new StaffMember(id, function, pauseTime, startTime, endTime);
-
-            //check if year to plan is in db if not add it to the db if it is add a month to the year
-            if (database.CheckForYear(datetimeToPlan))
-            {
-                //check if month to plan is in db if not add it to the db if it is add a day to the month
-                if (database.CheckForMonth(datetimeToPlan))
-                {
-                    //check if day to plan is in db if not add it to the db if it is add the person to the day
-                    if (database.CheckForDay(datetimeToPlan))
-                    {
-                        //add person to the day in db.
-                        database.AddStaffMemberToPlanning(datetimeToPlan,reality,staffMemberToPlan, currentUser.ToID());
-                    }
-                }
-            }
+            
+            //add person to the day in db.
+            return database.AddStaffMemberToPlanning(datetimeToPlan,reality,staffMemberToPlan, currentUser.ToID());
         }
 
         /// <summary>
@@ -301,10 +353,10 @@ namespace BarcoDenverPlanningSysteem
             database.AddStaffMember(tempMember, true);
         }
 
-        public void FillPlanningtableWithData(DataGridView tableToFill, DateTime dateToFill, bool planning, TextBox textBox)
+        public void FillPlanningtableWithData(DataGridView tableToFill, DateTime dateToFill, bool planning, TextBox textBox, int planningid)
         {
             //sets commentbox
-            textBox.Text = database.FillPlanningTableWithData(tableToFill, currentUser, dateToFill, planning);
+            textBox.Text = database.FillPlanningTableWithData(tableToFill, currentUser, dateToFill, planning, planningid);
         }
 
         /// <summary>

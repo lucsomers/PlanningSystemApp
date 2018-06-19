@@ -77,7 +77,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             }
         }
 
-        public string FillPlanningTableWithData(DataGridView tableToFill, MySqlConnection connection, Workplace currentUser,DateTime dateToFill, bool planning)
+        public string FillPlanningTableWithData(DataGridView tableToFill, MySqlConnection connection, Workplace currentUser,DateTime dateToFill, bool planning, int planningid)
         {
             List<Year> lstYear = new List<Year>();
 
@@ -100,12 +100,33 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                             foreach (StaffMember s in d.StaffMembers)
                             {
                                 tableToFill.Rows.Add(new DataGridViewRow());
-                                tableToFill.Rows[index].Cells[0].Value = s.Name;
-                                tableToFill.Rows[index].Cells[1].Value = s.StartTime.ToShortTimeString();
-                                tableToFill.Rows[index].Cells[2].Value = s.EndTime.ToShortTimeString();
-                                tableToFill.Rows[index].Cells[3].Value = s.FunctionOfDay.ToPlanningString();
-                                TimeSpan span = s.AmountOfWorkedHours(false);
-                                tableToFill.Rows[index].Cells[4].Value = span.ToString(@"hh\:mm");
+                                int tempPlanningId = -1;
+
+                                //planning id (hidden)
+                                if (tempPlanningId == -1)
+                                {
+                                    //als planningid -1 is is deze niet meegegeven en dus moeten we deze even zoeken.
+                                    tempPlanningId = GetIdOfStaffmemberAndDay(s.Id, d.Id, connection);
+                                }
+                                tableToFill.Rows[index].Cells[0].Value = tempPlanningId;
+
+                                //staffmembername
+                                tableToFill.Rows[index].Cells[1].Value = s.Name;
+
+                                //starttime
+                                tableToFill.Rows[index].Cells[2].Value = s.StartTime.ToShortTimeString();
+
+                                //endtime
+                                tableToFill.Rows[index].Cells[3].Value = s.EndTime.ToShortTimeString();
+
+                                //planning boolean
+                                tableToFill.Rows[index].Cells[4].Value = s.FunctionOfDay.ToPlanningString();
+
+                                //totaal gewerkte uren
+                                TimeSpan span = s.AmountOfWorkedHours(planning);
+                                tableToFill.Rows[index].Cells[5].Value = span.ToString(@"hh\:mm");
+
+                                //increment index with 1
                                 index++;
                             }
                             
@@ -122,7 +143,22 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             return toReturn;
         }
 
-        public void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool planning, StaffMember staffMemberToPlan, int workplace_id, MySqlConnection connection)
+        public void RemoveStaffmemberFromPlanningById(int planningid, MySqlConnection connection)
+        {
+            string sql = @"DELETE FROM `day_staff`
+                           WHERE `day_staff`.`id` = @id";
+
+            MySqlCommand cmd = new MySqlCommand(sql,connection);
+            cmd.Parameters.AddWithValue("id", planningid);
+
+            connection.Open();
+
+            cmd.ExecuteReader();
+
+            connection.Close();
+        }
+
+        public int AddStaffMemberToPlanning(DateTime datetimeToPlan, bool planning, StaffMember staffMemberToPlan, int workplace_id, MySqlConnection connection)
         {
             int dayId = getIdOfYearMonthOrDay(datetimeToPlan, DayMonthYear.Day, planning, workplace_id, connection);
             //check if day exists
@@ -152,6 +188,33 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             cmd.ExecuteReader();
 
             connection.Close();
+
+            return GetIdOfStaffmemberAndDay(staffMemberToPlan.Id, dayId,connection);
+        }
+
+        private int GetIdOfStaffmemberAndDay(int staffmemberid, int dayid, MySqlConnection connection)
+        {
+            int idToReturn = -1;
+            string sql = @"SELECT ds.`id` 
+                           FROM day_staff AS ds
+                           WHERE ds.`staff_id` = @staffmemberid AND ds.`day_id` = @dayid";
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("staffmemberid", staffmemberid);
+            cmd.Parameters.AddWithValue("dayid", dayid);
+
+            connection.Open();
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                idToReturn = int.Parse(reader["id"].ToString());
+            }
+
+            connection.Close();
+
+            return idToReturn;
         }
 
         private void addDay(DateTime dateOfDay, int workplace_id , bool planning, MySqlConnection connection)
@@ -169,7 +232,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             }
 
             //add new day
-            int idOfDay = addNewDay(dateOfDay, planning, connection);
+            int idOfDay = addNewDay(dateOfDay, planning, workplace_id, connection);
 
             //add day to month
             ConnectDayToMonth(idOfDay, idOfMonth,connection);
@@ -191,16 +254,17 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             connection.Close();
         }
 
-        private int addNewDay(DateTime dateOfDay, bool planning, MySqlConnection connection)
+        private int addNewDay(DateTime dateOfDay, bool planning, int workplaceid, MySqlConnection connection)
         {
             int newDayId = -1;
 
-            string sql = @"INSERT INTO `day`(`date`, `planning`) 
-                                        VALUES (@date, @planning)";
+            string sql = @"INSERT INTO `day`(`date`, `planning`, `workplace_id`) 
+                                        VALUES (@date, @planning, @workplaceid)";
 
             MySqlCommand cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("date", dateOfDay);
             cmd.Parameters.AddWithValue("planning", planning);
+            cmd.Parameters.AddWithValue("workplaceid", workplaceid);
 
             connection.Open();
 
@@ -209,7 +273,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             connection.Close();
 
             //update dayid
-            newDayId = getIdOfYearMonthOrDay(dateOfDay, DayMonthYear.Day, planning, 0, connection);
+            newDayId = getIdOfYearMonthOrDay(dateOfDay, DayMonthYear.Day, planning, workplaceid, connection);
 
             return newDayId;
         }
@@ -229,7 +293,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             }
 
             //create a new month
-            int idOfMonth = AddNewMonth(dateOfMonth, connection);
+            int idOfMonth = AddNewMonth(dateOfMonth, workplace_id, connection);
             //add month to year
             ConnectMonthToYear(idOfMonth, idOfYear,connection);
         }
@@ -250,15 +314,16 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             connection.Close();
         }
 
-        private int AddNewMonth(DateTime date, MySqlConnection connection)
+        private int AddNewMonth(DateTime date, int workplaceid, MySqlConnection connection)
         {
             int monthid = -1;
 
-            string sql = @"INSERT INTO `month`(`date`) 
-                                        VALUES (@date)";
+            string sql = @"INSERT INTO `month`(`date`,`workplace_id`) 
+                                        VALUES (@date, @workplaceid)";
 
             MySqlCommand cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("date", date);
+            cmd.Parameters.AddWithValue("workplaceid", workplaceid);
 
             connection.Open();
 
@@ -266,7 +331,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
 
             connection.Close();
 
-            monthid = getIdOfYearMonthOrDay(date, DayMonthYear.Month, false, 0, connection);
+            monthid = getIdOfYearMonthOrDay(date, DayMonthYear.Month, false, workplaceid, connection);
 
             return monthid;
         }
@@ -293,15 +358,12 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             string sql = "";
             MySqlCommand cmd = null;
             connection.Open();
-            //TODO: change adding people so when you login with an other workplace the person saved is saved under the year of that workplace
             switch (dayMonth)
             {
                 case DayMonthYear.Day:
                     sql = @"SELECT d.`id`
                            FROM `day` AS d
-                           INNER JOIN `year` as y
-                           ON y.`workplace_id` = @workplaceid
-                           WHERE d.`date` = @date AND d.`planning` = @planning";
+                           WHERE d.`date` = @date AND d.`planning` = @planning AND d.`workplace_id` = @workplaceid";
                     
                     cmd = new MySqlCommand(sql, connection);
                     cmd.Parameters.AddWithValue("date", dateOfDay.Date.Date);
@@ -313,7 +375,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                            FROM `month` AS m
                            INNER JOIN `year` AS y
                            ON YEAR(y.`date`) = @year
-                           WHERE MONTH(m.`date`) = @month AND y.`workplace_id` = @workplaceid";
+                           WHERE MONTH(m.`date`) = @month AND m.`workplace_id` = @workplaceid";
 
                     
                     cmd = new MySqlCommand(sql, connection);
@@ -341,10 +403,8 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
 
             if (reader.HasRows)
             {
-                while (reader.Read())
-                {
-                    id = int.Parse(reader["id"].ToString());
-                }
+                reader.Read();
+                id = int.Parse(reader["id"].ToString());
             }
             connection.Close();
 

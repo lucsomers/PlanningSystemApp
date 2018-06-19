@@ -62,9 +62,9 @@ namespace BarcoDenverPlanningSysteem.Classes.Models
         /// <param name="startTime">begin tijd</param>
         /// <param name="endTime">eind tijd</param>
         /// <returns>geeft een TimeSpan object terug met daarin het aantal gewerkte uren en het aantal gewerkte minuten</returns>
-        public TimeSpan AmountOfWorkedHours(bool withPauseTime)
+        public TimeSpan AmountOfWorkedHours(bool planning)
         {
-            if (!withPauseTime)
+            if (planning)
             {
                 return countUpStartAndEndTime(startTime.TimeOfDay, endTime.TimeOfDay);
             }

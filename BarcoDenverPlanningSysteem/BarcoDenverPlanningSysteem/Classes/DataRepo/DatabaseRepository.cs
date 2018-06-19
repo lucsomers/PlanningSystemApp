@@ -50,32 +50,17 @@ namespace BarcoDenverPlanningSysteem
         /// <param name="code">de inlogcode van een werkplek</param>
         /// <returns>geeft een werkplek terug die hoort bij de meegegeven code</returns>
         public Workplace CheckCodeForLogin(int code) => dbUsers.CheckCodeForLogin(code, connection);
-
-        public bool CheckForYear(DateTime datetimeToPlan)
-        {
-            return true;
-        }
-
-        public bool CheckForMonth(DateTime datetimeToPlan)
-        {
-            return true;
-        }
-
-        public bool CheckForDay(DateTime datetimeToPlan)
-        {
-            return true;
-        }
-
+       
         public int getIdFromStaffMemberName(string name)
         {
             return dbUsers.getIdFromStaffMemberName(connection, name);
         }
 
-        public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, bool planning)
+        public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, bool planning, int planningid)
         {
             if (tableToFill != null)
             {
-                return dbPlanning.FillPlanningTableWithData(tableToFill, connection, currentUser, dateToFill, planning);
+                return dbPlanning.FillPlanningTableWithData(tableToFill, connection, currentUser, dateToFill, planning, planningid);
             }
             else
             {
@@ -85,9 +70,9 @@ namespace BarcoDenverPlanningSysteem
             return "";
         }
 
-        public void AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan, int workplace_id)
+        public int AddStaffMemberToPlanning(DateTime datetimeToPlan, bool reality, StaffMember staffMemberToPlan, int workplace_id)
         {
-            dbPlanning.AddStaffMemberToPlanning(datetimeToPlan, reality, staffMemberToPlan, workplace_id,connection);
+            return dbPlanning.AddStaffMemberToPlanning(datetimeToPlan, reality, staffMemberToPlan, workplace_id,connection);
         }
 
         /// <summary>
@@ -127,6 +112,11 @@ namespace BarcoDenverPlanningSysteem
         public bool UpdateStaffMemberFunction(int newFunctionid, int staffmemberid)
         {
             return dbUsers.UpdateStaffMemberFunctionId(newFunctionid, staffmemberid, connection);
+        }
+
+        public void RemoveStaffMemberFromPlanningById(int staffmemberId)
+        {
+            dbPlanning.RemoveStaffmemberFromPlanningById(staffmemberId, connection);
         }
     }
 }

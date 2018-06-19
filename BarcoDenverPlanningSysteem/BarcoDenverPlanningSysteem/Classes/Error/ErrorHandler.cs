@@ -25,7 +25,7 @@ namespace BarcoDenverPlanningSysteem.Classes.Error
         
         public string NoRowsSelectedMessage()
         {
-            return "Selecteer alstublieft een gehele lijn in de tabel";
+            return "Selecteer alstublieft een of meerderen rijen in de tabel";
         }
 
         public string LoginErrorMessage()

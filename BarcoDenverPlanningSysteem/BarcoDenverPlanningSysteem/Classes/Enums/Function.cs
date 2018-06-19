@@ -86,10 +86,10 @@ namespace BarcoDenverPlanningSysteem
                 case "denver keuken":
                     return Function.Denver_Keuken;
 
-                case "afwas fiesta":
+                case "fiesta afwas":
                     return Function.Fiesta_Afwas;
 
-                case "fiesta bar":
+                case "fiesta bediening":
                     return Function.Fiesta_Bar;
 
                 case "fiesta keuken":
