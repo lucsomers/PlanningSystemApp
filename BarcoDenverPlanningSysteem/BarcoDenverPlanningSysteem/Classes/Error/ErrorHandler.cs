@@ -43,6 +43,8 @@ namespace BarcoDenverPlanningSysteem.Classes.Error
             return "Geen code beschikbaar";
         }
 
+        ErrorHandler error = new ErrorHandler();
+
         public void ShowCantConnectMessage(Exception e)
         {
             System.Windows.Forms.DialogResult clickedButton = System.Windows.Forms.MessageBox.Show("Kan geen verbinding maken met de database controleer uw internet verbinding en probeer opnieuw. Wilt u de volledige error message zien klik dan op JA", "Error", System.Windows.Forms.MessageBoxButtons.YesNo);
@@ -61,6 +63,11 @@ namespace BarcoDenverPlanningSysteem.Classes.Error
         public string SomethingWentWrong()
         {
             return "Er is iets fout gegaan bij het doorvoeren van de wijziging probeer het later opnieuw. Als dit probleem zich voor blijft doen raadpleeg dan uw administrator.";
+        }
+
+        public string AreYouSureToRemoveRow()
+        {
+            return "Met de volgende actie gaan de geselecteerde rijen permanent verloren. Weet u zeker dat u door wilt gaan?";
         }
     }
 }

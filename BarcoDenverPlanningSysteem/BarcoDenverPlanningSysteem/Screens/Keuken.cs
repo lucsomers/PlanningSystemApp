@@ -108,6 +108,8 @@ namespace BarcoDenverPlanningSysteem
         {
             int planningId = -1;
 
+            //TODO: Make sure start and endtime can have a difference like 22:00 - 01:00 without getting a message (ask marcel if in need of day selection.)
+
             //check tijd
             if ((dtpStartTime.Value.Hour == dtpEndTime.Value.Hour && dtpStartTime.Value.Minute < dtpEndTime.Value.Minute) || (dtpStartTime.Value.Hour < dtpEndTime.Value.Hour))
             {
@@ -151,7 +153,7 @@ namespace BarcoDenverPlanningSysteem
 
         private void btnDeleteRecord_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Met de volgende actie gaan de geselecteerde rijen permanent verloren. Weet u zeker dat u door wilt gaan?","Weet u het zeker",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(error.AreYouSureToRemoveRow(),"Weet u het zeker",MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 int[] idOfStaffMembers = repository.GetIdOfSelectedRow(new DataGridView[] { dgvFriday, dgvMonday, dgvSaturday, dgvSunday, dgvThursday, dgvTuesday, dgvWednesday });
                 if (idOfStaffMembers.Length > 0)
@@ -182,6 +184,11 @@ namespace BarcoDenverPlanningSysteem
             DataGridView temp = (DataGridView)sender;
             repository.DeselectCells(new DataGridView[] {temp ,dgvFriday, dgvMonday, dgvSaturday, dgvSunday, dgvThursday, dgvTuesday, dgvWednesday });
 
+            if (temp.SelectedRows.Count > 0)
+            {
+                cbxStaffMemberName.Text = temp.SelectedRows[0].Cells[1].Value.ToString();
+                cbxWorkplace.Text = temp.SelectedRows[0].Cells[4].Value.ToString();
+            }
         }
 
         #region Private Function not connected to events

@@ -135,7 +135,7 @@ namespace BarcoDenverPlanningSysteem
         //delete the selected staffmembers from the database and then update the screen
         private void BtnDeleteStaffMember_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Weet je zeker dat je de geselecteerde rij(en) wilt verwijderen", "Verwijder personeelslid", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(error.AreYouSureToRemoveRow(), "Verwijder personeelslid", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 if (dgvAllStaffMembers.SelectedRows.Count > 0)
                 {
