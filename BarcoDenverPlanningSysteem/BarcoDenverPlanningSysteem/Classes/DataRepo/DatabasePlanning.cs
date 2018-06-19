@@ -126,6 +126,9 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                                 TimeSpan span = s.AmountOfWorkedHours(planning);
                                 tableToFill.Rows[index].Cells[5].Value = span.ToString(@"hh\:mm");
 
+                                //pause_time
+                                tableToFill.Rows[index].Cells[6].Value = s.PauseTime.ToShortTimeString();
+
                                 //increment index with 1
                                 index++;
                             }
