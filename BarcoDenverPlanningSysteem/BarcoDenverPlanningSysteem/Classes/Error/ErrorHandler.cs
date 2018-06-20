@@ -43,8 +43,6 @@ namespace BarcoDenverPlanningSysteem.Classes.Error
             return "Geen code beschikbaar";
         }
 
-        ErrorHandler error = new ErrorHandler();
-
         public void ShowCantConnectMessage(Exception e)
         {
             System.Windows.Forms.DialogResult clickedButton = System.Windows.Forms.MessageBox.Show("Kan geen verbinding maken met de database controleer uw internet verbinding en probeer opnieuw. Wilt u de volledige error message zien klik dan op JA", "Error", System.Windows.Forms.MessageBoxButtons.YesNo);
