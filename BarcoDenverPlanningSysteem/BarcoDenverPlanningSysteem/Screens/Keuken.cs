@@ -16,6 +16,9 @@ namespace BarcoDenverPlanningSysteem
         LogicalRepository repository;
         private ErrorHandler error;
 
+        private Color InActiveColor = SystemColors.ControlLight;
+        private Color ActiveColor = Color.LightGoldenrodYellow;
+
         private DateTime lastDate;
 
         private bool busy;
@@ -46,8 +49,23 @@ namespace BarcoDenverPlanningSysteem
             btnPlanning.Enabled = true;
             btnRealHours.Enabled = false;
 
+            btnPlanning.BackColor = InActiveColor;
+            btnRealHours.BackColor = ActiveColor;
+
             HideStaffCost(false);
 
+            FillTables();
+        }
+
+        private void btnPlanning_Click(object sender, EventArgs e)
+        {
+            btnPlanning.Enabled = false;
+            btnRealHours.Enabled = true;
+
+            btnPlanning.BackColor = ActiveColor;
+            btnRealHours.BackColor = InActiveColor;
+
+            HideStaffCost(true);
             FillTables();
         }
 
@@ -58,8 +76,7 @@ namespace BarcoDenverPlanningSysteem
 
             //sets the dates to the current date to start with
             dtpDateTimePicker.Value = DateTime.Now;
-            dtpDateTimePicker.Value = SetMonday(false);
-            dtpDateTimePicker.Value = dtpDateTimePicker.Value.AddHours(10);
+            
 
             dtpChosenDateForStaffMember.Value = DateTime.Now;
 
@@ -67,8 +84,21 @@ namespace BarcoDenverPlanningSysteem
             cbxStaffMemberName.Items.AddRange(repository.GetListOfStaffMembers());
             cbxWorkplace.Items.AddRange(repository.GetPlannableFunctionsAvailableToUser());
 
+            //binding the dgvs
+            dgvMonday.DataError += new DataGridViewDataErrorEventHandler(dgvCombo_DataError);
+            dgvTuesday.DataError += new DataGridViewDataErrorEventHandler(dgvCombo_DataError);
+            dgvWednesday.DataError += new DataGridViewDataErrorEventHandler(dgvCombo_DataError);
+            dgvThursday.DataError += new DataGridViewDataErrorEventHandler(dgvCombo_DataError);
+            dgvFriday.DataError += new DataGridViewDataErrorEventHandler(dgvCombo_DataError);
+            dgvSaturday.DataError += new DataGridViewDataErrorEventHandler(dgvCombo_DataError);
+            dgvSunday.DataError += new DataGridViewDataErrorEventHandler(dgvCombo_DataError);
+            
             //set 
             FillTables();
+        }
+        private void dgvCombo_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // (No need to write anything in here)
         }
 
         private void txtExpectedRevenueMonday_KeyPress(object sender, KeyPressEventArgs e)
@@ -83,6 +113,7 @@ namespace BarcoDenverPlanningSysteem
         {
             if (!busy)
             {
+                busy = true;
                 dtpDateTimePicker.Value = SetMonday(false);
                 SetDateLabels(dtpDateTimePicker.Value);
                 FillTables();
@@ -95,26 +126,16 @@ namespace BarcoDenverPlanningSysteem
             //TODO: show a month overview for the logged in user
         }
 
-        private void btnPlanning_Click(object sender, EventArgs e)
-        {
-            btnPlanning.Enabled = false;
-            btnRealHours.Enabled = true;
-
-            HideStaffCost(true);
-            FillTables();
-        }
-
         private void btnAddToPlanning_Click(object sender, EventArgs e)
         {
             int planningId = -1;
 
             //TODO: Make sure start and endtime can have a difference like 22:00 - 01:00 without getting a message (ask marcel if in need of day selection.)
-
-            //check tijd
-            if ((dtpStartTime.Value.Hour == dtpEndTime.Value.Hour && dtpStartTime.Value.Minute < dtpEndTime.Value.Minute) || (dtpStartTime.Value.Hour < dtpEndTime.Value.Hour))
+            //check lege velden
+            if (cbxStaffMemberName.Text != "" && cbxWorkplace.Text != "")
             {
-                //check lege velden
-                if (cbxStaffMemberName.Text != "" || cbxWorkplace.Text != "")
+                //check tijd
+                if ((dtpStartTime.Value.Hour == dtpEndTime.Value.Hour && dtpStartTime.Value.Minute < dtpEndTime.Value.Minute) || (dtpStartTime.Value.Hour < dtpEndTime.Value.Hour))
                 {
                     //check of we realiteit toevoegen zo niet dan is het planning
                     if (!btnRealHours.Enabled)
@@ -131,12 +152,12 @@ namespace BarcoDenverPlanningSysteem
                 }
                 else
                 {
-                    MessageBox.Show(error.NotEveryThingFilledInErrorMessage());
+                    MessageBox.Show(error.WrongTimeMessage());
                 }
             }
             else
             {
-                MessageBox.Show(error.WrongTimeMessage());
+                MessageBox.Show(error.NotEveryThingFilledInErrorMessage());
             }
         }
 
@@ -153,18 +174,18 @@ namespace BarcoDenverPlanningSysteem
 
         private void btnDeleteRecord_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(error.AreYouSureToRemoveRow(),"Weet u het zeker",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            int[] idOfStaffMembers = repository.GetIdOfSelectedRow(new DataGridView[] { dgvFriday, dgvMonday, dgvSaturday, dgvSunday, dgvThursday, dgvTuesday, dgvWednesday });
+            if (idOfStaffMembers.Length > 0)
             {
-                int[] idOfStaffMembers = repository.GetIdOfSelectedRow(new DataGridView[] { dgvFriday, dgvMonday, dgvSaturday, dgvSunday, dgvThursday, dgvTuesday, dgvWednesday });
-                if (idOfStaffMembers.Length > 0)
+                if (MessageBox.Show(error.AreYouSureToRemoveRow(),"Weet u het zeker",MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     repository.DeleteStaffmembersFromPlanningByID(idOfStaffMembers);
                     FillTables();
                 }
-                else
-                {
-                    MessageBox.Show(error.NoRowsSelectedMessage());
-                }
+            }
+            else
+            {
+                MessageBox.Show(error.NoRowsSelectedMessage());
             }
         }
 
@@ -188,6 +209,11 @@ namespace BarcoDenverPlanningSysteem
             {
                 cbxStaffMemberName.Text = temp.SelectedRows[0].Cells[1].Value.ToString();
                 cbxWorkplace.Text = temp.SelectedRows[0].Cells[4].Value.ToString();
+
+                DateTime[] array = repository.shortTimeStringToDate(temp.SelectedRows[0].Cells[2].Value.ToString(), temp.SelectedRows[0].Cells[3].Value.ToString());
+                
+                dtpStartTime.Value = array[0];
+                dtpEndTime.Value = array[1];
             }
         }
 
@@ -196,57 +222,66 @@ namespace BarcoDenverPlanningSysteem
         private void FillTables(int planningid = -1)
         {
             //TODO: Expected revenue show on screen
+            try
+            {
+                //clear all text boxes before filling the right ones 
+                clearDayOfWeekTextBoxes();
 
-            //clear all text boxes before filling the right ones 
-            clearDayOfWeekTextBoxes();
+                #region row clears and filling tables and commentbox
+                //rows clear
+                dgvMonday.Rows.Clear();
+                repository.FillPlanningtableWithData(dgvMonday, dtpDateTimePicker.Value, btnRealHours.Enabled, tbxCommentMonday, planningid);
 
-            #region row clears and filling tables and commentbox
-            //rows clear
-            dgvMonday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvMonday, dtpDateTimePicker.Value, btnRealHours.Enabled, tbxCommentMonday, planningid);
-            
-            //rows clear
-            dgvTuesday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvTuesday, dtpDateTimePicker.Value.AddDays(1), btnRealHours.Enabled, tbxCommentTuesday, planningid);
+                //rows clear
+                dgvTuesday.Rows.Clear();
+                repository.FillPlanningtableWithData(dgvTuesday, dtpDateTimePicker.Value.AddDays(1), btnRealHours.Enabled, tbxCommentTuesday, planningid);
 
+                //rows clear
+                dgvWednesday.Rows.Clear();
+                repository.FillPlanningtableWithData(dgvWednesday, dtpDateTimePicker.Value.AddDays(2), btnRealHours.Enabled, tbxCommentWednesday, planningid);
 
-            //rows clear
-            dgvWednesday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvWednesday, dtpDateTimePicker.Value.AddDays(2), btnRealHours.Enabled, tbxCommentWednesday, planningid);
+                //rows clear
+                dgvThursday.Rows.Clear();
+                repository.FillPlanningtableWithData(dgvThursday, dtpDateTimePicker.Value.AddDays(3), btnRealHours.Enabled, tbxCommentThursday, planningid);
+                
+                //rows clear
+                dgvFriday.Rows.Clear();
+                repository.FillPlanningtableWithData(dgvFriday, dtpDateTimePicker.Value.AddDays(4), btnRealHours.Enabled, tbxCommentFriday, planningid);
+                
+                //rows clear
+                dgvSaturday.Rows.Clear();
+                //table fill
+                repository.FillPlanningtableWithData(dgvSaturday, dtpDateTimePicker.Value.AddDays(5), btnRealHours.Enabled, tbxCommentSaturday, planningid);
 
+                //rows clear
+                dgvSunday.Rows.Clear();
+                //table fill
+                repository.FillPlanningtableWithData(dgvSunday, dtpDateTimePicker.Value.AddDays(6), btnRealHours.Enabled, tbxCommentSunday, planningid);
+                #endregion
 
-            //rows clear
-            dgvThursday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvThursday, dtpDateTimePicker.Value.AddDays(3), btnRealHours.Enabled, tbxCommentThursday, planningid);
+                #region fill textboxes
+                FillTextboxes(dgvSunday, DayOfWeek.Sunday);
+                FillTextboxes(dgvSaturday, DayOfWeek.Saturday);
+                FillTextboxes(dgvFriday, DayOfWeek.Friday);
+                FillTextboxes(dgvThursday, DayOfWeek.Thursday);
+                FillTextboxes(dgvWednesday, DayOfWeek.Wednesday);
 
+                FillTextboxes(dgvTuesday, DayOfWeek.Tuesday);
+                FillTextboxes(dgvMonday, DayOfWeek.Monday);
 
-            //rows clear
-            dgvFriday.Rows.Clear();
-            repository.FillPlanningtableWithData(dgvFriday, dtpDateTimePicker.Value.AddDays(4), btnRealHours.Enabled, tbxCommentFriday, planningid);
-
-
-            //rows clear
-            dgvSaturday.Rows.Clear();
-            //table fill
-            repository.FillPlanningtableWithData(dgvSaturday, dtpDateTimePicker.Value.AddDays(5), btnRealHours.Enabled, tbxCommentSaturday, planningid);
-
-
-            //rows clear
-            dgvSunday.Rows.Clear();
-            //table fill
-            repository.FillPlanningtableWithData(dgvSunday, dtpDateTimePicker.Value.AddDays(6), btnRealHours.Enabled, tbxCommentSunday, planningid);
-            #endregion
-
-            #region fill textboxes
-            FillTextboxes(dgvSunday, DayOfWeek.Sunday);
-            FillTextboxes(dgvSaturday, DayOfWeek.Saturday);
-            FillTextboxes(dgvFriday, DayOfWeek.Friday);
-            FillTextboxes(dgvThursday, DayOfWeek.Thursday);
-            FillTextboxes(dgvWednesday, DayOfWeek.Wednesday);
-
-            FillTextboxes(dgvTuesday, DayOfWeek.Tuesday);
-            FillTextboxes(dgvMonday, DayOfWeek.Monday);
-            #endregion
+                txtStaffCostMonday.Text = repository.CalculateTotalStaffHours(dgvMonday);
+                txtStaffCostTuesday.Text = repository.CalculateTotalStaffHours(dgvTuesday);
+                txtStaffCostWednesday.Text = repository.CalculateTotalStaffHours(dgvWednesday);
+                txtStaffCostThursday.Text = repository.CalculateTotalStaffHours(dgvThursday);
+                txtStaffCostFriday.Text = repository.CalculateTotalStaffHours(dgvFriday);
+                txtStaffCostSaturday.Text = repository.CalculateTotalStaffHours(dgvSaturday);
+                txtStaffCostSunday.Text = repository.CalculateTotalStaffHours(dgvSunday);
+                #endregion
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+            }
         }
 
         private void FillTextboxes(DataGridView dgv, DayOfWeek dayOfWeek)
@@ -442,13 +477,13 @@ namespace BarcoDenverPlanningSysteem
                 lblBreakTime.Hide();
                 dtpBreakTime.Hide();
 
-                dgvMonday.Columns["pause_timeMonday"].Visible = false;
-                dgvTuesday.Columns["pause_timeTuesday"].Visible = false;
-                dgvWednesday.Columns["pause_timeWednesday"].Visible = false; 
-                dgvThursday.Columns["pause_timeThursday"].Visible = false;
-                dgvFriday.Columns["pause_timeFriday"].Visible = false;
-                dgvSaturday.Columns["pause_timeSaturday"].Visible = false;
-                dgvSunday.Columns["pause_timeSunday"].Visible = false;
+                dgvMonday.Columns["clmPauseTimeMonday"].Visible = false;
+                dgvTuesday.Columns["clmPauseTimeTuesday"].Visible = false;
+                dgvWednesday.Columns["clmPauseTimeWednesday"].Visible = false; 
+                dgvThursday.Columns["clmPauseTimeThursday"].Visible = false;
+                dgvFriday.Columns["clmPauseTimeFriday"].Visible = false;
+                dgvSaturday.Columns["clmPauseTimeSaturday"].Visible = false;
+                dgvSunday.Columns["clmPauseTimeSunday"].Visible = false;
 
                 pnlMonday.Show();
                 pnlTuesday.Show();
@@ -480,13 +515,13 @@ namespace BarcoDenverPlanningSysteem
                 lblBreakTime.Show();
                 dtpBreakTime.Show();
 
-                dgvMonday.Columns["pause_timeMonday"].Visible = true;
-                dgvTuesday.Columns["pause_timeTuesday"].Visible = true;
-                dgvWednesday.Columns["pause_timeWednesday"].Visible = true;
-                dgvThursday.Columns["pause_timeThursday"].Visible = true;
-                dgvFriday.Columns["pause_timeFriday"].Visible = true;
-                dgvSaturday.Columns["pause_timeSaturday"].Visible = true;
-                dgvSunday.Columns["pause_timeSunday"].Visible = true;
+                dgvMonday.Columns["clmPauseTimeMonday"].Visible = true;
+                dgvTuesday.Columns["clmPauseTimeTuesday"].Visible = true;
+                dgvWednesday.Columns["clmPauseTimeWednesday"].Visible = true;
+                dgvThursday.Columns["clmPauseTimeThursday"].Visible = true;
+                dgvFriday.Columns["clmPauseTimeFriday"].Visible = true;
+                dgvSaturday.Columns["clmPauseTimeSaturday"].Visible = true;
+                dgvSunday.Columns["clmPauseTimeSunday"].Visible = true;
 
                 pnlMonday.Hide();
                 pnlTuesday.Hide();
@@ -499,8 +534,75 @@ namespace BarcoDenverPlanningSysteem
         }
 
 
+
         #endregion
 
-        
+        private void KeyPressHandler(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            DataGridView tempdgv = (DataGridView)sender;
+
+            e.Control.KeyPress -= new KeyPressEventHandler(Column_KeyPress);
+            if (tempdgv.CurrentCell.ColumnIndex == 2 || tempdgv.CurrentCell.ColumnIndex == 3 || tempdgv.CurrentCell.ColumnIndex == 6) //Desired Columns: 2=starttime 3=endtime 6=pausetime
+            {
+                TextBox tb = e.Control as TextBox;
+                tb.MaxLength = 5;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column_KeyPress);
+                }
+            }
+        }
+
+        private void Column_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsPunctuation(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dgvMonday_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DataGridView ClickedDGV = (DataGridView)sender;
+                DateTime[] array = repository.shortTimeStringToDate(ClickedDGV.Rows[e.RowIndex].Cells[2].Value.ToString(), ClickedDGV.Rows[e.RowIndex].Cells[3].Value.ToString());
+
+                DataGridViewComboBoxCell cbcellstaffmembername = (DataGridViewComboBoxCell)ClickedDGV.Rows[e.RowIndex].Cells[1];
+                DataGridViewComboBoxCell cbcellworkplacename = (DataGridViewComboBoxCell)ClickedDGV.Rows[e.RowIndex].Cells[4];
+
+                TimeSpan totalamount = repository.SaveRowChangesInPlanning(int.Parse(ClickedDGV.Rows[e.RowIndex].Cells[0].Value.ToString()),//id
+                    cbcellstaffmembername.Value.ToString(),//name
+                    array[0],//starttime
+                    array[1],//endtime
+                    cbcellworkplacename.Value.ToString(),//workplacename
+                    btnRealHours.Enabled,//planning boolean
+/*Expected revenue*/repository.GetExpectedRevenueOfDay(ClickedDGV,new TextBox[] { txtExpectedRevenueMonday,txtExpectedRevenueTuesday, txtExpectedRevenueWednesday, txtExpectedRevenueThursday,txtExpectedRevenueFriday, txtExpectedRevenueSaturday, txtExpectedRevenueSunday }),
+                    repository.shortTimeStringToDate(ClickedDGV.Rows[e.RowIndex].Cells[6].Value.ToString(), "01:01")[0]//pausetime
+                    );
+
+                ClickedDGV.Rows[e.RowIndex].Cells[5].Value = totalamount.ToString(@"hh\:mm");
+            }
+            catch(Exception exception)
+            {
+                exception.ToString();
+            }
+        }
+
+        private void Expectedrevenue_LostFocus(object sender, EventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+
+            DateTime temp = repository.ReturnDateOfDayFromTextbox(box, dtpDateTimePicker.Value);
+
+            try
+            {
+                repository.SaveExpectedRevenue(btnRealHours.Enabled, temp, double.Parse(box.Text));
+            }
+            catch (Exception exeption)
+            {
+                e.ToString();
+            }
+        }
     }
 }

@@ -77,7 +77,7 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             }
         }
 
-        public string FillPlanningTableWithData(DataGridView tableToFill, MySqlConnection connection, Workplace currentUser,DateTime dateToFill, bool planning, int planningid)
+        public string FillPlanningTableWithData(DataGridView tableToFill, MySqlConnection connection, Workplace currentUser,DateTime dateToFill, bool planning, int planningid, DatabaseUsers userdatabase, LogicalRepository repository)
         {
             List<Year> lstYear = new List<Year>();
 
@@ -111,7 +111,11 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                                 tableToFill.Rows[index].Cells[0].Value = tempPlanningId;
 
                                 //staffmembername
-                                tableToFill.Rows[index].Cells[1].Value = s.Name;
+                                //tableToFill.Rows[index].Cells[1].Value = s.Name;
+                                //fill combobox with users for editing
+                                DataGridViewComboBoxCell boxCell = (DataGridViewComboBoxCell)tableToFill.Rows[index].Cells[1];
+                                boxCell.Items.AddRange(userdatabase.GetListOfAllStaffmMembers(connection, currentUser));
+                                boxCell.Value = s.Name;
 
                                 //starttime
                                 tableToFill.Rows[index].Cells[2].Value = s.StartTime.ToShortTimeString();
@@ -120,7 +124,11 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
                                 tableToFill.Rows[index].Cells[3].Value = s.EndTime.ToShortTimeString();
 
                                 //planning boolean
-                                tableToFill.Rows[index].Cells[4].Value = s.FunctionOfDay.ToPlanningString();
+                                //tableToFill.Rows[index].Cells[4].Value = s.FunctionOfDay.ToPlanningString();
+                                //fill combobox with functions available to user for editing
+                                DataGridViewComboBoxCell boxCell2 = (DataGridViewComboBoxCell)tableToFill.Rows[index].Cells[4];
+                                boxCell2.Items.AddRange(repository.GetPlannableFunctionsAvailableToUser());
+                                boxCell2.Value = s.FunctionOfDay.ToPlanningString();
 
                                 //totaal gewerkte uren
                                 TimeSpan span = s.AmountOfWorkedHours(planning);
@@ -144,6 +152,64 @@ namespace BarcoDenverPlanningSysteem.Classes.DataRepo
             }
 
             return toReturn;
+        }
+
+        public void SaveExpectedRevenue(bool planning, DateTime dateofday, int workplaceid, double expectedRevenue, MySqlConnection connection)
+        {
+            string sql = @"UPDATE `day` AS d
+                           SET d.`expected_revenue`=@expectedrevenue
+                           WHERE YEAR(d.`date`)=@year
+                           AND MONTH(d.`date`)=@month                           
+                           AND DAY(d.`date`)=@day                           
+                           AND d.`planning`=@planning
+                           AND d.`workplace_id`=@workplaceid";
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+
+            cmd.Parameters.AddWithValue("expectedrevenue", expectedRevenue);
+            cmd.Parameters.AddWithValue("year", dateofday.Year);
+            cmd.Parameters.AddWithValue("month", dateofday.Month);
+            cmd.Parameters.AddWithValue("day", dateofday.Day);
+            cmd.Parameters.AddWithValue("planning", planning);
+            cmd.Parameters.AddWithValue("workplaceid", workplaceid);
+
+            connection.Open();
+
+            cmd.ExecuteReader();
+
+            connection.Close();
+        }
+
+        public void SaveChangesToPlanning(int planningid, StaffMember membertosave, MySqlConnection connection)
+        {
+            string sql = @"UPDATE `day_staff` AS ds
+                           SET  ds.`staff_id`=@staffid,
+                                ds.`start_time`=@starttime,
+                                ds.`end_time`=@endtime,
+                                ds.`pause_time`=@pausetime,
+                                ds.`function_id`=@functionid 
+                           WHERE ds.`id` = @planningid;
+                           UPDATE `day` AS d
+                           INNER JOIN `day_staff` AS ds
+                           ON ds.`day_id` = d.`id`
+                           SET d.`expected_revenue`=@expectedrevenue
+                           WHERE ds.`id`=@planningid
+                           AND ds.`day_id`=d.`id`";
+
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("planningid", planningid);
+            cmd.Parameters.AddWithValue("staffid", membertosave.Id);
+            cmd.Parameters.AddWithValue("starttime", membertosave.StartTime);
+            cmd.Parameters.AddWithValue("endtime", membertosave.EndTime);
+            cmd.Parameters.AddWithValue("pausetime", membertosave.PauseTime);
+            cmd.Parameters.AddWithValue("functionid", membertosave.FunctionOfDay.ToID());
+            cmd.Parameters.AddWithValue("expectedrevenue", membertosave.Earnings);
+
+            connection.Open();
+
+            cmd.ExecuteReader();
+
+            connection.Close();
         }
 
         public void RemoveStaffmemberFromPlanningById(int planningid, MySqlConnection connection)

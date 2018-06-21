@@ -56,11 +56,11 @@ namespace BarcoDenverPlanningSysteem
             return dbUsers.getIdFromStaffMemberName(connection, name);
         }
 
-        public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, bool planning, int planningid)
+        public string FillPlanningTableWithData(DataGridView tableToFill, Workplace currentUser, DateTime dateToFill, bool planning, int planningid, LogicalRepository repository)
         {
             if (tableToFill != null)
             {
-                return dbPlanning.FillPlanningTableWithData(tableToFill, connection, currentUser, dateToFill, planning, planningid);
+                return dbPlanning.FillPlanningTableWithData(tableToFill, connection, currentUser, dateToFill, planning, planningid, dbUsers, repository);
             }
             else
             {
@@ -108,7 +108,7 @@ namespace BarcoDenverPlanningSysteem
         {
             return dbUsers.GetListOfAllStaffmMembers(connection, currentUser);
         }
-
+        
         public bool UpdateStaffMemberFunction(int newFunctionid, int staffmemberid)
         {
             return dbUsers.UpdateStaffMemberFunctionId(newFunctionid, staffmemberid, connection);
@@ -117,6 +117,16 @@ namespace BarcoDenverPlanningSysteem
         public void RemoveStaffMemberFromPlanningById(int staffmemberId)
         {
             dbPlanning.RemoveStaffmemberFromPlanningById(staffmemberId, connection);
+        }
+
+        public void SaveChangesToPlanning(int id, StaffMember membertosave)
+        {
+            dbPlanning.SaveChangesToPlanning(id, membertosave, connection);
+        }
+
+        public void SaveExpectedRevenue(bool planning, DateTime dateofday, int workplaceid, double expectedRevenue)
+        {
+            dbPlanning.SaveExpectedRevenue(planning, dateofday, workplaceid, expectedRevenue, connection);
         }
     }
 }

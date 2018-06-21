@@ -353,10 +353,69 @@ namespace BarcoDenverPlanningSysteem
             database.AddStaffMember(tempMember, true);
         }
 
+        public DateTime[] shortTimeStringToDate(string starttimestring, string endtimestring)
+        {
+            DateTime dtStarttime = new DateTime();
+            DateTime.TryParse(starttimestring, out dtStarttime);
+
+            DateTime dtEndtime = new DateTime();
+            DateTime.TryParse(endtimestring, out dtEndtime);
+
+            return new DateTime[] { dtStarttime, dtEndtime };
+        }
+
+        public string GetExpectedRevenueOfDay(DataGridView clickedView, TextBox[] textBoxArray)
+        {
+            switch (clickedView.Name)
+            {
+                case "dgvMonday":
+                    return textBoxArray[0].Text;
+
+                case "dgvTuesday":
+                    return textBoxArray[1].Text;
+
+                case "dgvWednesday":
+                    return textBoxArray[2].Text;
+
+                case "dgvThursday":
+                    return textBoxArray[3].Text;
+
+                case "dgvFriday":
+                    return textBoxArray[4].Text;
+
+                case "dgvSaturday":
+                    return textBoxArray[5].Text;
+
+                case "dgvSunday":
+                    return textBoxArray[6].Text;
+
+                default:
+                    return "0";
+            }
+        }
+
+        public TimeSpan SaveRowChangesInPlanning(int id, string name, DateTime starttime, DateTime endtime, string workplacename, bool planning, string expectedRevenue, DateTime pausetime = new DateTime())
+        {
+            StaffMember membertosave = 
+                new StaffMember(getIdFromName(name), 
+                                name,
+                                int.Parse(expectedRevenue), 
+                                planningStringToFunction(workplacename), 
+                                planningStringToFunction(workplacename), 
+                                pausetime,
+                                starttime, 
+                                endtime
+                );
+
+            database.SaveChangesToPlanning(id, membertosave);
+
+            return membertosave.AmountOfWorkedHours(planning);
+        }
+
         public void FillPlanningtableWithData(DataGridView tableToFill, DateTime dateToFill, bool planning, TextBox textBox, int planningid)
         {
             //sets commentbox
-            textBox.Text = database.FillPlanningTableWithData(tableToFill, currentUser, dateToFill, planning, planningid);
+            textBox.Text = database.FillPlanningTableWithData(tableToFill, currentUser, dateToFill, planning, planningid, this);
         }
 
         /// <summary>
@@ -445,16 +504,40 @@ namespace BarcoDenverPlanningSysteem
             return database.UpdateStaffMemberFunction(f.ToID(), id);
         }
 
+        /// <summary>
+        /// Calculates the total hours of all staffmembers in the given datagridview
+        /// </summary>
+        /// <param name="view">The dgv containing the total hours of each staffmember in collumn 5</param>
+        /// <returns>returns a short time string of total hours</returns>
+        public string CalculateTotalStaffHours(DataGridView view)
+        {
+            string toReturn = "";
+            
+            TimeSpan span = new TimeSpan(0,0,0);
+
+            foreach (DataGridViewRow row in view.Rows)
+            {
+                DateTime temp = shortTimeStringToDate(row.Cells[5].Value.ToString(), "")[0];
+                span = span.Add(new TimeSpan(temp.Hour, temp.Minute, 0));
+            }
+
+            toReturn = span.ToString(@"hh\:mm");
+
+            return toReturn;
+        }
+
         public Dictionary<string,int> CountNumbers(DataGridView dgv)
         {
+            
             Dictionary<string, int> dir = new Dictionary<string, int>();
             List<string> lstCountable = new List<string>();
 
             foreach (DataGridViewRow row in dgv.Rows)
             {
-                if (row.Cells[3].Value != null)
+                DataGridViewComboBoxCell boxCell = (DataGridViewComboBoxCell)row.Cells[4];
+                if (boxCell.Value != null)
                 {
-                    lstCountable.Add(row.Cells[3].Value.ToString().ToLower());
+                    lstCountable.Add(boxCell.Value.ToString().ToLower());
                 }
             }
 
@@ -553,6 +636,64 @@ namespace BarcoDenverPlanningSysteem
             }
 
             tempYear.AddDay(dayToAdd, memberToAdd);
+        }
+        
+        public void SaveExpectedRevenue(bool planning, DateTime dateofday, double expectedRevenue)
+        {
+            database.SaveExpectedRevenue(planning, dateofday, currentUser.ToID(), expectedRevenue);
+        }
+
+        /// <summary>
+        /// Returns the date of the day that connects to the given textbox
+        /// </summary>
+        /// <param name="box">the textbox you wat to know the date of</param>
+        /// <param name="pickedvalue">the value of the datetimepicker that always stands on monday</param>
+        public DateTime ReturnDateOfDayFromTextbox(TextBox box, DateTime pickedvalue)
+        {
+            DateTime dateToReturn = new DateTime();
+
+            switch (box.Name)
+            {
+                case "txtExpectedRevenueMonday":
+                    {
+                        dateToReturn = pickedvalue;
+                        return dateToReturn;
+                    }
+                case "txtExpectedRevenueTuesday":
+                    {
+                        dateToReturn = pickedvalue.AddDays(1);
+                        return dateToReturn;
+                    }
+                case "txtExpectedRevenueWednesday":
+                    {
+                        dateToReturn = pickedvalue.AddDays(2);
+                        return dateToReturn;
+                    }
+                case "txtExpectedRevenueThursday":
+                    {
+                        dateToReturn = pickedvalue.AddDays(3);
+                        return dateToReturn;
+                    }
+                case "txtExpectedRevenueFriday":
+                    {
+                        dateToReturn = pickedvalue.AddDays(4);
+                        return dateToReturn;
+                    }
+                case "txtExpectedRevenueSaturday":
+                    {
+
+                        dateToReturn = pickedvalue.AddDays(5);
+                        return dateToReturn;
+                    }
+                case "txtExpectedRevenueSunday":
+                    {
+                        dateToReturn = pickedvalue.AddDays(6);
+                        return dateToReturn;
+                    }
+
+                default:
+                    return pickedvalue;
+            }
         }
     }
 }
